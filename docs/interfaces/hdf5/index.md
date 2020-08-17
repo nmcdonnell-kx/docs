@@ -62,15 +62,3 @@ with [example implementations](examples.md)
 :fontawesome-brands-github:
 [Install guide](https://github.com/KxSystems/hdf5#installation)
 
-
-## Status
-
-This interface is currently available as a beta version under an Apache 2.0 licence and is supported on a best-efforts basis by the Fusion team. This interface is currently in active development, with additional functionality to be released on a rolling basis.
-
-If you find issues with the interface or have feature requests please 
-:fontawesome-brands-github:
-[raise an issue](https://github.com/KxSystems/hdf5/issues). 
-
-To contribute to this project follow the 
-:fontawesome-brands-github:
-[contributing guide](https://github.com/KxSystems/hdf5/blob/master/CONTRIBUTING.md).
