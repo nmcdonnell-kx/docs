@@ -9,9 +9,9 @@ hero: <i class="fab fa-superpowers"></i> Fusion for Kdb+
 :fontawesome-brands-github: 
 [KxSystems/mqtt](https://github.com/KxSystems/protobufkdb)
 
-Protobuf/Google Protocol Buffers is a mechanism for serializing sructured data and helps to communicate data among different programming languages.
+Protobuf/Google Protocol Buffers is a flexible data interchange mechanism for serializing/deserializing structured data wherever programs or services have to store or exchange data via interfaces while maintaining a high degree of language interoperability.  The binary encoded format used to represent the data is considerable more efficient, both in terms of raw processing speed and compact data size, than other encodings such as JSON or XML.
 
-The message is designed with simple schema file and its backward compatability is underpinned by indices assigned to sub messages rather than versioning, as well as some inspectional attributes like "optional" or "required". The actual code for each programming language are generated automatically with a dedicated compiler without developers' effort to modify the code for maintenance.
+Protocol buffers is supported across a wide variety of programming languages (including C++, C#, Java and Python), enabling communication between separate applications and platforms though a simple common structured schema.  Using this schema, the protobuf buffer's compiler generates source code in the your language of choice, which serializes and deserializes the binary encoded data.  The substantially reduces the boilerplate code which is otherwise required to convert between the messaging data format and your language's native structures.
 
 You can find more details in [Google developer's page](https://developers.google.com/protocol-buffers/).
 

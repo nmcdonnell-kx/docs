@@ -12,7 +12,7 @@ hero: <i class="fab fa-superpowers"></i> Fusion for Kdb+
 The following functions are exposed in the `.protobufkdb` namespace and allow you to interact with a protobuf message.
 
 <pre markdown="1" class="language-txt">
-.protobufkdb   **Protobuf/Protocil Buffers interface**
+.protobufkdb   **Protobuf/Protocol Buffers interface**
 
 Library Information
   [init](#protobufkdbinit)               Checks that the version of the library that we linked against is compatible with the version of the headers we compiled against
@@ -20,11 +20,11 @@ Library Information
   [versionStr](#protobufkdbversionstr)   Returns the libprotobuf version as a char array
 
 Import Schema
-  [addProtoImportPath](#protobufkdbaddprotoimportpath)  Add a path to import proto/schema file
+  [addProtoImportPath](#protobufkdbaddprotoimportpath)  Add a search path from which to import proto/schema files
   [importProtoFile](#protobufkdbimportprotofile)        Import the specified file
-  [listImportedMessageTypes](#protobufkdblistimportedmessagetypes)  List up successfully imported message schemas
+  [listImportedMessageTypes](#protobufkdblistimportedmessagetypes)  List all successfully imported message schemas
 
-Check Schema
+Inspect Schema
   [displayMessageSchema](#protobufkdbdisplaymessageschema)  Display the schema definistion of the message
 
 Serialize / Deserialize
@@ -92,7 +92,7 @@ returns symbol list of the successfully imported message types.
 
 **Note:** The list does not contain message types which have been compiled into the interface.
 
-## Check Schema
+## Inspect Schema
 
 ### .protobufkdb.displayMessageSchema
 

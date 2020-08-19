@@ -45,7 +45,7 @@ message Region {
 ## Load Protobufkdb Library
 
 ```q
-q)q \l q/protobufkdb.q
+q)\l q/protobufkdb.q
 ```
 
 ## Import Schema File
