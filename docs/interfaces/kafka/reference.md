@@ -24,6 +24,7 @@ Kafka interface functionality
   .kfk.ClientMemberId          Client's broker assigned member ID
   .kfk.Consumer                Create a consumer according to defined configuration
   .kfk.Producer                Create a producer according to defined configuration
+  .kfk.SetLoggerLevel          Set the maximum logging level for a client
 
   // offset based functionality
   .kfk.CommitOffsets           Commit offsets on broker for provided partition list
@@ -31,16 +32,18 @@ Kafka interface functionality
   .kfk.CommittedOffsets        Retrieve committed offsets for topics and partitions
   .kfk.AssignOffsets           Assignment of partitions to consume
 
-  // Publising functionality functionality
-  .kfk.BatchPub                Publish a batch of data to a 
+  // Publising functionality
+  .kfk.BatchPub                Publish a batch of data to a unique or respective topic
   .kfk.Pub                     Publish a message to a defined topic
   .kfk.PubWithHeaders          Publish a message to a defined topic with a header 
   .kfk.OutQLen                 Current out queue length
 
   // Subscription functionality
   .kfk.Sub                     Subscribe to a defined topic
-  .kfk.Unsub                   Unsubscribe from a topic
+  .kfk.Subscribe               Subscribe from a consumer to a topic with a specified callback
   .kfk.Subscription            Most recent topic subscription
+  .kfk.Unsub                   Unsubscribe from a topic
+  .kfk.MaxMsgsPerPoll          Set the maximum number of messages per poll
   .kfk.Poll                    Manually poll the feed
 
   // Assignment functionality
@@ -80,11 +83,11 @@ The following functions relate to the creation of consumers and producers and th
 
 _Close a consumer and destroy the associated Kafka handle to client_
 
-Syntax: `.kfk.ClientDel[x]`
+Syntax: `.kfk.ClientDel[clid]`
 
 Where
 
--   `x` is an integer denoting the client to be deleted
+-   `clid` is an integer denoting the client to be deleted
 
 returns null on successful deletion of a client. If client unknown, signals `'unknown client`.
 
@@ -105,11 +108,11 @@ q).kfk.ClientDel[0i]
 
 _Client's broker-assigned member ID_
 
-Syntax: `.kfk.ClientMemberId[x]`
+Syntax: `.kfk.ClientMemberId[clid]`
 
 Where
 
--   `x` is an integer denoting the requested client name
+-   `clid` is an integer denoting the requested client name
 
 returns the member ID assigned to the client.
 
@@ -129,11 +132,11 @@ q).kfk.ClientMemberId[1i]
 
 _Kafka handle name_
 
-Syntax: `.kfk.ClientName[x]`
+Syntax: `.kfk.ClientName[clid]`
 
 Where
 
--   `x` is an integer denoting the requested client name
+-   `clid` is an integer denoting the requested client name
 
 returns assigned client name.
 
@@ -150,11 +153,11 @@ q).kfk.ClientName[1i]
 
 _Create a consumer according to user-defined configuration_
 
-Syntax: `.kfk.Consumer[x]`
+Syntax: `.kfk.Consumer[cfg]`
 
 Where
 
--   `x` is a dictionary user-defined configuration
+-   `cfg` is a dictionary user-defined configuration
 
 returns an integer denoting the ID of the consumer.
 
@@ -174,11 +177,11 @@ q).kfk.Consumer[kfk_cfg]
 
 _Create a producer according to user-defined configuration_
 
-Syntax: `.kfk.Producer[x]`
+Syntax: `.kfk.Producer[cfg]`
 
 Where
 
--   `x` is a user-defined dictionary configuration
+-   `cfg` is a user-defined dictionary configuration
 
 returns an integer denoting the ID of the producer.
 
@@ -197,12 +200,12 @@ q).kfk.Producer[kfk_cfg]
 
 _Set the maximum logging level for a client_
 
-Syntax: `.kfk.SetLoggerLevel[x;y]`
+Syntax: `.kfk.SetLoggerLevel[clid;level]`
 
 Where
 
--   `x` is an integer denoting the client ID
--   `y` is an int/long/short denoting the syslog severity level
+-   `clid` is an integer denoting the client ID
+-   `level` is an int/long/short denoting the syslog severity level
 
 returns a null on successful application of function.
 
@@ -225,14 +228,14 @@ The following functions relate to use of offsets within the API to ensure record
 
 _Commit offsets on broker for provided partitions and offsets_
 
-Syntax: `.kfk.CommitOffsets[x;y;z;r]`
+Syntax: `.kfk.CommitOffsets[clid;topic;part_offsets;block_commit]`
 
 Where
 
--   `x` is the integer value associated with the consumer client ID
--   `y` is a symbol denoting the topic
--   `z` is a dictionary of partitions(ints) and last received offsets (longs)
--   `r` is a boolean denoting if commit will block until offset commit is complete or not, 0b = non blocking
+-   `clid` is the integer value associated with the consumer client ID
+-   `topic` is a symbol denoting the topic
+-   `part_offsets` is a dictionary of partitions(ints) and last received offsets (longs)
+-   `block_commit` is a boolean denoting if commit will block until offset commit is complete or not, 0b = non blocking
 
 returns a null on successful commit of offsets.
 
@@ -241,13 +244,13 @@ returns a null on successful commit of offsets.
 
 _Current offsets for particular topics and partitions_
 
-Syntax: `.kfk.PositionOffsets[x;y;z]`
+Syntax: `.kfk.PositionOffsets[clid;topic;part_offsets]`
 
 Where
 
--   `x` is the integer value associated with the consumer ID
--   `y` is a symbol denoting the topic
--   `z` is a list of int/short or long partitions or a dictionary of partitions(int) and offsets(long)
+-   `clid` is the integer value associated with the consumer ID
+-   `topic` is a symbol denoting the topic
+-   `part_offsets` is a list of int/short or long partitions or a dictionary of partitions(int) and offsets(long)
 
 returns a table containing the current offset and partition for the topic of interest.
 
@@ -281,13 +284,13 @@ test  2         -1001  ""
 
 _Retrieve the last-committed offset for a topic on a particular partition_
 
-Syntax: `.kfk.CommittedOffsets[x;y;z]`
+Syntax: `.kfk.CommittedOffsets[clid;topic;part_offsets]`
 
 Where
 
--   `x` is the integer value associated with the consumer ID
--   `y` is a symbol denoting the topic
--   `z` is a list of int/short or long partitions or a dictionary of partitions(int) and offsets(long)
+-   `clid` is the integer value associated with the consumer ID
+-   `topic` is a symbol denoting the topic
+-   `part_offsets` is a list of int/short or long partitions or a dictionary of partitions(int) and offsets(long)
 
 returns a table containing the offset for a particular partition for a topic.
 
@@ -320,13 +323,13 @@ test  1         -1001  ""
 
 _Assignment of the partitions to be consumed_
 
-Syntax: `.kfk.AssignOffsets[x;y;z]`
+Syntax: `.kfk.AssignOffsets[clid;topic;part_offsets]`
 
 Where
 
--   `x` is the integer value associated with the consumer ID.
--   `y` is a symbol denoting the topic.
--   `z` is a dictionary with key denoting the partition and value denoting where to start consuming the partition.
+-   `clid` is the integer value associated with the consumer ID.
+-   `topic` is a symbol denoting the topic.
+-   `part_offsets` is a dictionary with key denoting the partition and value denoting where to start consuming the partition.
 
 returns a null on successful execution.
 
@@ -343,20 +346,20 @@ q).kfk.AssignOffsets[client;TOPIC;(1#0i)!1#.kfk.OFFSET.END]
   	In the above examples an offset of -1001 is a special value. It indicates the offset could not be determined and the consumer will read from the last-committed offset once one becomes available.
 
 
-## Subscribe and publish
+## Publishing functionality
 
 ### `.kfk.BatchPub`
 
 _Publish a batch of messages to a defined topic_
 
-Syntax: `.kfk.BatchPub[x;y;z;r]`
+Syntax: `.kfk.BatchPub[tpcid;partid;data;keys]`
 
 Where
 
--   `x` is an integer denoting the topic (previously created) to be published on
--   `y` is an integer or list of partitions denoting the target partition
--   `z` is a mixed list payload containing either bytes or strings
--   `r` is an empty string for auto key on all messages or a key per message as a mixed list of bytes or strings
+-   `tpcid` is an integer denoting the topic (previously created) to be published on
+-   `partid` is an integer or list of partitions denoting the target partition
+-   `data` is a mixed list payload containing either bytes or strings
+-   `keys` is an empty string for auto key on all messages or a key per message as a mixed list of bytes or strings
 
 returns an integer list denoting the status for each message (zero indicating success)
 
@@ -384,14 +387,14 @@ q).kfk.BatchPub[;0 1i;batchMsg;batchKeys]each(topic1;topic2)
 
 _Publish a message to a defined topic_
 
-Syntax: `.kfk.Pub[x;y;z;r]`
+Syntax: `.kfk.Pub[tpcid;partid;data;keys]`
 
 Where
 
--   `x` is the integer of the topic to be published on
--   `y` is an integer denoting the target partition
--   `z` is a string which incorporates the payload to be published
--   `r` is a key as a string to be passed with the message to the partition
+-   `tpcid` is the integer of the topic to be published on
+-   `partid` is an integer denoting the target partition
+-   `data` is a string which incorporates the payload to be published
+-   `keys` is a key as a string to be passed with the message to the partition
 
 returns a null on successful publication.
 
@@ -407,15 +410,16 @@ q).kfk.Pub[test_topic;-1i;string .z.p;"test_key"]
 
 _Publish a message to a defined topic, with an associated header_
 
-Syntax: `.kfk.PubWithHeader[x;y;z;r;k]`
+Syntax: `.kfk.PubWithHeader[clid;tpcid;partid;data;keys;hdrs]`
 
 Where
 
--   `x` is the integer of the topic to be published on
--   `y` is an integer denoting the target partition
--   `z` is a string which incorporates the payload to be published
--   `r` is a key as a string to be passed with the message to the partition
--   `k` is a dictionary mapping a header name as a symbol to a byte array or string
+-   `clid` is an integer denoting a target client ID
+-   `tpcid` is the integer of the topic to be published on
+-   `partid` is an integer denoting the target partition
+-   `data` is a string which incorporates the payload to be published
+-   `keys` is a key as a string to be passed with the message to the partition
+-   `hdrs` is a dictionary mapping a header name as a symbol to a byte array or string
 
 returns a null on successful publication, errors if version conditions not met
 
@@ -435,16 +439,33 @@ payload:string .z.p
 // Define the headers to be added
 hdrs:`header1`header2!("test1";"test2")
 
-// Publish a message with a header but no key
-q).kfk.Pub[test_topic;part;payload;"";hdrs]
+// Publish a message to client #0 with a header but no key
+q).kfk.PubWithHeaders[0i;test_topic;part;payload;"";hdrs]
 
-// Publish a message with headers and a key
-q).kfk.Pub[test_topic;part;payload;"test_key";hdrs]
+// Publish a message to client #1 with headers and a key
+q).kfk.PubWithHeaders[1i;test_topic;part;payload;"test_key";hdrs]
 ```
 
 !!!Note "Support for functionality"
 	
 	This functionality is only available for versions of librdkafka >= 0.11.4, use of a version less than this does not allow this 
+
+### `.kfk.OutQLen`
+
+_Current number of messages that are queued for publishing_
+
+Syntax: `.kfk.OutQLen[prid]`
+
+Where
+
+-   `prid` is the integer value of the producer which we wish to check the number of queued messages
+
+returns as an int the number of messages in the queue.
+
+```q
+q).kfk.OutQLen[producer]
+5i
+```
 
 ## Subscription functionality
 
@@ -452,13 +473,13 @@ q).kfk.Pub[test_topic;part;payload;"test_key";hdrs]
 
 _Subscribe from a consumer process to a topic_
 
-Syntax: `.kfk.Sub[x;y;z]`
+Syntax: `.kfk.Sub[clid;topic;partid]`
 
 Where
 
--   `x` is an integer value denoting the client id
--   `y` is a symbol denoting the topic being subscribed to
--   `z` is an enlisted integer denoting the target partition
+-   `clid` is an integer value denoting the client id
+-   `topic` is a symbol denoting the topic being subscribed to
+-   `partid` is an enlisted integer denoting the target partition
 
 returns a null on successful execution.
 
@@ -483,14 +504,14 @@ q).kfk.Sub[client;;enlist .kfk.PARTITION_UA]each topic_list
 
 _Subscribe from a consumer to a topic with a specified callback_
 
-Syntax: `.kfk.Subscribe[x;y;z;r]`
+Syntax: `.kfk.Subscribe[clid;topic;partid;callback]`
 
 Where
 
--   `x` is an integer value denoting the client id
--   `y` is a symbol denoting the topic being subscribed to
--   `z` is an enlisted integer denoting the target partition
--   `r` is a callback function defined related to the subscribed topic
+-   `clid` is an integer value denoting the client id
+-   `topic` is a symbol denoting the topic being subscribed to
+-   `partid` is an enlisted integer denoting the target partition
+-   `callback` is a callback function defined related to the subscribed topic
 
 returns a null on successful execution and augments `.kfk.consumetopic` with a new callback function for the consumer.
 
@@ -519,11 +540,11 @@ test| {[msg]show msg;}
 
 _Most-recent subscription to a topic_
 
-Syntax: `.kfk.Subscription[x]`
+Syntax: `.kfk.Subscription[clid]`
 
 Where
 
--   `x` is the integer value of the client ID which the subscription is being requested for
+-   `clid` is the integer value of the client ID which the subscription is being requested for
 
 returns a table with the topic, partition, offset and metadata of the most recent subscription.
 
@@ -536,16 +557,15 @@ topic partition offset metadata
 test2 -1        -1001  ""
 ```
 
-
 ### `.kfk.Unsub`
 
 _Unsubscribe from all topics associated with Client_
 
-Syntax: `.kfk.Unsub[x]`
+Syntax: `.kfk.Unsub[clid]`
 
 Where
 
--   `x` is the integer representating the client ID from which you intend to unsubscribe from all topics
+-   `clid` is the integer representating the client ID from which you intend to unsubscribe from all topics
 
 returns a null on successful execution; signals an error if client is unknown.
 
@@ -553,6 +573,49 @@ returns a null on successful execution; signals an error if client is unknown.
 q).kfk.Unsub[0i]
 q).kfk.Unsub[1i]
 'unknown client
+```
+
+### `.kfk.MaxMsgsPerPoll`
+
+_Set the maximum number of messages per poll_
+
+Syntax: `.kfk.MaxMsgsPerPoll[max_messages]
+
+Where
+
+-   `max_messages` is an integer denoting a maximum number od messages per poll
+
+returns the set limit.
+
+```q
+q).kfk.MaxMsgsPerPoll[100]
+100
+```
+
+!!! note "Upper limit set by `.kfk.MaxMsgsPerPoll` vs max_messages in `.kfk.Poll`"
+
+    The argument `max_messages` passed to `.kfk.Poll` is preferred to the global limit of maximum number of messages set by `.kfk.MaxMsgPerPoll`. The latter limit is used only when `max_messages` passed to `.kfk.Poll` is 0.
+
+
+### `.kfk.Poll`
+
+_Manually poll the messages from the message feed_
+
+Syntax: `.kfk.Poll[cid;timeout;max_messages]`
+
+Where
+
+-   `cid` is an integer representing the client ID
+-   `timeout` is a long denoting the max time in ms to block the process
+-   `max_messages` is a long denoting the max number of messages to be polled
+
+returns the number of messages polled within the allotted time.
+
+```q
+q).kfk.Poll[0i;5;100]
+0
+q).kfk.Poll[0i;100;100]
+10
 ```
 
 ## Assignment functionality
@@ -578,12 +641,12 @@ q).kfk.Assign[cid;`test`test1!0 1]
 
 _Add additional topic paritions pairs to the current assignment_
 
-Syntax: `.kfk.Assign[x;y]`
+Syntax: `.kfk.Assign[clid;tpc_part]`
 
 Where
 
--   `x` Integer denoting the client id which the assignment is to applied
--   `y` Dictionary mapping topic name as a symbol to partition as a long to be assigned
+-   `clid` Integer denoting the client id which the assignment is to applied
+-   `tpc_part` Dictionary mapping topic name as a symbol to partition as a long to be assigned
 
 returns a null on successful execution, will display inappropriate assignments if necessary
 
@@ -621,12 +684,12 @@ q).kfk.AssignAdd[cid;`test`test1!1 1]
 
 _Delete a set of topic parition pairs to the current assignment_
 
-Syntax: `.kfk.AssignDel[x;y]`
+Syntax: `.kfk.AssignDel[clid;tpc_part]`
 
 Where
 
--   `x` is an integer denoting the client id which the assignment is to applied
--   `y` is a dictionary mapping topic name as a symbol to partition as a long to be removed
+-   `clid` is an integer denoting the client id which the assignment is to applied
+-   `tpc_part` is a dictionary mapping topic name as a symbol to partition as a long to be removed
 
 returns a null on successful execution, will display inappropriate assignment deletion if necessary
 
@@ -664,11 +727,11 @@ q).kfk.AssignDel[cid;`test`test1!1 1]
 
 _Retrieve the current assignment for a specified client_
 
-Syntax: `.kfk.Assignment[x]`
+Syntax: `.kfk.Assignment[clid]`
 
 Where
 
--   `x` is an integer denoting the client id from which the assignment is to be retrieved
+-   `clid` is an integer denoting the client id from which the assignment is to be retrieved
 
 returns a list of dictionaries describing the current assignment for the specified client
 
@@ -695,11 +758,11 @@ test1 1         -1001  ""
 
 _Information about configuration of brokers and topics_
 
-Syntax: `.kfk.Metadata[x]`
+Syntax: `.kfk.Metadata[id]`
 
 Where
 
--   `x` is the integer associated with the consumer or producer of interest
+-   `id` is the integer associated with the consumer or producer of interest
 
 returns a dictionary with information about the brokers and topics.
 
@@ -714,46 +777,6 @@ topic              err     partitions                                        ..
 -----------------------------------------------------------------------------..
 test               Success ,`id`err`leader`replicas`isrs!(0i;`Success;0i;,0i;..
 __consumer_offsets Success (`id`err`leader`replicas`isrs!(0i;`Success;0i;,0i;..
-```
-
-
-### `.kfk.OutQLen`
-
-_Current number of messages that are queued for publishing_
-
-Syntax: `.kfk.OutQLen[x]`
-
-Where
-
--   `x` is the integer value of the producer which we wish to check the number of queued messages
-
-returns as an int the number of messages in the queue.
-
-```q
-q).kfk.OutQLen[producer]
-5i
-```
-
-
-### `.kfk.Poll`
-
-_Manually poll the messages from the message feed_
-
-Syntax: `.kfk.Poll[x;y;z]`
-
-Where
-
--   `x` is an integer representing the client ID
--   `y` is a long denoting the max time in ms to block the process
--   `z` is a long denoting the max number of messages to be polled
-
-returns the number of messages polled within the allotted time.
-
-```q
-q).kfk.Poll[0i;5;100]
-0
-q).kfk.Poll[0i;100;100]
-10
 ```
 
 
@@ -775,7 +798,7 @@ q).kfk.ThreadCount[]
 
 _Integer value of the librdkafka version_
 
-Syntax: `.kfk.Version`
+Syntax: `.kfk.Version[]`
 
 Returns the integer value of the `librdkafka` version being used within the interface.
 
@@ -805,13 +828,13 @@ q).kfk.VersionSym[]
 
 _Create a topic on which messages can be sent_
 
-Syntax: `.kfk.Topic[x;y;z]`
+Syntax: `.kfk.Topic[id;topic;cfg]`
 
 Where
 
--   `x` is an integer denoting the consumer/producer on which the topic is produced
--   `y` is the desired topic name
--   `z` is a user-defined topic configuration default `()!()`
+-   `id` is an integer denoting the consumer/producer on which the topic is produced
+-   `topic` is the desired topic name
+-   `cfg` is a user-defined topic configuration default `()!()`
 
 returns an integer denoting the value given to the assigned topic.
 
@@ -828,11 +851,11 @@ q).kfk.Topic[consumerl`test1;()!()]
 
 _Delete a currently defined topic_
 
-Syntax: `.kfk.TopicDel[x]`
+Syntax: `.kfk.TopicDel[topic]`
 
 Where
 
--   `x` is the integer value assigned to the topic to be deleted
+-   `topic` is the integer value assigned to the topic to be deleted
 
 returns a null if a topic is deleted sucessfully.
 
@@ -850,11 +873,11 @@ q).kfk.TopicDel[0i]
 
 _Returns the name of a topic_
 
-Syntax: `.kfk.TopicName[x]`
+Syntax: `.kfk.TopicName[tpcid]`
 
 Where
 
--   `x` is the integer value associated with the topic name requested
+-   `tpcid` is the integer value associated with the topic name requested
 
 returns as a symbol the name of the requested topic.
 
@@ -876,12 +899,15 @@ q).kfk.TopicName[1i]
 
 _Register an error callback associated with a specific client_
 
-Syntax: `.kfk.errcbreg[x;y]`
+Syntax: `.kfk.errcbreg[clid;callback]`
 
 Where
 
--   `x` is the integer value associated associated with the client to which the callback is to be registered
--   `y` function taking 3 arguments which will be triggered on errors associated with the client
+-   `clid` is the integer value associated with the client to which the callback is to be registered
+-   `callback` function taking 3 arguments which will be triggered on errors associated with the client. The parameters of this function are:
+    -   `cid`: integer denoting a client ID to which this callback is called
+    -   `err_int`: integer denoting an error status code in Kafka
+    -   `reason`: string denoting a reason for the error
 
 returns a null on successful execution and augments the dictionary `.kfk.errclient` mapping client id to callback
 
@@ -920,13 +946,17 @@ q)-193i
 
 _Register an throttle callback associated with a specific client_
 
-Syntax: `.kfk.throttlecbreg[x;y]`
+Syntax: `.kfk.throttlecbreg[clid;callback]`
 
 Where
 
--   `x` is the integer value associated associated with the client to which the callback is to be regis
+-   `clid` is the integer value associated associated with the client to which the callback is to be regis
 tered
--   `y` function taking 4 arguments `client id`, `broker name`, `broker id` and `throttle time in ms`
+-   `callback` function taking 4 arguments which will be triggered on throttling associated with the client. These parameters represent:
+    -   `cid`: integer denoting a client ID to which this callback is called
+    -   `bname`: string representing a broker name
+    -   `bid`: integer denoting a broker ID
+    -   `throttle_time`: integer milliseconds expressing a throttle time
 
 returns a null on successful execution and augments the dictionary `.kfk.errclient` mapping client id t
 o callback
