@@ -1,13 +1,13 @@
 ---
-title: The .Q namespace – Reference – kdb+ and q documentation
+title: The .Q namespace | Reference | kdb+ and q documentation
 description: The .Q namespace contains utility objects for q programming
 author: Stephen Taylor
 keywords: database, decode, encode, kdb+, namespace, partitioned, q, segmented, utilities
 ---
-# The `.Q` namespace
+# :fontawesome-solid-wrench: The `.Q` namespace
 
 
-
+_Tools_
 
 <pre markdown="1" class="language-txt">
 General                           Datatype
@@ -21,15 +21,16 @@ General                           Datatype
  [ft       apply simple](#qft-apply-simple)
  [fu       apply unique](#qfu-apply-unique)            Database
  [gc       garbage collect](#qgc-garbage-collect)          [chk    fill HDB](#qchk-fill-hdb)
- [id       sanitize](#qid-sanitize)                 [dpft   save table](#qdpft-save-table)
- [qt       is table](#qqt-is-table)                 [dpfts  save table with sym](#qdpfts-save-table-with-symtable)
- [res      keywords](#qres-keywords)                 [dsftg  load process save](#qdsftg-load-process-save)
- [s        plain text](#qs-plain-text)               [en     enumerate varchar cols](#qen-enumerate-varchar-cols)
- [s1       string representation](#qs1-string-representation)    [ens    enumerate against domain](#qens-enumerate-against-domain)
- [sbt      string backtrace](#qsbt-string-backtrace)         [fk     foreign key](#qfk-foreign-key)
- [trp      extend trap](#qtrp-extend-trap)              [hdpf   save tables](#qhdpf-save-tables)
- [ts       time and space](#qts-time-and-space)           [qt     is table](#qqt-is-table)
- [u        date based](#qu-date-based)               [qp     is partitioned](#qqp-is-partitioned)
+ [gz       GZip](#qgz-gzip)                     [dpft   save table](#qdpft-save-table)
+ [id       sanitize](#qid-sanitize)                 [dpfts  save table with sym](#qdpfts-save-table-with-symtable)
+ [qt       is table](#qqt-is-table)                 [dsftg  load process save](#qdsftg-load-process-save)
+ [res      keywords](#qres-keywords)                 [en     enumerate varchar cols](#qen-enumerate-varchar-cols)
+ [s        plain text](#qs-plain-text)               [ens    enumerate against domain](#qens-enumerate-against-domain)
+ [s1       string representation](#qs1-string-representation)    [fk     foreign key](#qfk-foreign-key)
+ [sbt      string backtrace](#qsbt-string-backtrace)         [hdpf   save tables](#qhdpf-save-tables)
+ [trp      extend trap](#qtrp-extend-trap)              [qt     is table](#qqt-is-table)
+ [ts       time and space](#qts-time-and-space)           [qp     is partitioned](#qqp-is-partitioned)
+ [u        date based](#qu-date-based)
  [V        table to dict](#qv-table-to-dict)
  [v        value](#qv-value)                   Partitioned database state
  [view     subview](#qview-subview)                  [bv     build vp](#qbv-build-vp)
@@ -48,8 +49,8 @@ Environment                        [pf     partition field](#qpf-partition-field
                                    [pv     modified partition values](#qpv-modified-partition-values)
 IPC                                [vp     missing partitions](#qvp-missing-partitions)
  [addr     IP address](#qaddr-ip-address)
- [fps      streaming algorithm](#qfps-streaming-algorithm)     Segmented database state
- [fsn      streaming algorithm](#qfsn-streaming-algorithm)      [D      partitions](#qd-partitions)
+ [fps fpn  streaming algorithm](#qfpn-streaming-algorithm)     Segmented database state
+ [fs  fsn  streaming algorithm](#qfs-streaming-algorithm)       [D      partitions](#qd-partitions)
  [hg       HTTP get](#qhg-http-get)                 [P      segments](#qp-segments)
  [host     hostname](#qhost-hostname)                 [u      date based](#qu-date-based)
  [hp       HTTP post](#qhp-http-post)
@@ -63,9 +64,7 @@ IPC                                [vp     missing partitions](#qvp-missing-part
 
 Functions defined in `q.k` are loaded as part of the ‘bootstrap’ of kdb+. Some are exposed in the default namespace as the q language. Others are documented here as utility functions in the `.Q` [namespace](../basics/namespaces.md).
 
-!!! warning "Reserved"
-
-    The `.Q` namespace is reserved for use by Kx, as are all single-letter namespaces.
+??? warning "The `.Q` namespace is reserved for use by Kx, as are all single-letter namespaces."
 
     Consider all undocumented functions in the namespace as [exposed infrastructure](../basics/exposed-infrastructure.md) – and do not use them.
 
@@ -333,16 +332,16 @@ Syntax:
 Where
 
 -   `d` is a directory handle
--   `p` is a partition of a database sorted (``p#´``) on
+-   `p` is a partition of a database
 -   `f` a field of the table named by
 -   `t`, a table handle
 -   `s` is the handle of a symtable
 
 saves `t` splayed to partition `p`.
 
-!!! warning "Simple tables only"
+!!! warning "The table cannot be keyed."
 
-    The table cannot be keyed. This would signal an `'unmappable` error if there are columns which are not vectors or simple nested columns (e.g. char vectors for each row).
+    This would signal an `'unmappable` error if there are columns which are not vectors or simple nested columns (e.g. char vectors for each row).
 
 It also rearranges the columns of the table so that the column specified by `f` is second in the table (the first column in the table will be the virtual column determined by the partitioning e.g. date).
 
@@ -672,39 +671,45 @@ q)fmt[9] each 34.4 343434.358
 ```
 
 
-<!-- FIXME
-## `.Q.fpn` (streaming algorithm?)
-
-Syntax:
-
-Blah blah blah
-
-:fontawesome-regular-graduation-cap:
-[Named Pipes](../kb/named-pipes.md)
- -->
-
+## `.Q.fpn` (streaming algorithm)
 ## `.Q.fps` (streaming algorithm)
 
-Syntax: `.Q.fps[x;y]`
+_`.Q.fs` for pipes_
 
-`.Q.fs` for pipes. (Since V3.4)
+```txt
+.Q.fps[x;y]
+.Q.fpn[x;y;z]
+```
 
-Reads conveniently sized lumps of complete `"\n"` delimited records from a pipe and applies a function to each record. This enables you to implement a streaming algorithm to convert a large CSV file into an on-disk kdb+ database without holding the data in memory all at once.
+(Since V3.4)
+
+Reads `z`-sized lumps of complete `"\n"` delimited records from a pipe and applies a function to each record. This enables you to implement a streaming algorithm to convert a large CSV file into an on-disk kdb+ database without holding the data in memory all at once.
 
 :fontawesome-solid-graduation-cap:
 [Named Pipes](../kb/named-pipes.md)
 
+!!! tip "`.Q.fps` is a projection of `.Q.fpn` with the chunk size set to 131000 bytes."
+
 
 ## `.Q.fs` (streaming algorithm)
+## `.Q.fsn` (streaming algorithm)
 
-Syntax: `.Q.fs[x;y]`
+```txt
+.Q.fs[x;y]
+.Q.fsn[x;y;z]
+```
 
 Where
 
 -   `x` is a unary value
 -   `y` is a filepath
+-   `z` is an integer
 
-loops through `y` (grabbing conveniently sized lumps of complete `"\n"`-delimited records) and applies `x` to each record. This enables you to implement a streaming algorithm to load a large CSV file into an on-disk database without holding the data in memory all at once.
+loops over file `y`, grabs `z`-sized lumps of complete `"\n"` delimited records, applies `x` to each record, and returns the size of the file as given by [`hcount`](hcount.md). This enables you to implement a streaming algorithm to convert a large CSV file into an on-disk database without holding the data in memory all at once.
+
+`.Q.fsn` is almost identical to `.Q.fs` but takes an extra argument `z`, the size in bytes that chunks will be read in. This is particularly useful for balancing load speed and RAM usage.
+
+!!! tip "`.Q.fsn` is a projection of `.Q.fs` with the chunk size set to 131000 bytes."
 
 For example, assume that the file `potamus.csv` contains the following:
 
@@ -731,23 +736,6 @@ q).Q.fs[{0N!("SSSSSSID";",")0:x}]`:potamus.csv
 
 :fontawesome-solid-graduation-cap:
 [Loading large CSV files](../kb/loading-from-large-files.md)
-
-
-## `.Q.fsn` (streaming algorithm)
-
-Syntax: `.Q.fsn[x;y;z]`
-
-Where
-
--   `x` is a unary value
--   `y` is a filepath
--   `z` is an integer
-
-loops over file `y`, grabs `z`-sized lumps of complete `"\n"` delimited records, applies `x` to each record, and returns the size of the file as given by [`hcount`](hcount.md). This enables you to implement a streaming algorithm to convert a large CSV file into an on-disk database without holding the data in memory all at once.
-
-`.Q.fsn` is almost identical to `.Q.fs` but takes an extra argument `z`, the size in bytes that chunks will be read in. This is particularly useful for balancing load speed and RAM usage.
-
-!!! tip "`.Q.fs` is a projection of `.Q.fsn` with the chunk size set to 131000 bytes."
 
 
 ## `.Q.ft` (apply simple)
@@ -802,20 +790,28 @@ s4| clark 20     london
 
 Syntax: `.Q.fu[x;y]`
 
-Where
+Where `x` is a unary function and `y` is
 
--   `x` is a unary atomic function
--   `y` is a list
-
-returns `x[y]` after evaluating `x` only on distinct items of `y`.
+-   a list, returns `x[y]` after evaluating `x` only on distinct items of `y`
+-   not a list, returns `x[y]`
 
 ```q
-q)n: 100000; vec: n ? 30 / long vectors with few different values
-q)f:{[x] exp (x*x)} / e raised to x*x
-q)\t y: f each vec / returns 270 (milliseconds)
-q)\t y2: .Q.fu[f] vec / returns 10 (milliseconds)
-q)y ~ y2 / returns 1b, the outputs are equal
+q)vec:100000 ? 30     / long vector with few different values
+q)f:{exp x*x}         / e raised to x*x
+q)\t:1000 r1:f vec
+745
+q)\t:1000 r2:.Q.fu[f;vec]
+271
+q)r1~r2
+1b
 ```
+
+!!! warning "Not suitable for all unary functions"
+
+    `.Q.fu` applies `x` to the distinct items of `y`.
+    Where for any index `i`, the result of `x y i` depends on no other item of `y`, then `.Q.fu` works as intended. Where this is not so, the result is unlikely to be expected or useful.
+
+    To explore this, study `.Q.fu[avg;] (4 3#12?100)10?4`.
 
 
 ## `.Q.gc` (garbage collect)
@@ -823,9 +819,9 @@ q)y ~ y2 / returns 1b, the outputs are equal
 Syntax: `.Q.gc[]`
 
 Returns the amount of memory that was returned to the OS.
-(Since V2.7 2010.08.05, enhanced with coalesce in V2.7 2011.09.15, and executes in secondary threads since V2.7 2011.09.21)
+<!-- (Since V2.7 2010.08.05, enhanced with coalesce in V2.7 2011.09.15, and executes in secondary threads since V2.7 2011.09.21) -->
 
-!!! detail "How it works"
+??? detail "How it works"
 
     Kdb+ uses reference counting and [buddy memory allocation](https://en.wikipedia.org/wiki/Buddy_memory_allocation).
     The chosen buddy algorithm dices bucket sizes according to powers of 2, and the heap expands in powers of 64MB.
@@ -913,7 +909,33 @@ syms| 570
 symw| 24964
 ```
 
-So if you have many nested data, e.g. columns of char vectors, or an awful lot of grouping you may be fragmenting memory quite heavily.
+So if you have many nested data, e.g. columns of char vectors, or much grouping, you may be fragmenting memory quite heavily.
+
+
+## `.Q.gz` (GZip)
+
+```txt
+.Q.gz[::]           / zlib loaded?
+.Q.gz cbv           / unzipped
+.Q.gz (cl;cbv)      / zipped
+```
+
+Where
+
+-   `cbv` is a char or byte vector
+-   `cl` is compression level \[1-9\] as a long
+
+returns, for
+
+-   the [general null](identity.md#null), a boolean atom as whether Zlib is loaded
+-   `cbv`, the inflated (unzipped) vector
+-   a 2-list, the deflated (zipped) vector
+
+```q
+q).Q.gz{0N!count x;x}[.Q.gz(9;10000#"helloworld")]
+66
+"helloworldhelloworldhelloworldhelloworldhelloworldhelloworldhelloworldhellow..
+```
 
 
 ## `.Q.hdpf` (save tables)
@@ -1129,9 +1151,14 @@ checked against [`.z.K`](dotz.md#zk-version) at startup.
 
 ## `.Q.l` (load)
 
-Syntax: ==FIXME==
+```txt
+.Q.l x
+```
 
-Implements [`\l`](../basics/syscmds.md#l-load-file-or-directory).
+Where `x` is a symbol atom naming a directory in the current directory, loads
+it recursively as in [`load`](load.md), but into the default namespace.
+
+(Implements system command [`\l`](../basics/syscmds.md#l-load-file-or-directory).)
 
 
 ## `.Q.M` (long infinity)

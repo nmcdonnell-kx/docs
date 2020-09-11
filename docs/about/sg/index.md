@@ -56,6 +56,32 @@ For example:
     Consistent observation of the conventions relieves the reader of the cognitive load of resolving ambiguities, and raises the value of the documentation. 
 
 
+## Writing is hard 
+
+Help is available. 
+
+[_Plain Words: A guide to the use of English_](https://www.amazon.co.uk/Plain-Words-Rebecca-Gowers/dp/0241960347/) by Sir Ernest Gowers 
+
+[_Politics and the English Language_](https://www.amazon.co.uk/Politics-English-Language-Penguin-Classics-ebook/dp/B00AZQTM5I/) by George Orwell
+
+<iframe width="560" height="315" src="https://www.youtube.com/embed/OV5J6BfToSw" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
+> It’s a nervous tic of analytical philosophy to be forever wishing to clarify distinctions that nobody is actually confused about.
+> <br>— _Jerry Fodor_
+
+Here is an excellent example: clear, plain instructions from a snake catcher in Australia.
+
+> Hoser warned that snakes could be dangerous, and not to deal with them without professional help.
+> 
+> “If you see a snake don’t go near it. Nine times out of 10 if they’re in your garden they’re passing through,” he said.
+> 
+> “If you get bitten, bandage on your arm, straight to hospital.
+> 
+> “Without treatment you’re likely to die. With treatment you probably won’t die.” 
+
+— _The Guardian_ 2020.09.01
+
+
 ## Summary
 
 Here are the most important – or most commonly neglected – rules.

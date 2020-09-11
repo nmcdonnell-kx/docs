@@ -1,17 +1,14 @@
 ---
-title: Errors – Basics – kdb+ and q documentation
+title: Errors | Basics | kdb+ and q documentation
 description: Errors signalled by the interpreter, and what triggers them
-keywords: abort, catch, error, exit, handle, kdb+, q, signal, trap
 ---
 
 # :fontawesome-solid-bomb: Errors 
 
 
 
-<!-- :fontawesome-regular-hand-point-right: Simon’s list :fontawesome-regular-github: [simongarland/help/texts/errors.txt](https://github.com/simongarland/help/blob/master/texts/errors.txt) -->
-
-
 ## Runtime errors
+
 <table class="kx-ruled kx-shrunk kx-tight" markdown="1">
 <thead>
 <tr><th>error</th><th>example</th><th>explanation</th></tr>
@@ -22,47 +19,54 @@ keywords: abort, catch, error, exit, handle, kdb+, q, signal, trap
 <tr><td>adict</td> <td class="nowrap">`d[::]:x`</td> <td>Blocked assignment (`'nyi`)</td> </tr>
 <tr><td>arch</td> <td class="nowrap">`:test set til 100`<br/>``-17!`:test``</td> <td>Attempt to load file of wrong endian format</td> </tr>
 <tr><td>assign</td> <td class="nowrap">`cos:12`</td> <td>Attempt to redefine a reserved word</td> </tr>
+<tr><td>bad lambda</td> <td class="nowrap">`h{select x by x from x}`</td> <td>lambda from an older version of kdb+ over IPC that no longer parses</td> </tr>
 <tr><td>badtail</td> <td/> <td>Incomplete transaction at end of file, get good (count;length) with ``-11!(-2;`:file)``</td> </tr>
 <tr><td>binary mismatch</td> <td/> <td>Wrong process for [code profiler](../kb/profiler.md)</td> </tr>
 <tr><td>can't </td> <td/> <td>Only commercially licensed kdb+ instances can encrypt code in a script</td> </tr>
 <tr><td>cast</td> <td class="nowrap">``s:`a`b; c:`s$`a`e``</td> <td>Value not in enumeration</td> </tr>
+<tr><td>close</td> <td/> <td>content-length header missing from HTTP response</td> </tr>
 <tr><td>con</td> <td/> <td>qcon client is not supported when kdb+ is in [multithreaded input mode](../kb/multithreaded-input.md)</td> </tr>
 <tr><td>cond</td> <td/> <td>Even number of arguments to `$` (until V3.6 2018.12.06)</td> </tr>
 <tr><td>conn</td> <td/> <td>Too many connections (1022 max)</td> </tr>
 <tr><td>Could not initialize ssl</td><td/><td>[`(-26!)[]`](internal.md#-26x-ssl) found SSL/TLS not enabled</td></tr>
 <tr><td>d8</td><td/><td>The log had a partial transaction at the end but q couldn’t truncate the file</td></tr>
+<tr><td>decompression error at block _b_ in _f_</td> <td/> <td>Error signalled by underlying decompression routine</td> </tr>
 <tr><td>domain</td> <td class="nowrap">`til -1`</td> <td>Out of domain</td> </tr>
 <tr><td>dup</td> <td class="nowrap">`` `a`b xasc flip`a`b`a!()``</td> <td>Duplicate column in table (since V3.6 2019.02.19)</td> </tr>
 <tr><td>dup names for cols/groups</td> <td class="nowrap">`select a,a by a from t`</td> <td>Name collision (since V4.0 2020.03.17)</td> </tr>
 <tr><td>elim</td> <td class="nowrap">``((-58?`3) set\:(),`a)$`a``</td> <td>Too many enumerations (max: 57)</td> </tr>
 <tr><td>enable secondary threads via cmd line -s only</td> <td class="nowrap">`\s 4`</td> <td>Command line enabled processes for parallel processing</td> </tr>
 <tr><td>encryption lib unavailable</td> <td class="nowrap">``-36!(`:kf;"pwd")``</td> <td>Failed to load OpenSSL libraries</td> </tr>
+<tr><td>expected response</td> <td/> <td>One-shot request did not receive response</td> </tr>
 <tr><td>failed to load TLS certificates</td><td/><td>Started kdb+ [with `-E 1` or `-E 2`](cmdline.md#-e-tls-server-mode) but without SSL/TLS enabled</td> </tr>
 <tr><td>from</td> <td class="nowrap">`select price trade`</td> <td>Badly formed select statement</td> </tr>
 <tr><td>glim</td> <td/> <td>`` `g#`` limit (99 prior to V3.2, now unlimited</td> </tr>
 <tr><td>hop</td><td/><td>Request to `hopen` a handle fails; includes message from OS</td> </tr>
 <tr><td>hwr</td><td/><td>Handle write error, can't write inside a [`peach`](peach.md)</td> </tr>
 <tr><td>IJS</td> <td class="nowrap">`"D=\001"0:"0=hello\0011=world"`</td> <td>[Key type](../ref/file-text.md#key-value-pairs) is not `I`, `J`, or `S`.</td> </tr>
-<tr><td>insert</td> <td class="nowrap">``t:([k:0 1]a:2 3);`t insert(0;3)``</td> <td>Attempt to insert a record with an existing key into a keyed table</td> </tr>
+<tr><td>insert</td> <td class="nowrap">``t:([k:0 1]a:2 3);`t insert(0;3)``</td> <td>Attempt to [`insert`](../ref/insert.md) a record with an existing key into a keyed table</td> </tr>
 <tr><td>invalid</td> <td class="nowrap">`q -e 3`</td> <td>Invalid command-line option value</td> </tr>
 <tr><td>invalid password</td> <td class="nowrap">``-36!(`:kf;"pwd")``</td> <td>Invalid keyfile password</td> </tr>
+<tr><td>\l</td> <td/> <td>Not a [data file](syscmds.md#l-load-file-or-directory)</td> </tr>
 <tr><td>length</td> <td class="nowrap">`()+til 1`</td> <td>Incompatible lengths</td> </tr>
 <tr>
 <td>limit</td>
 <td class="nowrap">`0W#2`</td>
 <td>
-    Tried to generate a list longer than 2<sup>40</sup>-1 (2e+09 until V3.0), 
-    or serialized object is &gt; 1TB (2GB until V3.4), 
+    Tried to generate a list longer than <span class="nowrap">2<sup>40</sup>-1</span>, 
+    or serialized object is &gt; 1TB, 
     or `'type` if trying to serialize a nested object which has &gt; 2 billion elements,
     or :fontawesome-regular-hand-point-right: [Parse errors](#parse-errors)
 </td>
 </tr>
+<tr><td>load</td> <td/> <td>Not a [data file](../ref/load.md)</td> </tr>
 <tr><td>loop</td> <td class="nowrap">`a::a`</td> <td>Dependency loop</td> </tr>
 <tr><td>main thread only</td> <td class="nowrap">``-36!(`:kf;"pwd")``</td> <td>Not executed from main thread</td> </tr>
 <tr><td>mismatch</td> <td class="nowrap">`([]a:til 4),([]b:til 3)`</td> <td>Columns that can't be aligned for R,R or K,K</td> </tr>
 <tr><td>Mlim</td> <td/> <td>Too many nested columns in [splayed tables](../kb/splayed-tables.md). (Prior to V3.0, limited to 999; from V3.0, 251; from V3.3, 65530)</td> </tr>
 <tr><td>mq</td> <td/> <td>Multi-threading not allowed</td> </tr>
 <tr><td>name&nbsp;too&nbsp;long</td> <td/> <td>Filepath ≥100 chars (until V3.6 2018.09.26)</td> </tr>
+<tr><td>need zlib to compress</td> <td/> <td>zlib not available</td> </tr>
 <tr><td>noamend</td> <td class="nowrap">`t:([]a:1 2 3)`<br />``n:`a`b`c``<br />``update b:{`n?`d;:`n?`d}[]``<br/>`` from `t``</td> <td>Cannot change global state from within an amend</td> </tr>
 <tr><td>no append to zipped enums</td> <td class="nowrap">V2:<br/>`.z.zd:17 2 6`<br/>`` `:sym?`a`b``<br/>V3:<br/>`` `:sym?`c``</td> <td>Cannot append to zipped enum (from V3.0)</td> </tr>
 <tr>
@@ -94,7 +98,7 @@ Update not allowed when using [negative port number](syscmds.md#p-listening-port
 <tr><td>rank</td> <td class="nowrap">`+[2;3;4]`</td> <td>Invalid [rank](glossary.md#rank)</td> </tr> 
 <tr><td>rb</td> <td/> <td>Encountered a problem while doing a blocking read</td> </tr> 
 <tr><td>restricted</td> <td>`0"2+3"`</td> <td>in a kdb+ process which was started with [`-b` cmd line](cmdline.md#-b-blocked). Also for a kdb+ process using the username:password authentication file, or the `-b` cmd line option, `\x` cannot be used to reset handlers to their default. e.g. `\x .z.pg`</td> </tr> 
-<tr><td>s-fail</td> <td class="nowrap">`` `s#3 2``</td> <td>Invalid attempt to set “sorted” [attribute](syntax.md#attributes). Also encountered with `` `s#enums`` when loading a database (`\l db`) and enum target is not already loaded.</td> </tr>
+<tr><td>s-fail</td> <td class="nowrap">`` `s#3 2``</td> <td>Invalid attempt to set sorted [attribute](../ref/set-attribute.md). Also encountered with `` `s#enums`` when loading a database (`\l db`) and enum target is not already loaded.</td> </tr>
 <tr><td>splay</td> <td/> <td>nyi op on [splayed table](../kb/splayed-tables.md)</td> </tr>
 <tr>
 <td>stack</td>
@@ -112,20 +116,20 @@ Update not allowed when using [negative port number](syscmds.md#p-listening-port
 <tr><td>trunc</td> <td/> <td>The log had a partial transaction at the end but q couldn’t truncate the file</td> </tr>
 <tr><td>type</td> <td class="nowrap">`til 2.2`</td> <td>Wrong [type](datatypes.md). Also see `'limit`</td> </tr>
 <tr><td>type/attr error amending file</td> <td/> <td>Direct update on disk for this type or attribute is not allowed</td> </tr>
-<tr><td>u-fail</td> <td class="nowrap">`` `u#2 2``</td> <td>Invalid attempt to set “unique” [attribute](syntax.md#attributes)</td> </tr>
+<tr><td>u-fail</td> <td class="nowrap">`` `u#2 2``</td> <td>Invalid attempt to set unique or parted [attribute](../ref/set-attribute.md)</td> </tr>
 <tr><td>unmappable</td> <td>``t:([]sym:`a`b;a:(();()))``<br/>``.Q.dpft[`:thdb;.z.d;`sym;`t]``</td> <td>When saving partitioned data each column must be mappable. `()` and `("";"";"")` are OK</td> </tr>
 <tr><td>unrecognized key format</td> <td class="nowrap">``-36!(`:kf;"pwd")``</td> <td>Master keyfile format not recognized</td> </tr>
 <tr><td>upd</td> <td/> <td>Function `upd` is undefined (sometimes encountered during ``-11!`:logfile``) _or_ [license error](#license-errors)</td> </tr>
 <tr><td>utf8</td> <td/> <td>The websocket requires that text is UTF-8 encoded</td> </tr>
 <tr><td>value</td> <td/> <td>No value</td> </tr>
 <tr><td>vd1</td> <td/> <td>Attempted multithread update</td> </tr>
-<tr><td>view</td> <td/> <td>Trying to re-assign a [view](../learn/views.md) to something else</td> </tr>
+<tr><td>view</td> <td/> <td>Tried to re-assign a [view](../learn/views.md) to something else</td> </tr>
+<tr><td>-w abort</td> <td/> <td>[`malloc`](https://en.wikipedia.org/wiki/C_dynamic_memory_allocation) hit [`-w` limit](cmdline.md#-w-workspace) or [`\w` limit](syscmds.md#w-workspace)</td> </tr>
 <tr><td>-w init via cmd line</td> <td/> <td>Trying to allocate memory with [`\w`](syscmds.md#w-workspace) without `-w` on command line</td> </tr>
 <tr>
 <td>wsfull</td>
 <td class="nowrap">`999999999#0`</td>
-<td>[`malloc`](https://en.wikipedia.org/wiki/C_dynamic_memory_allocation) failed, ran out of swap (or addressability on 32-bit), or hit [`-w` limit](cmdline.md#-w-workspace)
-</td>
+<td>[`malloc`](https://en.wikipedia.org/wiki/C_dynamic_memory_allocation) failed, or ran out of swap (or addressability on 32-bit). The params also reported are intended to help Kx diagnose when assisting clients, and are subject to change.</td>
 </tr> 
 <tr><td>wsm</td> <td class="nowrap">`010b wsum 010b`</td> <td>Alias for nyi for `wsum` prior to V3.2</td> </tr>
 <tr><td>XXX</td> <td class="nowrap">`delete x from system "d";x`</td> <td>Value error (`XXX` undefined)</td> </tr>
@@ -142,6 +146,7 @@ From file ops and [IPC](ipc.md)
 <tr><th>error</th><th>explanation</th></tr>
 </thead>
 <tbody>
+<tr><td>Bad CPU Type</td><td>Tried to run 32-bit interpreter in macOS 10.15+</td></tr>
 <tr><td>`XXX:YYY`</td><td>`XXX` is from kdb+, `YYY` from the OS</td></tr>
 </tbody>
 </table>

@@ -2,15 +2,16 @@
 title: each, peach | Reference | kdb+ and q documentation
 description: each and peach are q keywords, wrappers for the map iterators Each and Each Parallel.
 author: Stephen Taylor
-keywords: each, iterator, kdb+, map, q
 ---
 # `each`, `peach`
 
 
+_Iterate a unary_
 
-
-Syntax: `v1 each x`, `each[v1;x]`, `v1 peach x`, `peach[v1;x]`  
-Syntax: `(vv)each x`, `each[vv;x]`, `(vv)peach x`, `peach[vv;x]`
+```txt
+ v1 each x   each[v1;x]       v1 peach x   peach[v1;x]  
+(vv)each x   each[vv;x]      (vv)peach x   peach[vv;x]
+```
 
 Where 
 
@@ -37,11 +38,17 @@ q)(+\)peach(2 3 4;(5 6;7 8);9 10 11 12)
 `peach` is a wrapper for the [Each Parallel iterator](maps.md#each-parallel). 
 It is good q style to use `each` and `peach` for unary values. 
 
-:fontawesome-regular-hand-point-right:
-[Maps](maps.md) for uses of Each with binary and higher-rank values  
-[`.Q.fc` parallel on cut](dotq.md#qfc-parallel-on-cut)<br>
-:fontawesome-solid-book-reader:
-[Parallel processing](../basics/peach.md)<br>
+!!! warning "`each` is redundant with [atomic functions](../basics/atomic.md). (Common qbie mistake.)"
+
+:fontawesome-solid-book:
+[Maps](maps.md) for uses of Each with binary and higher-rank values
+<br>
+:fontawesome-solid-book:
+[`.Q.fc` parallel on cut](dotq.md#qfc-parallel-on-cut)
+<br>
+:fontawesome-solid-book-open:
+[Parallel processing](../basics/peach.md)
+<br>
 :fontawesome-solid-graduation-cap:
 [Table counts in a partitioned database](../kb/partition.md#table-counts)
 
@@ -57,7 +64,7 @@ Alternatively, suppose `t` is a table in which columns `b`, `c`, and `a` are arg
 
 
 
-## Blocked within `peach`
+## :fontawesome-solid-exclamation-triangle: Blocked within `peach`
 
 ```txt
 hopen socket
@@ -69,7 +76,7 @@ load master decryption key (-36!)
 
 And any **system command** which might cause a change of global state.
 
-Generally, do not use **sockets** within `peach`, unless it is encapsulated via one-shot or HTTP client request.
+Generally, do not use a **socket** within `peach`, unless it is encapsulated via one-shot or HTTP client request.
 
 If you are careful to manage your **file handles/file access** so that there is no parallel use of the same handle (or file) across threads, then you can open and close files within `peach`.
 

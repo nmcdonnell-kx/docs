@@ -82,9 +82,10 @@ theme:
 nav:
   - Home: index.md
   - Reference: https://code.kx.com/q/ref/
-  - Community: github.md
-  - Support: support.md
   - Developer tools: devtools.md
+  - Open source: github.md
+  - Support: support.md
+  - Community: community.md
   - Corporate site: https://kx.com
   - Wiki: wiki.md
   - Learn: 
@@ -95,17 +96,17 @@ nav:
       - TLDR: learn/tour/tldr.md
       - Begin here: learn/tour/index.md
       - The q session: learn/tour/session.md
-      - Databases: learn/tour/databases.md
+      # - Databases: learn/tour/databases.md
       - Tables: learn/tour/tables.md
       - CSVs: learn/tour/csvs.md
       - Datatypes: learn/tour/datatypes.md
-      - Dictionaries: learn/tour/dictionaries.md
-      - Queries: learn/tour/queries.md
-      - Functions: learn/tour/functions.md
-      - Iteration: learn/tour/iteration.md
-      - Files: learn/tour/files.md
-      - TCP/IP: learn/tour/tcp-ip.md
-      - HTTP, HTTPS: learn/tour/http.md
+      # - Dictionaries: learn/tour/dictionaries.md
+      # - Queries: learn/tour/queries.md
+      # - Functions: learn/tour/functions.md
+      # - Iteration: learn/tour/iteration.md
+      # - Files: learn/tour/files.md
+      # - TCP/IP: learn/tour/tcp-ip.md
+      # - HTTP, HTTPS: learn/tour/http.md
       - Scripts: learn/tour/scripts.md
       - IDE: learn/tour/ide.md
     - Q for quants: learn/brief-introduction.md
@@ -146,7 +147,7 @@ nav:
       - Phrasebook: /phrases/
       - Scrabble: learn/reading/scrabble.md
     - Advanced q:
-      - Overview: learn/advanced.md
+      # - Overview: learn/advanced.md
       - Remarks on Style:
         - Preface: style/index.md
         - Maxims: style/maxims.md
@@ -186,7 +187,7 @@ nav:
       - Shifts & scans: learn/shifts-scans.md
       - Technical articles: learn/blogs.md
       - Views: learn/views.md
-      - Archive: learn/archive.md
+      - Origins: learn/archive.md
     - Starting kdb+: 
       - Overview: learn/startingkdb/index.md
       - The q language: learn/startingkdb/language.md
@@ -196,49 +197,6 @@ nav:
       - Realtime database: learn/startingkdb/tick.md
   - Reference:
     - Reference card: ref/index.md
-    - Basics:
-      # - Functions: basics/functions.md
-      - Application: basics/application.md
-      - Atomic functions: basics/atomic.md
-      - Casting & encoding: basics/casting.md
-      - Connection handles: basics/handles.md
-      - Comparison: basics/comparison.md
-      - Conformability: basics/conformable.md
-      - Control: basics/control.md
-      - Dictionaries & tables: basics/dictsandtables.md
-      # - Elements: basics/elements.md
-      - Enumerations: basics/enumerations.md
-      - Environment: basics/environment.md
-      - Exposed infrastructure: basics/exposed-infrastructure.md
-      - Function notation: basics/function-notation.md
-      - Functional SQL: basics/funsql.md
-      - Iteration: basics/iteration.md
-      - Interprocess communication: basics/ipc.md
-      - Joins: basics/joins.md
-      - Listening port: basics/listening-port.md
-      - Logic: basics/logic.md
-      - Mathematics: basics/math.md
-      - Memory backed by files: basics/memory-backed.md
-      - Metadata: basics/metadata.md
-      - Namespaces: basics/namespaces.md
-      - Parallel processing: basics/peach.md
-      - Parse trees: basics/parsetrees.md
-      - Precision: basics/precision.md
-      - QSQL: basics/qsql.md
-      - Regular Expressions: basics/regex.md
-      - Search: basics/search.md
-      - Selection: basics/selection.md
-      - Sorting: basics/sort.md
-      - Strings: basics/strings.md
-      - Syntax: basics/syntax.md
-      - Variadic syntax: basics/variadic.md
-    - Command line: basics/cmdline.md
-    - Datatypes: basics/datatypes.md
-    - Debugging: basics/debug.md
-    - Errors: basics/errors.md
-    - File system: basics/files.md
-    - Glossary: basics/glossary.md
-    - Internal functions: basics/internal.md
     - Iterators:
       - Overview: ref/iterators.md
       - Maps: ref/maps.md
@@ -277,6 +235,7 @@ nav:
       - eval, reval: ref/eval.md
       - except: ref/except.md
       - exec: ref/exec.md
+      - exit: ref/exit.md
       - exp, xexp: ref/exp.md
       - fby: ref/fby.md
       - fills: ref/fill.md
@@ -363,15 +322,15 @@ nav:
       - xbar: ref/xbar.md
       - xgroup: ref/xgroup.md
       - xrank: ref/xrank.md
+    - Overloaded glyphs: ref/overloads.md
     - Operators:
-      - Overloaded glyphs: ref/overloads.md
       - Add: ref/add.md
       - Amend: ref/amend.md
       - Apply, Index, Trap: ref/apply.md
+      - Assign: ref/assign.md
       - Cast: ref/cast.md
       - Coalesce: ref/coalesce.md
       - Compose: ref/compose.md
-      - Cond: ref/cond.md
       - Cut: ref/cut.md
       - Deal, Roll, Permute: ref/deal.md
       - Delete: ref/delete.md
@@ -412,9 +371,9 @@ nav:
       - Tok: ref/tok.md
       - Update: ref/update.md
       - Vector Conditional: ref/vector-conditional.md
-    - Control words:
+    - Control constructs:
+      - Cond: ref/cond.md
       - do: ref/do.md
-      - exit: ref/exit.md
       - if: ref/if.md
       - while: ref/while.md
     - Namespaces:
@@ -439,7 +398,50 @@ nav:
       - Changes in 2.5: releases/ChangesIn2.5.md
       - Changes in 2.4: releases/ChangesIn2.4.md
       - Withdrawn: releases/withdrawn.md
+  - Basics:
+    # - Functions: basics/functions.md
+    # - Elements: basics/elements.md
+    - Application: basics/application.md
+    - Atomic functions: basics/atomic.md
+    - Casting & encoding: basics/casting.md
+    - Command line: basics/cmdline.md
+    - Comparison: basics/comparison.md
+    - Conformability: basics/conformable.md
+    - Connection handles: basics/handles.md
+    - Control: basics/control.md
+    - Datatypes: basics/datatypes.md
+    - Debugging: basics/debug.md
+    - Dictionaries & tables: basics/dictsandtables.md
+    - Enumerations: basics/enumerations.md
+    - Environment: basics/environment.md
+    - Errors: basics/errors.md
+    - Exposed infrastructure: basics/exposed-infrastructure.md
+    - File system: basics/files.md
+    - Function notation: basics/function-notation.md
+    - Functional qSQL: basics/funsql.md
+    - Glossary: basics/glossary.md
+    - Internal functions: basics/internal.md
+    - Interprocess communication: basics/ipc.md
+    - Iteration: basics/iteration.md
+    - Joins: basics/joins.md
+    - Listening port: basics/listening-port.md
+    - Logic: basics/logic.md
+    - Mathematics: basics/math.md
+    - Memory backed by files: basics/memory-backed.md
+    - Metadata: basics/metadata.md
+    - Namespaces: basics/namespaces.md
+    - Parallel processing: basics/peach.md
+    - Parse trees: basics/parsetrees.md
+    - Precision: basics/precision.md
+    - QSQL queries: basics/qsql.md
+    - Regular Expressions: basics/regex.md
+    - Search: basics/search.md
+    - Selection: basics/selection.md
+    - Sorting: basics/sort.md
+    - Strings: basics/strings.md
+    - Syntax: basics/syntax.md
     - System commands: basics/syscmds.md
+    - Variadic syntax: basics/variadic.md
   - Interfaces:
     - Index: interfaces/index.md
     - Fusion for kdb+:
@@ -484,7 +486,7 @@ nav:
         - Reference: interfaces/solace/reference.md
         - RESTful API: interfaces/solace/solacerest.md
         - Examples: interfaces/solace/examples.md
-    - From: 
+    - Clients for kdb+: 
       - C: interfaces/c-client-for-q.md
       - C API reference: interfaces/capiref.md
       - C#: interfaces/csharp-client-for-q.md
@@ -496,7 +498,7 @@ nav:
       - ODBC3: interfaces/q-server-for-odbc3.md 
       - Perl: interfaces/perl-client-for-q.md 
       - Scala: interfaces/scala-client-for-q.md 
-    - To: 
+    - Q clients: 
       - Bloomberg: interfaces/q-client-for-bloomberg.md
       - C/C++ functions: interfaces/using-c-functions.md
       - GPUs: interfaces/gpus.md
@@ -608,6 +610,7 @@ nav:
     - Publish and subscribe: kb/publish-subscribe.md
     - Regular expressions: kb/regex.md
     - Replay logfile: kb/replay-log.md
+    - Serialization examples: kb/serialization.md
     - Server calling client: kb/server-calling-client.md
     - Splayed schema change: kb/splayed-schema-change.md
     - Splayed tables: kb/splayed-tables.md

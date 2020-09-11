@@ -47,10 +47,11 @@ keywords: card, index, kdb+, keywords, operators, q, reference
 <table markdown="1">
 <tr>
 <td class="kx-glyph">[`@`](overloads.md#at)<br>[`.`](overloads.md#dot)</td><td>[Apply](apply.md)<br>[Index](apply.md#index)<br>[Trap](apply.md#trap)<br>[Amend](amend.md)</td>
-<td class="kx-glyph">[`$`](overloads.md#dollar)</td><td>[Cond](cond.md)<br>[Cast](cast.md)<br>[Tok](tok.md)<br>[Enumerate](enumerate.md)<br>[Pad](pad.md)<br>[`mmu`](mmu.md)</td>
+<td class="kx-glyph">[`$`](overloads.md#dollar)</td><td>[Cast](cast.md)<br>[Tok](tok.md)<br>[Enumerate](enumerate.md)<br>[Pad](pad.md)<br>[`mmu`](mmu.md)</td>
 <td class="kx-glyph">[`!`](overloads.md#bang)</td><td>[Dict](dict.md)<br>[Enkey](enkey.md)<br>[Unkey](enkey.md#unkey)<br>[Enumeration](enumeration.md)<br>[Flip Splayed](flip-splayed.md)<br>[Display](display.md)<br>[internal](../basics/internal.md)<br>[Update](../basics/funsql.md#update)<br>[Delete](../basics/funsql.md#delete)</td>
 <td class="kx-glyph">[`?`](overloads.md#query)</td><td>[Find](find.md)<br>[Roll, Deal](deal.md)<br>[Enum Extend](enum-extend.md)<br>[Select](../basics/funsql.md#select)<br>[Exec](../basics/funsql.md#exec)<br>[Simple Exec](../basics/funsql.md#simple-exec)<br>[Vector Conditional](vector-conditional.md)</td>
 </tr>
+<tr>
 <td class="kx-glyph">`+`</td><td>[Add](add.md)</td>
 <td class="kx-glyph">`-`</td><td>[Subtract](subtract.md)</td>
 <td class="kx-glyph">`*`</td><td>[Multiply](multiply.md)</td>
@@ -64,73 +65,89 @@ keywords: card, index, kdb+, keywords, operators, q, reference
 </tr>
 <tr>
 <td class="kx-glyph">`|`</td> <td>[Greater, OR](greater.md)</td>
-<td class="kx-glyph">`&`</td> <td>[Lesser, AND](lesser.md)</td>
+<td class="kx-glyph">`&`</td> <td colspan="5">[Lesser, AND](lesser.md)</td>
 </tr>
 <tr>
 <td class="kx-glyph">[`#`](overloads.md#hash)</td><td>[Take](take.md)<br>[Set&nbsp;Attribute](set-attribute.md)</td>
 <td class="kx-glyph">[`_`](overloads.md#_-underscore)</td><td>[Cut](cut.md)<br>[Drop](drop.md)</td>
-<td class="kx-glyph">`^`</td><td>[Fill](fill.md)</td>
-<td class="kx-glyph">`,`</td><td>[Join](join.md)</td>
+<td class="kx-glyph">`^`</td><td>[Fill](fill.md)<br>[Coalesce](coalesce.md)</td>
+<td class="kx-glyph">`,`<br>[`'`](overloads.md#quote)</td><td>[Join](join.md)<br>[Compose](compose.md)</td>
 </tr>
 </table>
 
 :fontawesome-solid-book:
-[Overloaded operator glyphs](overloads.md)
+[Overloaded glyphs](overloads.md)
 
 
 ## [Iterators](iterators.md)
 
-<table markdown="1">
+<pre markdown="1" class="language-txt" style="font-size: 80%">
+[maps](maps.md)                                                    [accumulators](accumulators.md)
+[`'`](overloads.md#quote)   [Each](maps.md#each), [`each`](each.md), [Case](maps.md#case)       `/:`  [Each Right](maps.md#each-left-and-each-right)              [`/`](overloads.md#slash)  [Over](accumulators.md), [`over`](over.md)
+[`':`](overloads.md#quote-colon)  [Each Parallel](maps.md#each-parallel), [`peach`](each.md#peach)   `\:`  [Each Left](maps.md#each-left-and-each-right)               [`\`](overloads/#backslash)  [Scan](accumulators.md), [`scan`](over.md)
+[`':`](overloads.md#quote-colon)  [Each Prior](maps.md##each-prior), [`prior`](prior.md)
+</pre>
+
+<!-- <table markdown="1">
 <thead>
 <tr><th colspan="2">accumulators</th><th colspan="2">maps</th><th colspan="2">maps</th><th colspan="2"/></tr>
 </thead>
 <tbody>
 <tr>
-<td class="kx-glyph">[`/`](overloads.md#slash)<br>[`\`](overloads/#backslash)</td><td>[Over<br>Scan](accumulators.md)</td>
+<td class="kx-glyph">[`/`](overloads.md#slash)<br>[`\`](overloads/#backslash)</td><td>[Over](accumulators.md), [`over`](over.md)<br>[Scan](accumulators.md), [`scan`](scan.md)</td>
 <td class="kx-glyph">`/:`<br>`\:`</td><td>[Each Right<br>Each Left](maps.md#each-left-and-each-right)</td>
-<td class="kx-glyph">[`'`](overloads.md#quote)<br>[`':`](overloads.md#quote-colon)<br>[`':`](overloads.md#quote-colon)</td><td>[Each](maps.md#each)<br>[Each&nbsp;Parallel](maps.md#each-parallel)<br>[Each Prior](maps.md##each-prior)</td>
-<td class="kx-glyph">[`'`](overloads.md#quote)<br>[`'`](overloads.md#quote)</td><td>[Case](maps.md#case)<br>[Compose](compose.md)</td>
+<td class="kx-glyph">[`'`](overloads.md#quote)<br>[`':`](overloads.md#quote-colon)<br>[`':`](overloads.md#quote-colon)</td><td>[Each](maps.md#each), [`each`](each.md)<br>[Each&nbsp;Parallel](maps.md#each-parallel), [`peach`](each.md#peach)<br>[Each Prior](maps.md##each-prior), [`prior`](prior.md)</td>
 </tr>
 </tbody>
 </table>
+ -->
+
+## [Execution control](../basics/control.md)
+
+<pre markdown="1" class="language-txt" style="font-size: 80%">
+[.[f;x;e] Trap](../ref/apply.md#trap)          [: Return](../basics/function-notation.md#explicit-return)        [do](../ref/do.md)  [exit](../ref/exit.md)         [\$[x;y;z] Cond](../ref/cond.md)
+[@[f;x;e] Trap-At](../ref/apply.md#trap)       [' Signal](../ref/signal.md)        [if](../ref/if.md)  [while](../ref/while.md)
+</pre>
+
+:fontawesome-solid-book-open:
+[Debugging](../basics/debug.md)
 
 
 
 ## Other
 
-<table markdown="1">
-<tr>
-<td class="kx-glyph nowrap">`\\`<br>`\`<br>`\x`<br>[`'`](overloads.md#quote)</td><td>quit<br>[abort](../basics/debug.md#abort)<br>[system cmd](../basics/syscmds.md)<br>[Signal](signal.md)</td>
-<td class="kx-glyph">`:`<br><code class="nowrap">::</code></td><td>[assign](../basics/syntax.md#colon), [return](../basics/control.md#explicit-return)<br>[identity<br>generic null](identity.md)<br>global amend<br>set view</td>
-<td class="kx-glyph">`0`<br><span class="nowrap">`1`, `-1`</span><br>`2`, `-2`<br>_n_, _-n_</td><td>[console<br>stdout<br>stderr<br>handle](../basics/files.md)</td>
-<td class="kx-glyph"><span class="nowrap">`0:`</span><br>`1:`<br>`2:`</td><td>[File Text](file-text.md)<br>[File Binary](file-binary.md)<br>[Dynamic&nbsp;Load](dynamic-load.md)</td>
-</tr>
-<tr>
-<td class="kx-glyph nowrap">`()`<br>`(;)`<br>`([]…)`</td><td>[precedence](../basics/syntax.md#precedence-and-order-of-evaluation)<br>[list](../basics/syntax.md#list-notation)<br>[table](../basics/syntax.md#table-notation)</td>
-<td class="kx-glyph nowrap">`[;]`</td><td>[expn block](../basics/syntax.md#conditional-evaluation-and-control-statements)<br>[argt list](../basics/syntax.md#bracket-notation)</td>
-<td class="kx-glyph">`{}`<br>`;`</td><td>[lambda](../basics/function-notation.md)<br>separator</td>
-<td class="kx-glyph"><code>&#96;</code><br><code>&#96;:</code></td><td>symbol<br>filepath</td>
-</tr>
-</table>
+<pre markdown="1" class="language-txt" style="font-size: 80%">
+[`   pop stack](../basics/debug.md#debugging)        [:](overloads.md#colon)    [assign](../ref/assign.md)         [0      console](../basics/files.md)     [0:  File Text](file-text.md)
+[.](overloads.md#dot)   [push stack](../basics/debug.md#debugging)       [::](overloads.md#colon-colon)   [identity](identity.md)       [1, -1  stdout](../basics/files.md)      [1:  File Binary](file-binary.md)
+[\x  system cmd](../basics/syscmds.md)            [generic null](identity.md)   [2, -2  stderr](../basics/files.md)      [2:  Dynamic Load](dynamic-load.md)
+[\\   abort](../basics/debug.md#abort)                 [global amend](../basics/function-notation.md#name-scope)   [_n, -n_  handle](../basics/files.md)
+\\\\  quit q                [set view](../learn/views.md)
+
+()     [precedence](../basics/syntax.md#precedence-and-order-of-evaluation)    \[;\]  [expn block](../basics/syntax.md#conditional-evaluation-and-control-statements)     {}  [lambda](../basics/function-notation.md)         \`   symbol
+(;)    [list](../basics/syntax.md#list-notation)               [argt list](../basics/syntax.md#bracket-notation)      ;   separator      \`:  filepath
+(\[\]..) [table](../basics/syntax.md#table-notation)
+</pre>
+
+
 
 <!-- <td class="kx-glyph">`:`</td><td>[Amend](amend.md)<br>[unary form](../basics/exposed-infrastructure.md#unary-forms)</td> -->
 
 ## [Attributes](../basics/syntax.md#attributes)
 
-<pre markdown="1" class="language-txt" style="font-size: 90%">
-s  sorted     u  unique
-p  parted     g  grouped
+<pre markdown="1" class="language-txt">
+**g** grouped     **p**  parted     **s** sorted     **u** unique
 </pre>
 
 :fontawesome-solid-book:
 [Set Attribute](set-attribute.md)
+
 
 ## Command-line options and system commands
 
 <table markdown="1" class="kx-shrunk kx-tight">
 <tr><td>[file](../basics/cmdline.md#file)</td></tr>
 <tr><td>[`\a`](../basics/syscmds.md#a-tables)</td><td>tables</td><td>[`\r`](../basics/syscmds.md#r-rename)</td><td>rename</td></tr>
-<tr><td>[`-b`](../basics/cmdline.md#-b-blocked)</td><td>blocked</td><td>[`-s`](../basics/cmdline.md#-s-slaves) [`\s`](../basics/syscmds.md#s-number-of-slaves)</td><td>slaves</td></tr>
+<tr><td>[`-b`](../basics/cmdline.md#-b-blocked)</td><td>blocked</td><td>[`-s`](../basics/cmdline.md#-s-secondary-processes) [`\s`](../basics/syscmds.md#s-number-of-secondary-processes)</td><td>secondary processes</td></tr>
 <tr><td>[`\b`](../basics/syscmds.md#b-views) [`\B`](../basics/syscmds.md#b-pending-views)</td><td>views</td><td>[`\S`](../basics/syscmds.md#s-random-seed)</td><td>random seed</td></tr>
 <tr><td>[`-c`](../basics/cmdline.md#-c-console-size) [`\c`](../basics/syscmds.md#c-console-size)</td><td>console size</td><td>[`-t`](../basics/cmdline.md#-t-timer-ticks) [`\t`](../basics/syscmds.md#t-timer)</td><td>timer ticks</td></tr>
 <tr><td>[`-C`](../basics/cmdline.md#-c-http-size) [`\C`](../basics/syscmds.md#c-http-size)</td><td>HTTP size</td><td>[`\ts`](../basics/syscmds.md#ts-time-and-space)</td><td>time and space</td></tr>
@@ -149,34 +166,14 @@ p  parted     g  grouped
 <tr><td>[`-r`](../basics/cmdline.md#-r-replicate) [`\r`](../basics/syscmds.md#r-replication-master)</td><td>replicate</td><td>[`\\`](../basics/syscmds.md#quit)</td><td>quit</td></tr>
 </table>
 
-<!-- 
-<pre markdown="1" class="language-txt">
-[file](../basics/cmdline.md#file)
-[`\a`](../basics/syscmds.md#a-tables)       tables                                                       [`\r`](../basics/syscmds.md#r-rename)                                                       rename
-[`-b`](../basics/cmdline.md#-b-blocked)       blocked                                                       [`-s`](../basics/cmdline.md#-s-slaves) [`\s`](../basics/syscmds.md#s-number-of-slaves)                                                       slaves
-[`\b`](../basics/syscmds.md#b-views) [`\B`](../basics/syscmds.md#b-pending-views)    views                                                       [`\S`](../basics/syscmds.md#s-random-seed)                                                       random seed
-[`-c`](../basics/cmdline.md#-c-console-size) [`\c`](../basics/syscmds.md#c-console-size)    console size                                                       [`-t`](../basics/cmdline.md#-t-timer-ticks) [`\t`](../basics/syscmds.md#t-timer)                                                       timer ticks
-[`-C`](../basics/cmdline.md#-c-http-size) [`\C`](../basics/syscmds.md#c-http-size)    HTTP size                                                       [`\ts`](../basics/syscmds.md#ts-time-and-space)                                                       time and space
-[`\cd`](../basics/syscmds.md#cd-change-directory)      change directory                                                       [`-T`](../basics/cmdline.md#-t-timeout) [`\T`](../basics/syscmds.md#t-timeout)                                                       timeout
-[`\d`](../basics/syscmds.md#d-directory)       directory                                                       [`-u`](../basics/cmdline.md#-u-usr-pwd-local) [`-U`](../basics/cmdline.md#-u-usr-pwd) [`\u`](../basics/syscmds.md#u-reload-user-password-file)                                                       usr-pwd
-[`-e`](../basics/cmdline.md#-e-error-traps) [`\e`](../basics/syscmds.md#e-error-trap-clients)    error traps                                                       [`-u`](../basics/cmdline.md#-u-disable-syscmds)                                                       disable syscmds
-[`-E`](../basics/cmdline.md#-e-tls-server-mode) [`\E`](../basics/syscmds.md#e-tls-server-mode)    TLS server mode             [`\v`](../basics/syscmds.md#v-variables)                                                       variables
-[`\f`](../basics/syscmds.md#f-functions)       functions                  [`-w`](../basics/cmdline.md#-w-workspace) [`\w`](../basics/syscmds.md#w-workspace)                                                       memory
-[`-g`](../basics/cmdline.md#-g-garbage-collection) [`\g`](../basics/syscmds.md#g-garbage-collection-mode)    garbage collection         [`-W`](../basics/cmdline.md#-w-start-week) [`\W`](../basics/syscmds.md#w-week-offset)                                                       week offset
-[`\l`](../basics/syscmds.md#l-load-file-or-directory)       load file or directory      [`\x`](../basics/syscmds.md#x-expunge)                                                       expunge
-[`-l`](../basics/cmdline.md#-l-log-updates) [`-L`](../basics/cmdline.md#-l-log-sync)    log sync                                                       [`-z`](../basics/cmdline.md#-z-date-format) [`\z`](../basics/syscmds.md#z-date-parsing)                                                       date format
-[`-o`](../basics/cmdline.md#-o-utc-offset) [`\o`](../basics/syscmds.md#o-offset-from-utc)    UTC offset                                                       [`\1` `\2`](../basics/syscmds.md#1-2-redirect)                                                       redirect
-[`-p`](../basics/cmdline.md#-p-listening-port) [`\p`](../basics/syscmds.md#p-listening-port)    listening port                                                       [`\_`](../basics/syscmds.md#_-hide-q-code)                                                       hide q code
-[`-P`](../basics/cmdline.md#-p-display-precision) [`\P`](../basics/syscmds.md#p-precision)    display precision                                                       [`\`](../basics/syscmds.md#terminate)                                                       terminate
-[`-q`](../basics/cmdline.md#-q-quiet-mode)       quiet mode                                                       [`\`](../basics/syscmds.md#toggle-qk)                                                       toggle q/k
-[`-r`](../basics/cmdline.md#-r-replicate) [`\r`](../basics/syscmds.md#r-replication-master)    replicate                                                       [`\\`](../basics/syscmds.md#quit)                                                       quit
-</pre>
- -->
-:fontawesome-regular-hand-point-right:
+:fontawesome-solid-book:
+[`system`](../ref/system.md)
+<br>
+:fontawesome-solid-book-open:
 [Command-line options](../basics/cmdline.md),
 [System commands](../basics/syscmds.md),
-[OS Commands](../basics/syscmds.md#os-commands),
-[`system`](../ref/system.md)
+[OS commands](../basics/syscmds.md#os-commands)
+
 
 <!--
 ## Environment variables
@@ -205,52 +202,52 @@ q)`VARNAME setenv "NEWVALUE"
 ```
  -->
 
-## Datatypes
-<table class="kx-tight" markdown="1" style="font-size:80%">
-<thead>
-<tr><th>n</th><th>c</th><th>name</th><th>sz</th><th>literal</th><th>null</th><th>inf</th><th>SQL</th><th>Java</th><th>.Net</th></tr>
-</thead>
-<tbody>
-<tr><td class="nowrap">0</td><td>*</td><td>list</td><td/><td/><td/><td/><td/><td/><td/></tr>
-<tr><td class="nowrap">1</td><td>b</td><td>boolean</td><td>1</td><td>`0b`</td><td/><td/><td/><td>Boolean</td><td>boolean</td></tr>
-<tr><td class="nowrap">2</td><td>g</td><td>guid</td><td>16</td><td/><td>`0Ng`</td><td/><td/><td>UUID</td><td>GUID</td></tr>
-<tr><td class="nowrap">4</td><td>x</td><td>byte</td><td>1</td><td>`0x00`</td><td/><td/><td/><td>Byte</td><td>byte</td></tr>
-<tr><td class="nowrap">5</td><td>h</td><td>short</td><td>2</td><td>`0h`</td><td>`0Nh`</td><td>`0Wh`</td><td>smallint</td><td>Short</td><td>int16</td></tr>
-<tr><td class="nowrap">6</td><td>i</td><td>int</td><td>4</td><td>`0i`</td><td>`0Ni`</td><td>`0Wi`</td><td>int</td><td>Integer</td><td>int32</td></tr>
-<tr><td class="nowrap">7</td><td>j</td><td>long</td><td>8</td><td>`0j` or `0`</td><td>`0Nj`<br>or `0N`</td><td>`0Wj`<br>or `0W`</td><td>bigint</td><td>Long</td><td>int64</td></tr>
-<tr><td class="nowrap">8</td><td>e</td><td>real</td><td>4</td><td>`0e`</td><td>`0Ne`</td><td>`0We`</td><td>real</td><td>Float</td><td>single</td></tr>
-<tr><td class="nowrap">9</td><td>f</td><td>float</td><td>8</td><td>`0.0` or `0f`</td><td>`0n`</td><td>`0w`</td><td>float</td><td>Double</td><td>double</td></tr>
-<tr><td class="nowrap">10</td><td>c</td><td>char</td><td>1</td><td>`" "`</td><td>`" "`</td><td/><td/><td>Character</td><td>char</td></tr>
-<tr><td class="nowrap">11</td><td>s</td><td>symbol</td><td>.</td><td>`` ` ``</td><td>`` ` ``</td><td/><td>varchar</td><td>String</td><td>string</td></tr>
-<tr><td class="nowrap">12</td><td>p</td><td>timestamp</td><td>8</td><td>dateDtimespan</td><td>`0Np`</td><td>`0Wp`</td><td/><td>Timestamp</td><td>DateTime (RW)</td></tr>
-<tr><td class="nowrap">13</td><td>m</td><td>month</td><td>4</td><td>`2000.01m`</td><td>`0Nm`</td><td/><td/><td/><td/></tr>
-<tr><td class="nowrap">14</td><td>d</td><td>date</td><td>4</td><td>`2000.01.01`</td><td>`0Nd`</td><td>`0Wd`</td><td>date</td><td>Date</td><td/></tr>
-<tr><td class="nowrap">15</td><td>z</td><td>datetime</td><td>8</td><td>dateTtime</td><td>`0Nz`</td><td>`0wz`</td><td>timestamp</td><td>Timestamp</td><td>DateTime (RO)</td></tr>
-<tr><td class="nowrap">16</td><td>n</td><td>timespan</td><td>8</td><td>`00:00:00.000000000`</td><td>`0Nn`</td><td>`0Wn`</td><td/><td>Timespan</td><td>TimeSpan</td></tr>
-<tr><td class="nowrap">17</td><td>u</td><td>minute</td><td>4</td><td>`00:00`</td><td>`0Nu`</td><td>`0Wu`</td><td/><td/><td/></tr>
-<tr><td class="nowrap">18</td><td>v</td><td>second</td><td>4</td><td>`00:00:00`</td><td>`0Nv`</td><td>`0Nv`</td><td/><td/><td/></tr>
-<tr><td class="nowrap">19</td><td>t</td><td>time</td><td>4</td><td>`00:00:00.000`</td><td>`0Nt`</td><td>`0Wt`</td><td>time</td><td>Time</td><td>TimeSpan</td></tr>
-<tr><td class="nowrap" colspan="2">20-76</td><td>enums</td><td/><td/><td/><td/><td/><td/></tr>
-<tr><td class="nowrap">77</td><td/><td colspan="7">anymap</td><td/><td/><td/></tr>
-<tr><td class="nowrap" colspan="2">78-96</td><td colspan="7">77+t – mapped list of lists of type t</td><td/><td/><td/></tr>
-<tr><td class="nowrap">97</td><td/><td colspan="7">nested sym enum</td><td/><td/><td/></tr>
-<tr><td class="nowrap">98</td><td/><td colspan="7">table</td><td/><td/><td/></tr>
-<tr><td class="nowrap">99</td><td/><td colspan="7">dictionary</td><td/><td/><td/></tr>
-<tr><td class="nowrap">100</td><td/><td colspan="7">[lambda](../basics/function-notation.md)</td><td/><td/><td/></tr>
-<tr><td class="nowrap">101</td><td/><td colspan="7">unary primitive</td><td/><td/><td/></tr>
-<tr><td class="nowrap">102</td><td/><td colspan="7">operator</td><td/><td/><td/></tr>
-<tr><td class="nowrap">103</td><td/><td colspan="7">[iterator](iterators.md)</td><td/><td/><td/></tr>
-<tr><td class="nowrap">104</td><td/><td colspan="7">projection</td><td/><td/><td/></tr>
-<tr><td class="nowrap">105</td><td/><td colspan="7">[composition](compose.md)</td><td/><td/><td/></tr>
-<tr><td class="nowrap">106</td><td/><td colspan="7">[`v'`](maps.md#each)</td><td/><td/><td/></tr>
-<tr><td class="nowrap">107</td><td/><td colspan="7">[`v/`](accumulators.md)</td><td/><td/><td/></tr>
-<tr><td class="nowrap">108</td><td/><td colspan="7">[`v\`](accumulators.md)</td><td/><td/><td/></tr>
-<tr><td class="nowrap">109</td><td/><td colspan="7">[`v':`](maps.md)</td><td/><td/><td/></tr>
-<tr><td class="nowrap">110</td><td/><td colspan="7">[`v/:`](maps.md#each-left-and-each-right)</td><td/><td/><td/></tr>
-<tr><td class="nowrap">111</td><td/><td colspan="7">[`v\:`](maps.md#each-left-and-each-right)</td><td/><td/><td/></tr>
-<tr><td class="nowrap">112</td><td/><td colspan="7">dynamic load</td><td/><td/><td/></tr>
-</tbody>
-</table>
+## [Datatypes](../basics/datatypes.md)
+
+<pre markdown="1" class="language-txt" style="font-size:80%">
+n   c   name      sz  literal            null inf SQL       Java      .Net
+\------------------------------------------------------------------------------------
+0   *   list
+1   b   boolean   1   0b                                    Boolean   boolean
+2   g   guid      16                     0Ng                UUID      GUID
+4   x   byte      1   0x00                                  Byte      byte
+5   h   short     2   0h                 0Nh  0Wh smallint  Short     int16
+6   i   int       4   0i                 0Ni  0Wi int       Integer   int32
+7   j   long      8   0j                 0Nj  0Wj bigint    Long      int64
+                      0                  0N   0W
+8   e   real      4   0e                 0Ne  0We real      Float     single
+9   f   float     8   0.0                0n   0w  float     Double    double
+                      0f                 0Nf
+10  c   char      1   " "                " "                Character char
+11  s   symbol        \`                  \`        varchar   String    string
+12  p   timestamp 8   dateDtimespan      0Np  0Wp           Timestamp DateTime (RW)
+13  m   month     4   2000.01m           0Nm
+14  d   date      4   2000.01.01         0Nd  0Wd date      Date
+15  z   datetime  8   dateTtime          0Nz  0wz timestamp Timestamp DateTime (RO)
+16  n   timespan  8   00:00:00.000000000 0Nn  0Wn           Timespan  TimeSpan
+17  u   minute    4   00:00              0Nu  0Wu
+18  v   second    4   00:00:00           0Nv  0Nv
+19  t   time      4   00:00:00.000       0Nt  0Wt time      Time      TimeSpan
+20-76   enums
+77      anymap
+78-96   77+t – mapped list of lists of type t
+97      nested sym enum
+98      table
+99      dictionary
+100     [lambda](../basics/function-notation.md)
+101     unary primitive
+102     operator
+103     [iterator](../ref/iterators.md)
+104     [projection](../basics/application.md#projection)
+105     [composition](../ref/compose.md)
+106     [f'](../ref/maps.md#each)
+107     [f/](../ref/accumulators.md)
+108     [f\\](../ref/accumulators.md)
+109     [f':](../ref/maps.md)
+110     [f/:](../ref/maps.md#each-left-and-each-right)
+111     [f\\:](../ref/maps.md#each-left-and-each-right)
+112     [dynamic load](../ref/dynamic-load.md)
+</pre>
 
 _n_: short int returned by [`type`](type.md) and used for [casting](../basics/casting.md), e.g. `9h$3`
 <br>
@@ -277,39 +274,39 @@ time.(minute second mm ss)
 milliseconds: time mod 1000
 ```
 
-## Namespaces
 
+## Namespaces
 
 ### `.h`
 
 Markup output for HTTP
 
 <pre markdown="1" class="language-txt" style="font-size: 80%">
-[`.h.br`](doth.md#hbr-linebreak)      linebreak                [`.h.cd`](doth.md#hcd-csv-from-data)      CSV from data
-[`.h.code`](doth.md#hcode-code-after-tab)    code after Tab           [`.h.d`](doth.md#hd-delimiter)       delimiter
-[`.h.fram`](doth.md#hfram-frame)    frame                    [`.h.ed`](doth.md#hed-excel-from-data)      Excel from data
-[`.h.ha`](doth.md#hha-anchor)      anchor                   [`.h.edsn`](doth.md#hedsn-excel-from-tables)    Excel from tables
-[`.h.hb`](doth.md#hhb-anchor-target)      anchor target            [`.h.hc`](doth.md#hhc-escape-lt)      escape lt
-[`.h.ht`](doth.md#hht-marqdown-to-html)      Marqdown to HTML         [`.h.hr`](doth.md#hhr-horizontal-rule)      horizontal rule
-[`.h.hta`](doth.md#hhta-start-tag)     start tag                [`.h.iso8601`](doth.md#hiso8601-iso-timestamp) ISO timestamp
-[`.h.htac`](doth.md#hhtac-element)    element                  [`.h.jx`](doth.md#hjx-table)      table
-[`.h.htc`](doth.md#hhtc-element)     element                  [`.h.td`](doth.md#htd-tsv-from-data)      TSV from data
-[`.h.html`](doth.md#hhtml-document)    document                 [`.h.tx`](doth.md#htx-filetypes)      filetypes
-[`.h.http`](doth.md#hhttp-hyperlinks)    hyperlinks               [`.h.xd`](doth.md#hxd-xml)      XML
-[`.h.nbr`](doth.md#hnbr-no-break)     no break                 [`.h.xs`](doth.md#hxs-xml-escape)      XML escape
-[`.h.pre`](doth.md#hpre-pre)     pre                      [`.h.xt`](doth.md#hxt-json)      JSON
-[`.h.text`](doth.md#htext-paragraphs)    paragraphs
-[`.h.xmp`](doth.md#hxmp-xmp)     XMP
+[.h.br](doth.md#hbr-linebreak)      linebreak                [.h.cd](doth.md#hcd-csv-from-data)      CSV from data
+[.h.code](doth.md#hcode-code-after-tab)    code after Tab           [.h.d](doth.md#hd-delimiter)       delimiter
+[.h.fram](doth.md#hfram-frame)    frame                    [.h.ed](doth.md#hed-excel-from-data)      Excel from data
+[.h.ha](doth.md#hha-anchor)      anchor                   [.h.edsn](doth.md#hedsn-excel-from-tables)    Excel from tables
+[.h.hb](doth.md#hhb-anchor-target)      anchor target            [.h.hc](doth.md#hhc-escape-lt)      escape lt
+[.h.ht](doth.md#hht-marqdown-to-html)      Marqdown to HTML         [.h.hr](doth.md#hhr-horizontal-rule)      horizontal rule
+[.h.hta](doth.md#hhta-start-tag)     start tag                [.h.iso8601](doth.md#hiso8601-iso-timestamp) ISO timestamp
+[.h.htac](doth.md#hhtac-element)    element                  [.h.jx](doth.md#hjx-table)      table
+[.h.htc](doth.md#hhtc-element)     element                  [.h.td](doth.md#htd-tsv-from-data)      TSV from data
+[.h.html](doth.md#hhtml-document)    document                 [.h.tx](doth.md#htx-filetypes)      filetypes
+[.h.http](doth.md#hhttp-hyperlinks)    hyperlinks               [.h.xd](doth.md#hxd-xml)      XML
+[.h.nbr](doth.md#hnbr-no-break)     no break                 [.h.xs](doth.md#hxs-xml-escape)      XML escape
+[.h.pre](doth.md#hpre-pre)     pre                      [.h.xt](doth.md#hxt-json)      JSON
+[.h.text](doth.md#htext-paragraphs)    paragraphs
+[.h.xmp](doth.md#hxmp-xmp)     XMP
 
-[`.h.he`](doth.md#hhe-http-400)      HTTP 400                 [`.h.c0`](doth.md#hc0-web-color)    web color
-[`.h.hn`](doth.md#hhn-http-response)      HTTP response            [`.h.c1`](doth.md#hc1-web-color)    web color
-[`.h.hp`](doth.md#hhp-http-response-pre)      HTTP response pre        [`.h.HOME`](doth.md#hhome-webserver-root)  webserver root
-[`.h.hy`](doth.md#hhy-http-response-content)      HTTP response content    [`.h.logo`](doth.md#hlogo-kx-logo)  Kx logo
-                                    [`.h.sa`](doth.md#hsa-anchor-style)    anchor style
-[`.h.hu`](doth.md#hhu-uri-escape)      URI escape               [`.h.sb`](doth.md#hsb-body-style)    body style
-[`.h.hug`](doth.md#hhug-uri-map)     URI map                  [`.h.ty`](doth.md#hty-mime-types)    MIME types
-[`.h.sc`](doth.md#hsc-uri-safe)      URI-safe                 [`.h.val`](doth.md#hval-value)   value
-[`.h.uh`](doth.md#huh-uri-unescape)      URI unescape
+[.h.he](doth.md#hhe-http-400)      HTTP 400                 [.h.c0](doth.md#hc0-web-color)    web color
+[.h.hn](doth.md#hhn-http-response)      HTTP response            [.h.c1](doth.md#hc1-web-color)    web color
+[.h.hp](doth.md#hhp-http-response-pre)      HTTP response pre        [.h.HOME](doth.md#hhome-webserver-root)  webserver root
+[.h.hy](doth.md#hhy-http-response-content)      HTTP response content    [.h.logo](doth.md#hlogo-kx-logo)  Kx logo
+                                    [.h.sa](doth.md#hsa-anchor-style)    anchor style
+[.h.hu](doth.md#hhu-uri-escape)      URI escape               [.h.sb](doth.md#hsb-body-style)    body style
+[.h.hug](doth.md#hhug-uri-map)     URI map                  [.h.ty](doth.md#hty-mime-types)    MIME types
+[.h.sc](doth.md#hsc-uri-safe)      URI-safe                 [.h.val](doth.md#hval-value)   value
+[.h.uh](doth.md#huh-uri-unescape)      URI unescape
 </pre>
 
 
@@ -334,53 +331,55 @@ De/serialize as JSON
 Utilities: general, environment, IPC, datatype, database, partitioned database state, segmented database state, file I/O
 
 <pre markdown="1" class="language-txt" style="font-size: 80%">
-General                               Datatype
-[.Q.a        lowercase alphabet](dotq.md#qa-lower-case-alphabet)        [.Q.btoa   b64 encode](dotq.md#qbtoa-b64-encode)
-[.Q.A        uppercase alphabet](dotq.md#qa-upper-case-alphabet)        [.Q.j10    encode binhex](dotq.md#qj10-encode-binhex)
-[.Q.addmonths](dotq.md#qaddmonths)                          [.Q.j12    encode base64](dotq.md#qj12-encode-base64)
-[.Q.bt       backtrace](dotq.md#qbt-backtrace)                 [.Q.M      long infinity](dotq.md#qm-long-infinity)
-[.Q.dd       join symbols](dotq.md#qdd-join-symbols)              [.Q.ty     type](dotq.md#qty-type)
-[.Q.def](dotq.md#qdef)                                [.Q.x10    decode binhex](dotq.md#qx10-decode-binhex)
-[.Q.f        format](dotq.md#qf-format)                    [.Q.x12    decode base64](dotq.md#qx12-decode-base64)
-[.Q.fc       parallel on cut](dotq.md#qfc-parallel-on-cut)
-[.Q.ff       append columns](dotq.md#qff-append-columns)            Database
-[.Q.fmt      format](dotq.md#qfmt-format)                    [.Q.chk    fill HDB](dotq.md#qchk-fill-hdb)
-[.Q.ft       apply simple](dotq.md#qft-apply-simple)              [.Q.dpft   save table](dotq.md#qdpft-save-table)
-[.Q.fu       apply unique](dotq.md#qfu-apply-unique)              [.Q.dpfts  save table with sym](dotq.md#qdpfts-save-table-with-symtable)
-[.Q.gc       garbage collect](dotq.md#qgc-garbage-collect)           [.Q.dsftg  load process save](dotq.md#qdsftg-load-process-save)
-[.Q.id       sanitize](dotq.md#qid-sanitize)                  [.Q.en     enumerate varchar cols](dotq.md#qen-enumerate-varchar-cols)
-[.Q.qt       is table](dotq.md#qqt-is-table)                  [.Q.ens    enumerate against domain](dotq.md#qens-enumerate-against-domain)
-[.Q.res      keywords](dotq.md#qres-keywords)                  [.Q.fk     foreign key](dotq.md#qfk-foreign-key)
-[.Q.s        plain text](dotq.md#qs-plain-text)                [.Q.hdpf   save tables](dotq.md#qhdpf-save-tables)
-[.Q.s1       string representation](dotq.md#qs1-string-representation)     [.Q.qt     is table](dotq.md#qqt-is-table)
-[.Q.sbt      string backtrace](dotq.md#qsbt-string-backtrace)          [.Q.qp     is partitioned](dotq.md#qqp-is-partitioned)
-[.Q.sha1     SHA-1 encode](dotq.md#qsha1-sha-1-encode)
-[.Q.trp      extend trap](dotq.md#qtrp-extend-trap)               Partitioned database state
-[.Q.ts       time and space](dotq.md#qts-time-and-space)            [.Q.bv     build vp](dotq.md#qbv-build-vp)
-[.Q.u        date based](dotq.md#qu-date-based)                [.Q.cn     count partitioned table](dotq.md#qcn-count-partitioned-table)
-[.Q.V        table to dict](dotq.md#qv-table-to-dict)             [.Q.D      partitions](dotq.md#qd-partitions)
-[.Q.v        value](dotq.md#qv-value)                     [.Q.ind    partitioned index](dotq.md#qind-partitioned-index)
-[.Q.view     subview](dotq.md#qview-subview)                   [.Q.MAP    maps partitions](dotq.md#qmap-maps-partitions)
-                                      [.Q.par    locate partition](dotq.md#qpar-locate-partition)
-Environment                           [.Q.PD     partition locations](dotq.md#qpd-partition-locations)
-[.Q.k        version](dotq.md#qk-version)                   [.Q.pd     modified partition locns](dotq.md#qpd-modified-partition-locations)
-[.Q.opt      command parameters](dotq.md#qopt-command-parameters)        [.Q.pf     partition field](dotq.md#qpf-partition-field)
-[.Q.w        memory stats](dotq.md#qw-memory-stats)              [.Q.pn     partition counts](dotq.md#qpn-partition-counts)
-[.Q.x        non-command parameters](dotq.md#qx-non-command-parameters)    [.Q.qp     is partitioned](dotq.md#qqp-is-partitioned)
-                                      [.Q.pt     partitioned tables](dotq.md#qpt-partitioned-tables)
-IPC                                   [.Q.PV     partition values](dotq.md#qpv-partition-values)
-[.Q.addr     IP address](dotq.md#qaddr-ip-address)                [.Q.pv     modified partition values](dotq.md#qpv-modified-partition-values)
-[.Q.fps      streaming algorithm](dotq.md#qfps-streaming-algorithm)       [.Q.vp     missing partitions](dotq.md#qvp-missing-partitions)
-[.Q.fs       streaming algorithm](dotq.md#qfs-streaming-algorithm)
-[.Q.fsn      streaming algorithm](dotq.md#qfsn-streaming-algorithm)       Segmented database state
-[.Q.hg       HTTP get](dotq.md#qhg-http-get)                  [.Q.D      partitions](dotq.md#qd-partitions)
-[.Q.host     hostname](dotq.md#qhost-hostname)                  [.Q.P      segments](dotq.md#qp-segments)
-[.Q.hp       HTTP post](dotq.md#qhp-http-post)                 [.Q.u      date based](dotq.md#qu-date-based)
-[.Q.l        load](dotq.md#ql-load)
+General                           Datatype
+ [addmonths](dotq.md#qaddmonths)                         [btoa   b64 encode](dotq.md#qbtoa-b64-encode)
+ [bt       backtrace](dotq.md#qbt-backtrace)                [j10    encode binhex](dotq.md#qj10-encode-binhex)
+ [dd       join symbols](dotq.md#qdd-join-symbols)             [j12    encode base 36](dotq.md#qj12-encode-base-36)
+ [def](dotq.md#qdef)                               [M      long infinity](dotq.md#qm-long-infinity)
+ [f        format](dotq.md#qf-format)                   [ty     type](dotq.md#qty-type)
+ [ff       append columns](dotq.md#qff-append-columns)           [x10    decode binhex](dotq.md#qx10-decode-binhex)
+ [fmt      format](dotq.md#qfmt-format)                   [x12    decode base 36](dotq.md#qx12-decode-base-36)
+ [ft       apply simple](dotq.md#qft-apply-simple)
+ [fu       apply unique](dotq.md#qfu-apply-unique)            Database
+ [gc       garbage collect](dotq.md#qgc-garbage-collect)          [chk    fill HDB](dotq.md#qchk-fill-hdb)
+ [gz       GZip](dotq.md#qgz-gzip)                     [dpft   save table](dotq.md#qdpft-save-table)
+ [id       sanitize](dotq.md#qid-sanitize)                 [dpfts  save table with sym](dotq.md#qdpfts-save-table-with-symtable)
+ [qt       is table](dotq.md#qqt-is-table)                 [dsftg  load process save](dotq.md#qdsftg-load-process-save)
+ [res      keywords](dotq.md#qres-keywords)                 [en     enumerate varchar cols](dotq.md#qen-enumerate-varchar-cols)
+ [s        plain text](dotq.md#qs-plain-text)               [ens    enumerate against domain](dotq.md#qens-enumerate-against-domain)
+ [s1       string representation](dotq.md#qs1-string-representation)    [fk     foreign key](dotq.md#qfk-foreign-key)
+ [sbt      string backtrace](dotq.md#qsbt-string-backtrace)         [hdpf   save tables](dotq.md#qhdpf-save-tables)
+ [trp      extend trap](dotq.md#qtrp-extend-trap)              [qt     is table](dotq.md#qqt-is-table)
+ [ts       time and space](dotq.md#qts-time-and-space)           [qp     is partitioned](dotq.md#qqp-is-partitioned)
+ [u        date based](dotq.md#qu-date-based)
+ [V        table to dict](dotq.md#qv-table-to-dict)
+ [v        value](dotq.md#qv-value)                   Partitioned database state
+ [view     subview](dotq.md#qview-subview)                  [bv     build vp](dotq.md#qbv-build-vp)
+                                   [ind    partitioned index](dotq.md#qind-partitioned-index)
+Constants                          [cn     count partitioned table](dotq.md#qcn-count-partitioned-table)
+ [A        uppercase alphabet](dotq.md#qa-upper-case-alphabet)       [MAP    maps partitions](dotq.md#qmap-maps-partitions)
+ [a        lowercase alphabet](dotq.md#qa-lower-case-alphabet)       [D      partitions](dotq.md#qd-partitions)
+ [b6       bicameral alphanums](dotq.md#qb6-bicameral-alphanums)      [par    locate partition](dotq.md#qpar-locate-partition)
+ [nA       alphanums](dotq.md#qna-alphanums)                [PD     partition locations](dotq.md#qpd-partition-locations)
+                                   [pd     modified partition locns](dotq.md#qpd-modified-partition-locations)
+Environment                        [pf     partition field](dotq.md#qpf-partition-field)
+ [k        version](dotq.md#qk-version)                  [pn     partition counts](dotq.md#qpn-partition-counts)
+ [opt      command parameters](dotq.md#qopt-command-parameters)       [qp     is partitioned](dotq.md#qqp-is-partitioned)
+ [w        memory stats](dotq.md#qw-memory-stats)             [pt     partitioned tables](dotq.md#qpt-partitioned-tables)
+ [x        non-command parameters](dotq.md#qx-non-command-parameters)   [PV     partition values](dotq.md#qpv-partition-values)
+                                   [pv     modified partition values](dotq.md#qpv-modified-partition-values)
+IPC                                [vp     missing partitions](dotq.md#qvp-missing-partitions)
+ [addr     IP address](dotq.md#qaddr-ip-address)
+ [fps fpn  streaming algorithm](dotq.md#qfps-streaming-algorithm)     Segmented database state
+ [fs  fsn  streaming algorithm](dotq.md#qfsn-streaming-algorithm)      [D      partitions](dotq.md#qd-partitions)
+ [hg       HTTP get](dotq.md#qhg-http-get)                 [P      segments](dotq.md#qp-segments)
+ [host     hostname](dotq.md#qhost-hostname)                 [u      date based](dotq.md#qu-date-based)
+ [hp       HTTP post](dotq.md#qhp-http-post)
+ [l        load](dotq.md#ql-load)
 
-File I/O
-[.Q.Cf       create empty nested char file](dotq.md#qcf-create-empty-nested-char-file)
-[.Q.Xf       create file](dotq.md#qxf-create-file)
+ File I/O
+ [Cf       create empty nested char file](dotq.md#qcf-create-empty-nested-char-file)
+ [Xf       create file](dotq.md#qxf-create-file)
 </pre>
 
 
