@@ -36,3 +36,12 @@ For installing Protobufkdb, see the page below.
 :fontawesome-brands-github: 
 [Install guide](https://github.com/KxSystems/protobufkdb#installation)
 
+## Status
+
+The interface is currently available under an Apache 2.0 licence and is supported on a best effort basis by the Fusion team. This interface is currently in active development, with additional functionality to be released on an ongoing basis.
+
+:fontawesome-brands-github: 
+[Issues and feature requests](https://github.com/KxSystems/protobufkdb/issues) 
+<br>
+:fontawesome-brands-github: 
+[Guide to contributing](https://github.com/KxSystems/protobufkdb/blob/master/CONTRIBUTING.md)
