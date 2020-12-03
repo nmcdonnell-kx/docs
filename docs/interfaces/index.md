@@ -26,7 +26,7 @@ The [Fusion interfaces](fusion.md) to kdb+ are
 <!-- -   written from the perspective of the ‘remote’ technology: e.g. a Java interface that is intelligible to a Java programmer -->
 
 <table class="kx-compact" markdown="1">
-<tr><td>FFI</td><td>[Using foreign functions with kdb+](ffi.md)</td></tr>
+<tr><td>FFI</td><td>[Using foreign functions with kdb+](ffi/index.md)</td></tr>
 <tr><td>HDF5</td><td>[Handling HDF5 data with kdb+](hdf5/index.md)</td></tr>
 <tr><td>Java</td><td> [Java client for kdb+](java-client-for-q.md)</td>
 <tr><td>Jupyter</td><td>[Jupyter kernel for kdb+](../ml/jupyterq/index.md) [:fontawesome-brands-superpowers:](../ml/index.md "Machine learning") ==new==</td>
@@ -41,6 +41,7 @@ The [Fusion interfaces](fusion.md) to kdb+ are
     </td></tr>
 <tr><td>R</td><td>[Using R with kdb+](r/index.md)</td>
 <tr><td>Solace</td><td>[Interface to Solace PubSub+ broker](solace/index.md)</td></tr>
+<tr><td>Telegraf</td><td>[Telegraf line prtocol message handler](telegraf/index.md)</td></tr>
 </tr>
 </table>
 

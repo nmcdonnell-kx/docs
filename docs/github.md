@@ -29,6 +29,12 @@ The Fusion interface libraries are maintained and supported by Kx.
 
 <table class="kx-compact" markdown="1">
 <tr>
+	<td class="nowrap">[FFI](https://github.com/KxSystems/ffi)</td>
+	<td>
+		[:fontawesome-solid-share-alt:](interfaces/ffi/index.md "Using foreign functions with kdb+")
+	</td>
+</tr>
+<tr>
 	<td class="nowrap">[embedPy](https://github.com/KxSystems/embedPy)</td>
 	<td>
 		[call Python from q](ml/embedpy/index.md) 
@@ -95,6 +101,12 @@ The Fusion interface libraries are maintained and supported by Kx.
 	<td class="nowrap">[solace](https://github.com/KxSystems/solace)</td>
 	<td>
 		[Solace pub/sub brokers](interfaces/solace/index.md)
+	</td>
+</tr>
+<tr>
+	<td class="nowrap">[Telegraf](https://github.com/KxSystems/telegraf_kdb_handler)</td>
+	<td>
+		[:fontawesome-solid-share-alt:](interfaces/telegraf/index.md "Telegraf line protocol message handler")
 	</td>
 </tr>
 </table>
