@@ -20,7 +20,7 @@ ffikdb is an extension to kdb+ for loading and calling dynamic libraries using p
 
 !!! warning "Know what you are doing"
 
-    You don't need to write C code, but you do need to know what you are doing. You can easily crash the kdb+ process or corrupt in-memory data structures with no hope of finding out what happened. 
+    You don't need to write C code, but you do need to know what you are doing. You can easily crash the kdb+ process or corrupt in-memory data structures with no hope of finding out what happened. For example, when q callback function is passed to foreign function and the q function failed, user might be able to see error message in console but as the foreign function cannot handle q error, the execution crashes and leads to entire application crash. Or if user passed valid but wrong tye characters to q callback, interna conversion failure of q cannot be handed and application crashes without any error message.
 
     No support is offered for crashes caused by use of this library.
 
