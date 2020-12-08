@@ -16,35 +16,47 @@ As outlined in the overview for this API, the kdb+/Kafka interface is a thin wra
 
 The following functions are those exposed within the `.kfk` namespace allowing users to interact with Kafka from a kdb+ instance.
 
-```txt
+<pre markdown="1" class="language-txt">
 Kafka interface functionality
   // client functionality 
-  .kfk.ClientDel               Close consumer and destroy Kafka handle to client
-  .kfk.ClientName              Kafka handle name
-  .kfk.ClientMemberId          Client's broker assigned member ID
-  .kfk.Consumer                Create a consumer according to defined configuration
-  .kfk.Producer                Create a producer according to defined configuration
-  .kfk.SetLoggerLevel          Set the maximum logging level for a client
+  [.kfk.ClientDel](#kfkclientdel)               Close consumer and destroy Kafka handle to client
+  [.kfk.ClientName](#kfkclientname)              Kafka handle name
+  [.kfk.ClientMemberId](#kfkclientmemberid)          Client's broker assigned member ID
+  [.kfk.Consumer](#kfkconsumer)                Create a consumer according to defined configuration
+  [.kfk.Producer](#kfkproducer)                Create a producer according to defined configuration
+  [.kfk.SetLoggerLevel](#kfksetloggerlevel)          Set the maximum logging level for a client
 
   // offset based functionality
-  .kfk.CommitOffsets           Commit offsets on broker for provided partition list
-  .kfk.PositionOffsets         Current offsets for topics and partitions
-  .kfk.CommittedOffsets        Retrieve committed offsets for topics and partitions
-  .kfk.AssignOffsets           Assignment of partitions to consume
+  [.kfk.CommitOffsets](#kfkcommitoffsets)           Commit offsets on broker for provided partition list
+  [.kfk.PositionOffsets](#kfkpositionoffsets)         Current offsets for topics and partitions
+  [.kfk.CommittedOffsets](#kfkcommittedoffsets)        Retrieve committed offsets for topics and partitions
+  [.kfk.AssignOffsets](#kfkassignoffsets)           Assignment of partitions to consume
 
-  // Publising functionality
-  .kfk.BatchPub                Publish a batch of data to a unique or respective topic
-  .kfk.Pub                     Publish a message to a defined topic
-  .kfk.PubWithHeaders          Publish a message to a defined topic with a header 
-  .kfk.OutQLen                 Current out queue length
+  // publising functionality
+  [.kfk.BatchPub](#kfkbatchpub)                Publish a batch of data to a defined topic
+  [.kfk.Pub](#kfkpub)                     Publish a message to a defined topic
+  [.kfk.PubWithHeaders](#kfkpubwithheaders)          Publish a message to a defined topic with a header 
+  [.kfk.OutQLen](#kfkoutqlen)                 Current out queue length
 
-  // Subscription functionality
-  .kfk.Sub                     Subscribe to a defined topic
-  .kfk.Subscribe               Subscribe from a consumer to a topic with a specified callback
-  .kfk.Subscription            Most recent topic subscription
-  .kfk.Unsub                   Unsubscribe from a topic
-  .kfk.MaxMsgsPerPoll          Set the maximum number of messages per poll
-  .kfk.Poll                    Manually poll the feed
+  // subscription functionality
+  [.kfk.Sub](#kfksub)                     Subscribe to a defined topic
+  [.kfk.Subscribe](#kfksubscribe)               Subscribe from a consumer to a topic with a specified callback
+  [.kfk.Subscription](#kfksubscription)            Most recent topic subscription
+  [.kfk.Unsub](#kfkunsub)                   Unsubscribe from a topic
+  [.kfk.MaxMsgsPerPoll](#kfkmaxmsgsperpoll)          Set the maximum number of messages per poll
+  [.kfk.Poll](#kfkpoll)                    Manually poll the feed
+
+  // assignment functionality
+  [.kfk.Assign](#kfkassign)                  Create a new assignment from which data will be consumed
+  [.kfk.AssignAdd](#kfkassignadd)               Add new assignments to the current assignment
+  [.kfk.AssignDel](#kfkassigndel)               Remove topic partition assignments from the current assignments
+  [.kfk.Assignment](#kfkassignment)              Return the current assignment 
+
+  // Assignment functionality
+  .kfk.Assign                  Create a new assignment from which data will be consumed
+  .kfk.AssignAdd               Add new assignments to the current assignment
+  .kfk.AssignDel               Remove topic partition assignments from the current assignments
+  .kfk.Assignment              Return the current assignment 
 
   // Assignment functionality
   .kfk.Assign                  Create a new assignment from which data will be consumed
@@ -53,20 +65,21 @@ Kafka interface functionality
   .kfk.Assignment              Return the current assignment 
 
   // system infomation
-  .kfk.Metadata                Broker Metadata
-  .kfk.Version                 Librdkafka version
-  .kfk.VersionSym              Human readable Librdkafka version
-  .kfk.ThreadCount             Number of threads being used by librdkafka
+  [.kfk.Metadata](#kfkmetadata)                Broker Metadata
+  [.kfk.Version](#kfkversion)                 Librdkafka version
+  [.kfk.VersionSym](#kfkversionsym)              Human readable Librdkafka version
+  [.kfk.ThreadCount](#kfkthreadcount)             Number of threads being used by librdkafka
 
   // topic functionality
-  .kfk.Topic                   Create a topic on which messages can be sent
-  .kfk.TopicDel                Delete a defined topic
-  .kfk.TopicName               Topic Name
+  [.kfk.Topic](#kfktopic)                   Create a topic on which messages can be sent
+  [.kfk.TopicDel](#kfktopicdel)                Delete a defined topic
+  [.kfk.TopicName](#kfktopicname)               Topic Name
 
   // callback modifications
-  .kfk.errcbreg                Register an error callback associated with a specific client
-  .kfk.throttlecbreg           Register a throttle callback associated with a specific client
-```
+  [.kfk.errcbreg](#kfkerrcbreg)                Register an error callback associated with a specific client
+  [.kfk.throttlecbreg](#kfkthrottlecbreg)           Register a throttle callback associated with a specific client
+</pre>
+
 
 For simplicity in each of the examples below it should be assumed that the user’s system is configured correctly, unless otherwise specified. For example:
 
@@ -394,7 +407,8 @@ Where
 -   `tpcid` is the integer of the topic to be published on
 -   `partid` is an integer denoting the target partition
 -   `data` is a string which incorporates the payload to be published
--   `keys` is a key as a string to be passed with the message to the partition
+-   `keys` is a string to be passed with the message to the partition denoting the message key
+
 
 returns a null on successful publication.
 
@@ -418,7 +432,7 @@ Where
 -   `tpcid` is the integer of the topic to be published on
 -   `partid` is an integer denoting the target partition
 -   `data` is a string which incorporates the payload to be published
--   `keys` is a key as a string to be passed with the message to the partition
+-   `keys` is a string to be passed with the message to the partition denoting the message key
 -   `hdrs` is a dictionary mapping a header name as a symbol to a byte array or string
 
 returns a null on successful publication, errors if version conditions not met
@@ -511,7 +525,8 @@ Where
 -   `clid` is an integer value denoting the client id
 -   `topic` is a symbol denoting the topic being subscribed to
 -   `partid` is an enlisted integer denoting the target partition
--   `callback` is a callback function defined related to the subscribed topic
+-   `callback` is a callback function defined related to the subscribed topic. This function should take as input a single parameter
+    - `msg` the content of a message received from any calls to the subscription on the topic.
 
 returns a null on successful execution and augments `.kfk.consumetopic` with a new callback function for the consumer.
 
@@ -624,12 +639,13 @@ q).kfk.Poll[0i;100;100]
 
 _Create a new assignment from which data is to be consumed_
 
-Syntax: `.kfk.Assign[x;y]`
+Syntax: `.kfk.Assign[clid;tpc_part]`
 
 Where
 
--   `x` Integer denoting the client id which the assignment is to applied
--   `y` Dictionary mapping topic name as a symbol to partition as a long to be assigned
+-   `clid` is an integer denoting the client id which the assignment is to applied
+-   `tpc_part` is a dictionary mapping topic name as a symbol to partition as a long which is to be assigned
+
 
 returns a null on successful execution
 
@@ -645,8 +661,8 @@ Syntax: `.kfk.Assign[clid;tpc_part]`
 
 Where
 
--   `clid` Integer denoting the client id which the assignment is to applied
--   `tpc_part` Dictionary mapping topic name as a symbol to partition as a long to be assigned
+-   `clid` is an integer denoting the client id which the assignment is to applied
+-   `tpc_part` is a dictionary mapping topic name as a symbol to partition as a long which is to be added to the current assignment
 
 returns a null on successful execution, will display inappropriate assignments if necessary
 
@@ -833,8 +849,9 @@ Syntax: `.kfk.Topic[id;topic;cfg]`
 Where
 
 -   `id` is an integer denoting the consumer/producer on which the topic is produced
--   `topic` is the desired topic name
--   `cfg` is a user-defined topic configuration default `()!()`
+-   `topic` is the desired topic name to be assigned to the topic as a symbol
+-   `cfg` is a dictionary denoting a user-defined topic configuration, to use default set this to `()!()`
+
 
 returns an integer denoting the value given to the assigned topic.
 
@@ -956,7 +973,8 @@ tered
     -   `cid`: integer denoting a client ID to which this callback is called
     -   `bname`: string representing a broker name
     -   `bid`: integer denoting a broker ID
-    -   `throttle_time`: integer milliseconds expressing a throttle time
+    -   `throttle_time`: integer denoting the accepted throttle time in milliseconds
+
 
 returns a null on successful execution and augments the dictionary `.kfk.errclient` mapping client id t
 o callback

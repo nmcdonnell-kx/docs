@@ -446,7 +446,10 @@ nav:
     - Index: interfaces/index.md
     - Fusion for kdb+:
       - Overview: interfaces/fusion.md
-      - FFI: interfaces/ffi.md
+      - FFI:
+        - Overview: interfaces/ffi/index.md
+        - Reference: interfaces/ffi/reference.md
+        - Examples: interfaces/ffi/examples.md
       - HDF5:
         - Overview: interfaces/hdf5/index.md
         - Type mapping: interfaces/hdf5/hdf5-types.md
@@ -467,6 +470,10 @@ nav:
           - Reference: interfaces/prom/exporter/reference.md
           - Event handlers: interfaces/prom/exporter/event-handlers.md
           - Examples: interfaces/prom/exporter/examples.md
+      - Protobuf:
+        - Overview: interfaces/protobuf/index.md
+        - Reference: interfaces/protobuf/reference.md
+        - Examples: interfaces/protobuf/examples.md
       - Python (embedPy): interfaces/embedpy.md
       - Python (PyQ):
         - Quick start: interfaces/pyq/index.md
@@ -486,6 +493,9 @@ nav:
         - Reference: interfaces/solace/reference.md
         - RESTful API: interfaces/solace/solacerest.md
         - Examples: interfaces/solace/examples.md
+      - Telegraf:
+        - Overview: interfaces/telegraf/index.md
+        - Reference: interfaces/telegraf/reference.md
     - Clients for kdb+: 
       - C: interfaces/c-client-for-q.md
       - C API reference: interfaces/capiref.md
@@ -547,6 +557,15 @@ nav:
         - Algorithms: ml/toolkit/clustering/algos.md
         - K-Dimensional Tree: ml/toolkit/clustering/kdtree.md
         - Scoring metrics: ml/toolkit/clustering/score.md
+      - Time Series:
+        - Overview: ml/toolkit/timeseries/index.md
+        - Models: ml/toolkit/timeseries/models.md
+        - Miscellaneous: ml/toolkit/timeseries/misc.md
+      - Optimization: ml/toolkit/optimize.md
+      - Graph and Pipeline:
+        - Overview: ml/toolkit/graph/index.md
+        - Graph: ml/toolkit/graph/graph.md
+        - Pipeline: ml/toolkit/graph/pipeline.md
     - Natural language processing:
       - Overview: ml/nlp/index.md
       - User guide:
