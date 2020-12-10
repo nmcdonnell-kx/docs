@@ -9,22 +9,39 @@ hero: <i class="fab fa-superpowers"></i> Fusion for Kdb+
 
 # telegraf kdb handler function reference
 
-The following functions are exposed in `telegraf_kdb` namespace.
+The following functions are exposed in `.telegraf` namespace.
 
 <pre markdown="1" class="language-text">
-.telegraf_kdb **Telegraf Handler**
+.telegraf. **Telegraf Handler**
 
-    [handler](#telegrafkdbhandler)                                  Converts a batch of telegraf line protocol messages into list of tuple of (table name; table).
-    [get_chunk_size_threshold](#telegraf_kdbchunk_size_threshold)   Get current chunk size threshold, message with size above which is processed asynchronously.
-    [set_chunk_size_threshold](#telegraf_kdbchunk_size_threshold)   Set chunk size threshold, message with size above which is processed asynchronously.
-    [save_current_schema](#telegraf_kdbsave_current_schema)         Save current schema for tables as a text file.
+    [init](#telegrafinit)                                       Initialize functions which have optional implementation.
+    [handler](#telegrafhandler)                                 Converts a batch of telegraf line protocol messages into list of tuple of (table name; table).
+    [get_chunk_size_threshold](#telegrafchunk_size_threshold)   Get current chunk size threshold, message with size above which is processed asynchronously.
+    [set_chunk_size_threshold](#telegrafchunk_size_threshold)   Set chunk size threshold, message with size above which is processed asynchronously.
+    [save_current_schema](#telegrafsave_current_schema)         Save current schema for tables as a text file.
 </pre>
 
-### `.telegraf_kdb.handler`
+### `.telegraf.init`
+
+_Initialize functions which have optional implementation._
+
+Syntax: `.telegraf.init[use_cxx]`
+
+Where
+
+- `use_cxx` is boolean; true if using C++ parser; false if using q parser.
+
+```q
+
+q).telegraf.init[1b]
+
+```
+
+### `.telegraf.handler`
 
 _Converts a batch of telegraf line protocol messages into list of tuple of (table name; table data)._
 
-Synatx: `.telegraf_kdb.handler[message]`
+Synatx: `.telegraf.handler[message]`
 
 Where
 
@@ -38,12 +55,12 @@ Return
 
 q)test_message
 "telegraf/kdb system,host=thunderchild.team.savvi.io uptime_format=\"142 days, 22:54\" 1601289566000000000\nsystem,host=thunderchild.team.savvi.io uptime=12351247i 1601289566000000000\nsystem,host=thunderchild.team.savvi.io load15=0.3,n_cpus=56i,n_users=0i,load1=0.26,load5=0.48 1601289566000000000\ndisk,device=nvme0n1p1,fstype=ext4,host=thunderchild.team.savvi.io,mode=ro,path=/etc/telegraf/telegraf.conf free=210399662080i,used=746372100096i,used_percent=78.00941975947482,inodes_total=62513152i,inodes_free=61206760i,inodes_used=1306392i,total=1007998959616i 1601289566000000000\n"
-q).telegraf_kdb.handler test_message
+q).telegraf.handler test_message
 `events_system +`time`host`uptime_format`uptime`load15`n_cpus`n_users`load1`load5!(2020.09.28D10:39:26.000000000 2020.09.28D10:39:26.000000000 2020.09.28D10:39:26.000000000;`thunderchild.team.savvi.io`thunderchild.team.savvi.io`thunderchild.team.savvi.io;("142 days, 22:54";"";"");0N 12351247 0N;0n 0n 0.3;0N 0N 56;0N 0N 0;0n 0n 0.26;0n 0n 0.48)
 `events_disk   +`time`device`fstype`host`mode`path`free`used`used_percent`inodes_total`inodes_free`inodes_used`total!(,2020.09.28D10:39:26.000000000;,`nvme0n1p1;,`ext4;,`thunderchild.team.savvi.io;,`ro;,`/etc/telegraf/telegraf.conf;,210399662080;,746372100096;,78.00942;,62513152;,61206760;,1306392;,1007998959616)
-q)first[.telegraf_kdb.handler test_message] 0
+q)first[.telegraf.handler test_message] 0
 `events_system
-q)first[.telegraf_kdb.handler test_message] 1
+q)first[.telegraf.handler test_message] 1
 host                       uptime_format     time                          uptime   load15 n_cpus n_users load1 load5
 ---------------------------------------------------------------------------------------------------------------------
 thunderchild.team.savvi.io "142 days, 22:54" 2020.09.28D10:39:26.000000000                                           
@@ -52,11 +69,13 @@ thunderchild.team.savvi.io ""                2020.09.28D10:39:26.000000000      
 
 ```
 
-### `.telegraf_kdb.get_chunk_size_threshold`
+!!! detail "When using q parser, `"\""` is eliminated and quoted value will be parsed as symbol. Exception is when you define a type of the vaue as string in `telegraf_kdb_schema.q`. This means casting to string type is only feasible for pre-defined keys. If using C++ parser, quoted value will be cast to string after trimming preceding and trailing `"\""`."
+
+### `.telegraf.get_chunk_size_threshold`
 
 _Get current chunk size threshold, message with size above which is processed asynchronously._
 
-Syntax: `.telegraf_kdb.get_chunk_size_threshold[]`
+Syntax: `.telegraf.get_chunk_size_threshold[]`
 
 Returns
 
@@ -64,16 +83,27 @@ Returns
 
 ```q
 
-q).telegraf_kdb.get_chunk_size_threshold[]
+q).telegraf.get_chunk_size_threshold[]
 28000
 
 ```
 
-### `.telegraf_kdb.set_chunk_size_threshold`
+When using q parser, this function becomes undefined.
+
+```q
+
+q).telegraf.get_chunk_size_threshold[]
+'undefined
+  [0]  .telegraf.get_chunk_size_threshold[]
+       ^
+
+```
+
+### `.telegraf.set_chunk_size_threshold`
 
 _Set chunk size threshold, message with size above which is processed asynchronously._
 
-Syntax: `.telegraf_kdb.set_chunk_size_threshold[new_threshold]`
+Syntax: `.telegraf.set_chunk_size_threshold[new_threshold]`
 
 Where
 
@@ -81,7 +111,7 @@ Where
 
 ```q
 
-q).telegraf_kdb.set_chunk_size_threshold[25000]
+q).telegraf.set_chunk_size_threshold[25000]
 q)
 
 ```
@@ -90,18 +120,30 @@ If the shared library was built from source with `FIXED_CHUNK_SIZE` (See [Instal
 
 ```q
 
-q).telegraf_kdb.set_chunk_size_threshold[25000]
+q).telegraf.set_chunk_size_threshold[25000]
 'chunk size threshold is fixed
-  [0]  .telegraf_kdb.set_chunk_size_threshold[25000]
+  [0]  .telegraf.set_chunk_size_threshold[25000]
        ^
 
 ```
 
-### `.telegraf_kdb.save_current_schema`
+When using q parser, this function becomes undefined.
+
+```q
+
+q).telegraf.set_chunk_size_threshold[25000]
+'undefined
+  [0]  .telegraf.set_chunk_size_threshold[25000]
+       ^
+
+```
+
+
+### `.telegraf.save_current_schema`
 
 _Save curent schema of each table which has a prefix defined in `:telegraf_influx_schema.q into a file in the form the schema file specifies._
 
-Syntax: `.telegraf_kdb.save_current_schema[file]`
+Syntax: `.telegraf.save_current_schema[file]`
 
 Where
 
