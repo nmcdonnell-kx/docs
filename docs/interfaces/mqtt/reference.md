@@ -1,7 +1,6 @@
 ---
 title: Function reference | MQTT | Interfaces | Documentation for kdb+ and q
 keywords: mqtt, api, consumer, fusion, interface, broker, message, library, telemetry, producer, q
-hero: <i class="fab fa-superpowers"></i> Fusion for Kdb+
 ---
 # MQTT function reference
 
@@ -14,7 +13,7 @@ hero: <i class="fab fa-superpowers"></i> Fusion for Kdb+
 The following functions are exposed in the `.mqtt` namespace.
 They allow you to interact with MQTT brokers and send and receive messages.
 
-<pre markdown="1" class="language-txt">
+<div markdown="1" class="typewriter">
 .mqtt   **MQTT interface**
 
 Broker interaction
@@ -28,7 +27,7 @@ Callback functions
   [disconn](#mqttdisconn)   manage disconnection events
   [msgrecv](#mqttmsgrecv)   manage receipt of messages
   [msgsent](#mqttmsgsent)   manage sending of messages
-</pre>
+</div>
 
 The callbacks here to handle disconnections and the sending and receipt of messages are minimal implementations. 
 
@@ -39,7 +38,9 @@ You can adapt them to the messages being sent to or received from your broker.
 
 _Connect to a Mosquitto host_
 
-Syntax: `.mqtt.conn[host;name;opts]`
+```txt
+.mqtt.conn[host;name;opts]
+```
 
 Where
 
@@ -75,7 +76,9 @@ q).mqtt.conn[hst;`src;`username`password!`myuser`mypass]
 
 _Handle disconnections from an MQTT broker_
 
-Syntax: `.mqtt.disconn[]`
+```txt
+.mqtt.disconn[]
+```
 
 Returns the output of user-defined logic for handling disconnections.
 
@@ -95,7 +98,9 @@ q).mqtt.disconn:{0N!"Disconnection from broker at: ",string[.z.p];}
 
 _Handle messages received from an MQTT broker_
 
-Syntax: `.mqtt.msgrcvd[topic;msg]`
+```txt
+.mqtt.msgrcvd[topic;msg]
+```
 
 Where
 
@@ -118,9 +123,11 @@ q).mqtt.msgrcvd:{0N!"Message - '",string[y],"' received from, ",string[x];}
 
 _Handle callback on successfuly sending a message to an MQTT broker_
 
-Syntax: `.mqtt.msgsent[token]`
+```txt
+.mqtt.msgsent[token]
+```
 
-Where `token` is a long representing the MqttDeliveryToken to monitor delivery
+Where `token` is a long representing the `MqttDeliveryToken` to monitor delivery
 
 ```q
 // Default occurrence of a message being sent
@@ -139,7 +146,9 @@ q).mqtt.msgsent:{0N!"Message was sent with delivery token - ,string[x];}
 
 _Publish a message to a Mosquitto broker_
 
-Syntax: `.mqtt.pub[topic;msg]`
+```txt
+.mqtt.pub[topic;msg]
+```
 
 Where
 
@@ -169,7 +178,9 @@ q).mqtt.pub[`topic1;"This is a test message"];
 
 _Publish a message to a Mosquitto broker, controlling quality of service and message retention_
 
-Syntax: `.mqtt.pubx[topic;msg;kqos;kret]`
+```txt
+.mqtt.pubx[topic;msg;kqos;kret]
+```
 
 Where
 
@@ -194,7 +205,9 @@ q).mqtt.pubx[`topic2;"Sending test message";2;1b]
 
 _Subscribe to a topic on a Mosquitto broker process_
 
-Syntax: `.mqtt.sub[topic]`
+```txt
+.mqtt.sub[topic]
+```
 
 Where `topic` is a symbol denoting the topic that the process should listen to, returns a callback to the process when a message is received on topic stating that the message was received and what that message is.
 
@@ -212,7 +225,9 @@ q).mqtt.sub[`topic1]
 
 _Unsubscribe from a Mosquitto broker topic_
 
-Syntax: `.mqtt.unsub[topic]`
+```txt
+.mqtt.unsub[topic]
+```
 
 Where `topic` is a symbol denoting the topic to be unsubscribed from, does not return a message on correct application, but signals an error on incorrect input.
 

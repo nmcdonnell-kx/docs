@@ -2,7 +2,6 @@
 title: Window join | Reference | kdb+ and q documentation
 description: wj and wj1 are q keywords that perform window joins.
 author: Stephen Taylor
-keywords: join, kdb+, q, window join, wj, wj1
 ---
 # `wj`, `wj1`
 
@@ -48,7 +47,7 @@ wj[w; f; t; (q; (wavg;`asize;`ask); (wavg;`bsize;`bid))]
 ```
 
 
-## Interval behaviour
+## Interval behavior
 
 `wj` and `wj1` are both \[\] interval, i.e. they consider quotes ≥beginning and ≤end of the interval.
 
@@ -137,5 +136,5 @@ ibm 10:01:08 105   107 108 107 108 104 106 106 107
 <br>
 :fontawesome-solid-street-view:
 _Q for Mortals_
-[§9.9.9 Window Joins](/q4m3/9_Queries_Q-sql/#999-window-join)
+[§9.9.9 Window Joins](/q4m3/9_Queries_q-sql/#999-window-join)
 

@@ -7,12 +7,12 @@ keywords: exec, delete, kdb+, q, query, select, sql, update, upsert
 
 
 
-<pre markdown="1" class="language-txt">
+<div markdown="1" class="typewriter">
 [delete](../ref/delete.md)  delete rows or columns from a table
 [exec](../ref/exec.md)    return columns from a table, possibly with new columns
 [select](../ref/select.md)  return part of a table, possibly with new columns
 [update](../ref/update.md)  add rows or columns to a table
-</pre>
+</div>
 
 The query templates of qSQL share a query syntax that varies from the [syntax of q](syntax.md) and closely resembles [conventional SQL](https://www.w3schools.com/sql/).
 For many use cases involving ordered data it is significantly more expressive.
@@ -25,23 +25,23 @@ For many use cases involving ordered data it is significantly more expressive.
 
 Below, square brackets mark optional elements; a slash begins a trailing comment.
 
-<pre markdown="1" class="language-txt">
+<div markdown="1" class="typewriter">
 select [_L<sub>exp</sub>_]     [_p<sub>s</sub>_] [by _p<sub>b</sub>_] from _t<sub>exp</sub>_ [where _p<sub>w</sub>_]
 exec   [distinct] [_p<sub>s</sub>_] [by _p<sub>b</sub>_] from _t<sub>exp</sub>_ [where _p<sub>w</sub>_]
 update             _p<sub>s</sub>_  [by _p<sub>b</sub>_] from _t<sub>exp</sub>_ [where _p<sub>w</sub>_]
 delete                         from _t<sub>exp</sub>_ [where _p<sub>w</sub>_]        / rows
 delete             _p<sub>s</sub>_          from _t<sub>exp</sub>_                   / columns
-</pre>
+</div>
 
 A template is evaluated in the following order.
 
-<pre markdown="1" class="language-txt">
+<div markdown="1" class="typewriter">
 [From phrase](#from-phrase)        _t<sub>exp</sub>_
 [Where phrase](#where-phrase)       _p<sub>w</sub>_
 [By phrase](#by-phrase)          _p<sub>b</sub>_
 [Select phrase](../ref/select.md#select-phrase)      _p<sub>s</sub>_
 [Limit expression](../ref/select.md#limit-expression)   _L<sub>exp</sub>_
-</pre>
+</div>
 
 
 ### From phrase
@@ -252,6 +252,10 @@ c  c   60 33.3 "3.3"
 
 A virtual column `i` represents the index of each record, i.e., the row number. 
 
+??? detail "Partitioned tables"
+
+    In a partitioned table `i` is the index (row number) relative to the partition, not the whole table.
+
 Because it is implicit in every table, it never appears as a column or key name in the result. 
 
 ```q
@@ -306,7 +310,38 @@ In the first example, only `c3` values corresponding to `c2` values greater than
 
 Efficient Where phrases start with their most stringent tests.
 
+??? danger "Querying a partitioned table"
+
+    When querying a partitioned table, the first Where subphrase should select from the value/s used to partition the table. 
+
+    Otherwise, kdb+ will (attempt to) load into memory all partitions for the column/s in the first subphrase.
+
 !!! tip "Use [`fby`](../ref/fby.md) to filter on groups."
+
+
+## Aggregates
+
+In SQL:
+
+```sql
+SELECT stock, SUM(amount) AS total FROM trade GROUP BY stock
+```
+
+In q:
+
+```q
+q)select total:sum amt by stock from trade
+stock| total
+-----| -----
+bac  | 1000
+ibm  | 2000
+usb  | 815
+```
+
+The column `stock` is a key in the result table.
+
+:fontawesome-solid-book-open:
+[Mathematics](../basics/math.md) for more aggregate functions
 
 
 ## Sorting
@@ -360,6 +395,9 @@ s4 p5 100
     ``…where `g=,`s  within …``  
     Maybe rare to get much speedup, but if the `` `g `` goes to 100,000 and then `` `s `` is 1 hour of 24 you might see some overall improvement (with overall table of 30 million). 
 
+  :fontawesome-solid-street-view:
+  _Q for Mortals_
+  [§14.3.6 Query Execution on Partitioned Tables](/q4m3/14_Introduction_to_Kdb%2B/#1436-query-execution-on-partitioned-tables)
 
 ## Multithreading
 
@@ -443,20 +481,43 @@ But the query templates are powerful, readable, and there is no performance pena
 
 ## Stored procedures
 
-:fontawesome-solid-street-view:
-_Q for Mortals_
-[§9.9.10 Parameterized Queries](/q4m3/9_Queries_q-sql/#999-parameterized-queries)
+Any suitable lambda can be used in a query.
+
+```q
+q)f:{[x] x+42}
+q)select stock, f amount from trade
+stock amount
+------------
+ibm   542
+...
+```
 
 
-## Views
+## Parameterized queries
 
-:fontawesome-solid-graduation-cap:
-[Views](../learn/views.md)
-<br>
-:fontawesome-solid-street-view:
-_Q for Mortals_
-[§9.9.11 Views](/q4m3/9_Queries_q-sql/#9911-views)
+Query template expressions can be evaluated in lambdas.
 
+```q
+q)myquery:{[tbl; amt] select stock, time from tbl where amount > amt}
+q)myquery[trade; 100]
+stock time
+------------------
+ibm   09:04:59.000
+...
+```
+
+Column names cannot be parameters of a qSQL query. Use [functional qSQL](../basics/funsql.md) in such cases.
+
+
+## Queries using SQL syntax
+
+Q implements a translation layer from SQL. The syntax is to prepend `s)` to the SQL query.
+
+```q
+q)s)select * from trade
+```
+
+!!! warning "Only a subset of SQL is supported."
 
 
 ----
@@ -468,6 +529,13 @@ _Q for Mortals_
 :fontawesome-solid-book-open:
 [Functional SQL](funsql.md)
 <br>
+:fontawesome-solid-graduation-cap:
+[Views](../learn/views.md)
+<br>
 :fontawesome-solid-street-view:
 _Q for Mortals_
 [§9.0 Queries: q-sql](/q4m3/9_Queries_q-sql/#90-overview)
+<br>
+:fontawesome-solid-street-view:
+_Q for Mortals_
+[§9.9.10 Parameterized Queries](/q4m3/9_Queries_q-sql/#999-parameterized-queries)

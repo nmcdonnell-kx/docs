@@ -3,10 +3,9 @@ title: Guide for using Kafka with kdb+
 author: Conor McCarthy
 description: Lists functions available for use within the Kafka API for kdb+ and gives limitations as well as examples of each being used 
 date: September 2019
-hero: <i class="fab fa-superpowers"></i> Fusion for Kdb+ / PyQ
 keywords: broker, consumer, kafka, producer, publish, subscribe, subscription, topic
 ---
-# <i class="fa fa-share-alt"></i> Function reference 
+# :fontawesome-solid-share-alt: Function reference 
 
 
 As outlined in the overview for this API, the kdb+/Kafka interface is a thin wrapper for kdb+ around the [`librdkafka`](https://github.com/edenhill/librdkafka) C API for [Apache Kafka](https://kafka.apache.org/). 
@@ -16,7 +15,7 @@ As outlined in the overview for this API, the kdb+/Kafka interface is a thin wra
 
 The following functions are those exposed within the `.kfk` namespace allowing users to interact with Kafka from a kdb+ instance.
 
-<pre markdown="1" class="language-txt">
+<div markdown="1" class="typewriter">
 Kafka interface functionality
   // client functionality 
   [.kfk.ClientDel](#kfkclientdel)               Close consumer and destroy Kafka handle to client
@@ -52,6 +51,7 @@ Kafka interface functionality
   [.kfk.AssignDel](#kfkassigndel)               Remove topic partition assignments from the current assignments
   [.kfk.Assignment](#kfkassignment)              Return the current assignment 
 
+<<<<<<< HEAD
   // Assignment functionality
   .kfk.Assign                  Create a new assignment from which data will be consumed
   .kfk.AssignAdd               Add new assignments to the current assignment
@@ -64,6 +64,8 @@ Kafka interface functionality
   .kfk.AssignDel               Remove topic partition assignments from the current assignments
   .kfk.Assignment              Return the current assignment 
 
+=======
+>>>>>>> 486378a4ccc66bb987a788e2fd05c953a6470fea
   // system infomation
   [.kfk.Metadata](#kfkmetadata)                Broker Metadata
   [.kfk.Version](#kfkversion)                 Librdkafka version
@@ -78,7 +80,7 @@ Kafka interface functionality
   // callback modifications
   [.kfk.errcbreg](#kfkerrcbreg)                Register an error callback associated with a specific client
   [.kfk.throttlecbreg](#kfkthrottlecbreg)           Register a throttle callback associated with a specific client
-</pre>
+</div>
 
 
 For simplicity in each of the examples below it should be assumed that the user’s system is configured correctly, unless otherwise specified. For example:
@@ -485,7 +487,7 @@ q).kfk.OutQLen[producer]
 
 ### `.kfk.Sub`
 
-_Subscribe from a consumer process to a topic_
+_High level subscription from a consumer process to a topic_
 
 Syntax: `.kfk.Sub[clid;topic;partid]`
 
@@ -493,7 +495,7 @@ Where
 
 -   `clid` is an integer value denoting the client id
 -   `topic` is a symbol denoting the topic being subscribed to
--   `partid` is an enlisted integer denoting the target partition
+-   `partid` is an enlisted integer denoting the target partition (UNUSED)
 
 returns a null on successful execution.
 
@@ -504,6 +506,10 @@ returns a null on successful execution.
 !!! note "Multiple subscriptions"
 
     As of v1.4.0 multiple calls to `.kfk.Sub` for a given client will allow for consumption from multiple topics rather than overwriting the subscribed topic.
+
+!!! warning "Partition ID"
+
+	The parameter `partid` is a legacy argument to the function and with recent versions of librdkafka does not have any effect on the subscription. On subscription Kafka handles organisation of consumers based on the active members of a `group.id` to efficiently distribute consumption amongst the group. If you require a consumer to specify consumption from a specific topic and a specific partition please use the [Assignment api](#assignment-functionality). An independent outline of the differences between assignment and subscription can be found [here](https://www.confluent.io/blog/tutorial-getting-started-with-the-new-apache-kafka-0-9-consumer-client/).
 
 ```q
 q)client:.kfk.Consumer[kfk_cfg]
@@ -524,11 +530,15 @@ Where
 
 -   `clid` is an integer value denoting the client id
 -   `topic` is a symbol denoting the topic being subscribed to
--   `partid` is an enlisted integer denoting the target partition
+-   `partid` is an enlisted integer denoting the target partition (UNUSED)
 -   `callback` is a callback function defined related to the subscribed topic. This function should take as input a single parameter
     - `msg` the content of a message received from any calls to the subscription on the topic.
 
 returns a null on successful execution and augments `.kfk.consumetopic` with a new callback function for the consumer.
+
+!!! warning "Partition ID"
+
+	The parameter `partid` is a legacy argument to the function and with recent versions of librdkafka does not have any effect on the subscription. On subscription Kafka handles organisation of consumers based on the active members of a `group.id` to efficiently distribute consumption amongst the group. If you require a consumer to specify consumption from a specific topic and a specific partition please use the [Assignment api](#assignment-functionality). An independent outline of the differences between assignment and subscription can be found [here](https://www.confluent.io/blog/tutorial-getting-started-with-the-new-apache-kafka-0-9-consumer-client/).
 
 ```q
 // create a client with a user created config kfk_cfg
@@ -930,14 +940,14 @@ returns a null on successful execution and augments the dictionary `.kfk.errclie
 
 ```q
 // Assignment prior to registration of new callback
-// this is the default behaviour invoked
+// this is the default behavior invoked
 q).kfk.errclient
  |{[cid;err_int;reason]}
 // Attempt to create a consumer which will fail
 q).kfk.Consumer[`metadata.broker.list`group.id!`foobar`0]
 0i
 
-// Update the default behaviour to show the output
+// Update the default behavior to show the output
 q).kfk.errclient[`]:{[cid;err_int;reason]show(cid;err_int;reason);}
 
 // Attempt to create another failing consumer
@@ -981,11 +991,11 @@ o callback
 
 ```q
 // Assignment prior to registration of new callback 
-// this is the default behaviour invoked
+// this is the default behavior invoked
 q).kfk.throttleclient
  |{[cid;bname;bid;throttle_time]}
 
-// Update the default behaviour to show the output
+// Update the default behavior to show the output
 q).kfk.throttleclient[`]:{[cid;bname;bid;throttle_time]show(cid;bid);}
 
 // Add a throttle client associated specifically with client 0

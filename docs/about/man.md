@@ -2,9 +2,12 @@
 title: man.q help page | About | q and kdb+ documentation
 description: Help for man.q documentation script for q programmers
 author: Stephen Taylor
-date: February 2020
+date: November 2020
 ---
 # Help for `man.q`
+
+
+The `man.q` script mimics the Unix `man` command.
 
 
 :fontawesome-brands-github:
@@ -31,7 +34,8 @@ man "debug"
 man "interfaces"
 man "internal"
 man "iterators"
-man "kb"              / Knowledge Base
+man "db"              / database
+man "database"        / database
 man "syscmds"         / system commands
 man "wp"              / White Papers
 ```
@@ -42,16 +46,6 @@ man "--list"
 man "--help"
 ```
 
-
+---
 :fontawesome-solid-book:
 [Reference](../ref/index.md)
-<br>
-:fontawesome-regular-handshake:
-[Interfaces](../interfaces/index.md)
-<br>
-:fontawesome-solid-graduation-cap:
-[Knowledge base](../kb/index.md)
-<br>
-:fontawesome-regular-map:
-[White Papers](../wp/index.md)
-

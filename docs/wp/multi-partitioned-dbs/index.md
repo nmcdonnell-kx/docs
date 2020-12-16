@@ -1,10 +1,16 @@
 ---
-title: Multi-partitioned kdb+ databases – an equity options case study – White Papers – kdb+ and q documentation
-description: Kdb+ is well suited to managing massive datasets and offers an unrivalled performance advantage when it comes to processing and analyzing data. This is a case study highlighting some of the key points we have found with regard to the storage and maintenance of financial equity options data in kdb+. We also provide some examples of possible ways to design and query these large databases efficiently.
+title: "Multi-partitioned kdb+ databases: an equity options case study | White Papers | kdb+ and q documentation"
+description: Storage and maintenance of financial equity options data in kdb+, with examples of possible ways to design and query these large databases efficiently.
 author: James Hanna
 keywords: database, equity, kdb+, options, partition, 
 ---
+White paper
+{: #wp-brand}
+
 # Multi-partitioned kdb+ databases: <br/>an equity options case study
+
+by [James Hanna](#author)
+{: .wp-author}
 
 
 
@@ -146,8 +152,6 @@ below.
 
 Here we assume some familiarity with loading large data files by
 splitting the file and loading in chunks using `.Q.fs` and `.Q.fsn`. 
-
-:fontawesome-regular-hand-point-right: [Knowledge Base](../../kb/index.md)
 
 
 ### Striping data over multiple partitions per date
@@ -532,11 +536,10 @@ impact the storage space required for the data and queries against the
 database. Here we have presented several different schema choices and
 examples of several simple queries implemented for each schema.
 
+[:fontawesome-solid-print: PDF](/download/wp/multi-partitioned-dbs-a4.pdf)
+
 
 ## Author
 
-James Hanna has helped design and develop kdb+ implementations and
-proof of concepts for more than 40 customers. Based in New York, James
-is a Technical Architect for Kx, a high-performance data-management,
-event-processing and trading platform.
+James Hanna has helped design and develop kdb+ implementations and proof of concepts for more than 40 customers. Based in New York, James is a Technical Architect for Kx, a high-performance data-management, event-processing and trading platform.
 

@@ -200,7 +200,7 @@ The scoring metric used to calculate the performance of each classifier is defin
 
 The following functions are supported within the platform at present with the ordering which allows the best model to be chosen displayed below and defined in `code/mdldef/scoring.txt`
 
-<pre markdown="1" class="language-txt">
+<div markdown="1" class="typewriter">
 .ml   **Statistical analysis metrics with AutoML score order**
   accuracy         accuracy of classification results        desc
   mae              mean absolute error                       asc
@@ -212,7 +212,7 @@ The following functions are supported within the platform at present with the or
   r2score          r2-score                                  desc
   smape            symmetric mean absolute error             desc
   sse              sum squared error                         asc
-</pre>
+</div>
 
 The following is an example implementation
 
@@ -247,6 +247,8 @@ q).automl.run[tab;tgt;`normal;`reg;enlist[`seed]!enlist seed]
 q).automl.run[tab;tgt;`normal;`reg;enlist[`seed]!enlist seed]
 ```
 
+!!! Note
+	For full reproducibility between q processes of the NLP [word2vec](#w2v) implementation, the [PYTHONHASHSEED](https://docs.python.org/3.3/using/cmdline.html#envvar-PYTHONHASHSEED) environment variable must be set upon initializing q. Linux/Mac: `$ PYTHONHASHSEED=0 q`, Windows: `$ set PYTHONHASHSEED=0`. More information can be found [here](https://radimrehurek.com/gensim/models/word2vec.html)
 
 ### `sigfeats`
 

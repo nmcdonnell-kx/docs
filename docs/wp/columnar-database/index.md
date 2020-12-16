@@ -1,11 +1,18 @@
 ---
-title: Columnar database and query optimization
+title: Columnar database and query optimization | White Papers | documentation for q and kdb+
 description: Methods available to developers for optimizing queries to a kdb+ database
 date: June 2012
 author: Ciáran Gorman
 keywords: attribute, columnar, database, grouped, kdb+, optimize, partitioned, performance, q, query, sorted, unique
 ---
+White paper
+{: #wp-brand}
+
 # Columnar database and query optimization
+
+by [Ciáran Gorman](#author)
+{: .wp-author}
+
 
 
 
@@ -596,7 +603,7 @@ As we can see in the results above, using the same form of query with the attrib
 
 #### Grouped attribute as query grows
 
-This example will examine the behaviour of the grouped attribute as the requested universe grows. We will use more than one query format, and observe whether the format of the request impacts performance. The data used for the example is quote data drawn from our example database, and sorted on time to simulate real-time data. Kdb+ will be restarted between tests.
+This example will examine the behavior of the grouped attribute as the requested universe grows. We will use more than one query format, and observe whether the format of the request impacts performance. The data used for the example is quote data drawn from our example database, and sorted on time to simulate real-time data. Kdb+ will be restarted between tests.
 
 ```q
 //make dictionary containing groups of distinct syms 
@@ -661,7 +668,12 @@ Tests performed using kdb+ version 2.8 (2012.05.29)
 
 ## Author
 
-Ciarán Gorman is a financial engineer who has designed and developed
-data-management systems across a wide range of asset classes for top-tier investment banks.
+![Ciarán Gorman](../../img/faces/ciarangorman.jpg)
+{: .small-face}
 
+**Ciarán Gorman** is a financial engineer who has designed and developed data-management systems across a wide range of asset classes for top-tier investment banks.
+
+
+:fontawesome-solid-print:
+[PDF](/download/wp/columnar_database_and_query_optimization.pdf)
 

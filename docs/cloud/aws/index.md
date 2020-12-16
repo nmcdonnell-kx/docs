@@ -3,7 +3,6 @@ title: Migrating a kdb+ HDB to Amazon EC2  – Cloud – kdb+ and q documentatio
 description: If you are assessing migrating a kdb+ historical database (HDB) and analytics workloads into the Amazon Elastic Compute Cloud (EC2) key considerations are performance and functionality attributes expected from using kdb+, and the associated HDB, in EC2; capabilities of several storage solutions working in the EC2 environment, as of March 2018; performance attributes of EC2 and benchmark results. You must weigh the pros and cons of each solution.
 author: Glenn Wright
 date: March 2018
-hero: <i class="fas fa-cloud"></i> Cloud
 keywords: Amazon, AWS, EC2, HDB, cloud
 ---
 # Migrating a kdb+ HDB to Amazon EC2 
@@ -74,7 +73,7 @@ EC2 can achieve the best of both worlds:
 As long as the speed of deployment and ease of use is coupled with similar or _good enough_ runtime performance, EC2 can be a serious contender for hosting your market data.
 
 
-## Author
+## :fontawesome-solid-user: Author
 
 Glenn Wright, Systems Architect, Kx, has 30+ years of experience within the high-performance computing industry. He has worked for several software and systems vendors where he has focused on the architecture, design and implementation of extreme performance solutions. At Kx, Glenn supports partners and solutions vendors to further exploit the industry- leading performance and enterprise aspects of kdb+.
 

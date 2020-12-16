@@ -1,21 +1,20 @@
 ---
 title: Installing kdb+ | Learn | kdb+ and q documentation
-description: How to install kdb+
+description: How to install kdb+ on Linux, macOS, or Windows
 author: Stephen Taylor
-date: June 2020
-keywords: install, kdb+, q
+date: November 2020
 ---
-# Installing kdb+
+# :fontawesome-solid-power-off: Installing kdb+
 
 
 You can run kdb+ on Linux, macOS, or Windows.
-There are three scenarios for installing kdb+.
+There are three installation scenarios.
 
 -   You are a commercial user, with a `k4.lic` file.
 -   You have the 64-bit On Demand Personal Edition for non-commercial use. This is enabled by a `kc.lic` license-key file and requires an always-on Internet connection. (This version of kdb+ is not licensed for use on cloud servers.)
 -   You have the 32-bit Personal Edition for non-commercial use. It does not require a license-key file.
 
-!!! warning "macOS Catalina (10.15) does not run 32-bit applications."
+    !!! warning "32-bit applications will not run in macOS 10.15+ (Catalina and later)"
 
 :fontawesome-regular-hand-point-right: 
 [More about licensing](licensing.md)
@@ -129,7 +128,7 @@ Your `QHOME` directory will then contain:
 
 Kdb+ looks for a license file in `QHOME`. To keep your license file elsewhere, set its path in environment variable `QLIC`. 
 
-:fontawesome-regular-hand-point-right: 
+:fontawesome-solid-laptop-code:
 [Working with multiple versions of kdb+](../kb/versions.md)
 
 
@@ -153,19 +152,17 @@ Confirm kdb+ is working: launch your first q session.
 
 ??? warning ":fontawesome-brands-apple: Authorizing macOS Catalina to run kdb+"
 
-    MacOS Catalina (10.15) introduced tighter security rules. 
+    MacOS Catalina (10.15) introduced tighter security. 
     At this point it may display a warning that it does not recognize the software.
 
     ![Catalina warning](../img/catalina-warning.png)
 
-    The `spctl` and `xattr` commands above should authorize the OS to run q.
-    If not, these articles may help.
+    If the `spctl` and `xattr` commands above have not authorized the OS to run q, open _System Preferences > Security & Privacy_.
+    
+    You should see a notification that q has been blocked – and a button to override the block.
 
-    :fontawesome-solid-globe:
-    [Can’t launch your apps on macOS Catalina? Here’s the fix](https://www.cultofmac.com/672576/cant-launch-your-apps-on-macos-catalina-heres-the-fix/)
-    <br>
-    :fontawesome-solid-globe:
-    [How to open apps from unidentified developers on Mac in macOS Catalina](https://www.imore.com/how-open-apps-anywhere-macos-catalina-and-mojave)
+    :fontawesome-brands-apple:
+    [Safely open apps on your Mac](https://support.apple.com/en-us/HT202491)
 
 The q session opens with a banner like this. 
 
@@ -176,7 +173,7 @@ m64/ 12()core 65536MB sjt mackenzie.local 127.0.0.1 EXPIRE…
 q)
 ```
 
-:fontawesome-regular-hand-point-right: 
+:fontawesome-solid-book-open: 
 [License errors](../basics/errors.md#license-errors), 
 [Licensing](licensing.md)
 
@@ -236,13 +233,28 @@ m64/ 12()core 65536MB sjt mackenzie.local 127.0.0.1 EXPIRE…
 q)
 ```
 
-:fontawesome-solid-graduation-cap:
+:fontawesome-solid-laptop-code:
 [Installing multiple versions of kdb+](../kb/versions.md)
 <br>
-:fontawesome-solid-graduation-cap:
+:fontawesome-solid-cloud:
 [Installing kdb+ on DigitalOcean](../kb/digitalocean.md)
 
-## :fontawesome-regular-hand-point-right: What’s next?
 
-[Learn the q programming language](index.md), look through the [reference card](../ref/index.md), or see in the [Knowledge Base](../kb/index.md) what you can do with kdb+.
+## :fontawesome-solid-laptop-code: Interactive development environments
+
+If you are a solo student, we recommend learning q by running it from a command shell, as a REPL, writing scripts in a text editor. 
+The examples on this site are produced that way; visual fidelity should help you as you learn. 
+
+[Jupyter notebooks](https://jupyter.org/) are an interactive publishing format.
+We are producing lessons in this form and the library  is growing. 
+The [JupyterQ interface](../ml/jupyterq/index.md) lets you run q code in notebooks.
+
+Notebooks are not, however, an IDE, and are unsuitable for studying features such as event handlers. 
+
+For more advanced study, use either the bare q REPL, or download and install our interactive development environment, [Kx Developer](/developer/).
+
+
+## :fontawesome-solid-hand-point-right: What’s next?
+
+[Learn the q programming language](index.md), look through the [reference card](../ref/index.md), or see in the [Database](../database/index.md) what you can do with kdb+.
 

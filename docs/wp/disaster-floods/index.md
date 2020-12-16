@@ -1,11 +1,19 @@
 ---
-title: Predicting floods | White paper | kdb+ and q documentation
+title: Predicting floods with q and machine learning | White paper | kdb+ and q documentation
 description: Machine-learning methods in q to predict flood susceptibility in an area and the time for a river to reach its peak height after a rainfall event.
 author: Diane O’Donoghue
 date: October 2019
 keywords: embedpy, flash, flood, kdb+, machine learning, model, nasa, nhdplus, nlcd, noaa, prism, q, random forest, space, usgs, xgboost
 ---
+White paper
+{: #wp-brand}
+
 # Predicting floods with q and machine learning
+
+by [Diane O’Donoghue](#author)
+{: .wp-author}
+
+
 
 
 
@@ -1233,7 +1241,19 @@ The best results from the models above were obtained by continuously adjusting t
 
 ## Author
 
-Diane O’Donoghue joined First Derivatives in June 2018 as a data scientist in the Capital Markets Training Program and is currently on the Machine Learning team based in London.
+![Diane O’Donoghue](../../img/faces/dianeodonoghue.jpg)
+{: .small-face}
+
+**Diane O’Donoghue** joined First Derivatives in 2018 as a data scientist in the Capital Markets Training Program and is currently on the Machine Learning team based in London. Within the team, Diane has been involved with expanding the Machine Learning Toolkit and the automated machine-learning platform.&nbsp;
+[:fontawesome-solid-envelope:](mailto:dodonoghue@kx.com?subject=White paper: Predicting floods with q and machine learning) &nbsp;
+[:fontawesome-brands-linkedin:](https://www.linkedin.com/in/diane-o-donoghue-699230144/) 
+
+Other papers by Diane O’Donoghue
+{: .publications}
+
+<ul markdown="1" class="publications">
+-   :fontawesome-solid-globe: [Machine Learning for Generalizable Prediction of Flood Susceptibility](https://arxiv.org/abs/1910.06521 "Cornell University")
+</ul>
 
 
 ## Code

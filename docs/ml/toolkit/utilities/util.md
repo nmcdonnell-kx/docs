@@ -4,11 +4,11 @@ description: The toolkit contains utility functions, used in many applications a
 date: April 2019
 keywords: pandas manipulation, dataframe, train test split, .
 ---
-# <i class="fa fa-share-alt"></i> Utility functions 
+# :fontawesome-solid-share-alt: Utility functions 
 
 
 
-<pre markdown="1" class="language-txt">
+<div markdown="1" class="typewriter">
 .ml   **Utility functions**
   [arange](#mlarange)             Evenly-spaced values within a range
   [combs](#mlcombs)              n linear combinations of k numbers
@@ -21,7 +21,7 @@ keywords: pandas manipulation, dataframe, train test split, .
   [shape](#mlshape)              Shape of a matrix
   [tab2df](#mltab2df)             Pandas dataframe from a q table
   [traintestsplit](#mltraintestsplit)     Split into training and test sets
-</pre>
+</div>
 
 :fontawesome-brands-github:
 [KxSystems/ml/util/util.q](https://github.com/kxsystems/ml/blob/master/util/util.q)
@@ -161,7 +161,7 @@ q)print dttab:.p.get[`dtdf]
 0  12:10:30.000500 -1 days +19:00:00 2005-02-25 03:30:00 2005-02-25 03:30:00+01:00
 1  12:13:30.000200          00:16:40 2015-12-22 00:00:00 2015-12-22 00:00:00+01:00
 
-/ default behaviour (tz -> UTC, time -> foreign)
+/ default behavior (tz -> UTC, time -> foreign)
 q).ml.df2tab_tz[dttab;0b;0b]
 time    timed                 datetime                      dt_with_tz                   
 -----------------------------------------------------------------------------------------

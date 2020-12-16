@@ -126,7 +126,93 @@
 	color: white;
 }
 
-md-typeset .admonition pre,
-md-typeset .admonition pre code {
+.md-typeset .admonition pre,
+.md-typeset .admonition pre code {
 	font-size: 110%;
+}
+
+/* White Paper branding
+--------------------------------------------- */
+.wp-author {
+	font-size: 100%;
+	text-align: right;
+}
+#wp-brand {
+	background-color: rgba(0,112,205,.5);
+	color: white;
+	font-size: 80%;
+	font-weight: bold;
+	letter-spacing: .5em;
+	margin: 0 0 2rem 0;
+	padding: .5em 0;
+	text-align: center;
+	text-transform: uppercase;
+}
+p.publications {
+	font-size: 80%;
+	letter-spacing: .2em;
+	text-transform: uppercase;
+}
+.publications li {
+	list-style: none;
+}
+p.small-face {
+	float: left;
+	margin: 0 1em 0 0;
+}
+.small-face img {
+	border-radius: 35px;
+	width: 70px;
+}
+.md-typeset h2 {
+	clear: both;
+}
+
+/* What’s New panel on front page */
+#kx-whats-new p {
+	white-space: nowrap;
+}
+
+#kx-home-page-grid {
+	display: grid; 
+	grid:
+	'get_started get_started . .'
+	'. . . .';
+	grid-gap: 10px;
+	background-color: #white;
+	padding:10px;
+}
+#kx-home-page-grid > p {
+	padding: 20px 5px;
+	text-align: center;
+}
+#kx-home-page-grid a {
+	color: #0070cd;
+	margin: 0 auto;
+}
+#kx-home-page-grid #kx-get-started {
+	background-color: #0070cd;
+	border-radius: 10px;
+	color: white;
+	font-family: "Proxima Nova",Roboto,sans-serif;
+	font-size: 3em;
+	font-weight: bold;
+	grid-area: get_started;
+	padding: 5px 0;
+	vertical-align: middle;
+}
+#kx-get-started a {
+	color: white;
+}
+
+div.typewriter p {
+	background-color: #fdf6e3;
+	font-family: Consolas,Monaco,'Andale Mono','Ubuntu Mono',monospace;
+	font-size: 80%;
+	margin: 0;
+	padding: 1em;
+	white-space: pre-wrap;
+}
+div.typewriter a {
+	background-color: #fdf6e3;
 }

@@ -3,9 +3,9 @@ title: value | Reference | kdb+ and q documentation
 description: value is a q keyword that returns the value of a named variable, or metadata.
 author: Stephen Taylor
 ---
-<div style="float: right">
-<i class="fas fa-wrench fa-5x"></i>
-</div>
+[![Swiss army knife](../img/swiss-army-knife.jpg)](https://www.victorinox.com/ "victorinox.com")
+{: style="float: right; max-width: 200px"}
+
 
 # `value`
 
@@ -20,7 +20,7 @@ value x     value[x]
 
 Returns the value of `x`:
 
-<pre markdown="1" class="language-txt">
+<div markdown="1" class="typewriter">
 dictionary           value of the dictionary
 symbol atom          value of the variable it names
 enumeration          corresponding symbol vector
@@ -37,10 +37,10 @@ view                 [list of metadata](#view)
 lambda               [structure](#lambda)
 
 file symbol          [content of datafile](#get)
-</pre>
+</div>
 
 
-Examples
+Examples:
 
 ```q
 q)value `q`w`e!(1 2;3 4;5 6)        / dictionary

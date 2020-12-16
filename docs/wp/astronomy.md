@@ -1,10 +1,16 @@
 ---
-title: Kdb+ in astronomy
+title: Kdb+ in astronomy | White papers | kdb+ and q documentation
 description: Imports FITS data to kdb+, loads C functions and calculates recessional velocity
-author: Andrew Magowan and James Neill
+author: [Andrew Magowan, James Neill]
 keywords: api, astronomy, dynamic load, fits, galaxy, kdb+, q, quasi-stellar objects, recessional velocity, red shift, telescope
 ---
+White paper
+{: #wp-brand}
+
 # Kdb+ in astronomy
+
+by [Andrew Magowan &amp; James Neill](#authors)
+{: .wp-author}
 
 
 
@@ -262,6 +268,8 @@ We were then able to build functionality to calculate the recessional velocity o
 
 We believe this will be a very attractive solution to the field of astronomy going forward, coping with the predicted expansion of data volumes in the field due to the new projects that are scheduled to begin in the near future.
 
+[:fontawesome-solid-print: PDF](/download/wp/kdb_in_astronomy.pdf)
+
 
 ## Further reading
 
@@ -273,6 +281,6 @@ We believe this will be a very attractive solution to the field of astronomy goi
 
 ## Authors
 
-Andrew Magowan is a kdb+ consultant who has developed data and analytic systems for some of the world's largest financial institutions. Andrew is currently based in New York where he maintains a global tick capture application across a range of asset classes at a major investment bank.
+**Andrew Magowan** is a kdb+ consultant who has developed data and analytic systems for some of the world's largest financial institutions. Andrew is currently based in New York where he maintains a global tick capture application across a range of asset classes at a major investment bank.
 
-James Neill works as a kdb+ consultant for one of the world’s largest investment banks developing a range of applications. James has also been involved in the design of training courses in data science and machine learning as part of the First Derivatives Capital Markets Training Programme.
+**James Neill** works as a kdb+ consultant for one of the world’s largest investment banks developing a range of applications. James has also been involved in the design of training courses in data science and machine learning as part of the First Derivatives Capital Markets Training Programme.

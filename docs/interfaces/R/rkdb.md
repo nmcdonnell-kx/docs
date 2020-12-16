@@ -1,14 +1,12 @@
 ---
 title: rkdb an interface giving R access to q/kdb+
 description: Enable R to connect to kdb+ and extract data; enable q to connect to a remote instance of R via TCP/IP and invoke R routines remotely.
-hero: <i class="fab fa-superpowers"></i> Fusion for Kdb+
 keywords: interface, kdb+, library, q, r
 ---
 # :fontawesome-brands-r-project: rkdb 
 
-<div class="fusion" markdown="1">
 :fontawesome-brands-superpowers: [Fusion for kdb+](../fusion.md)
-</div>
+{: .fusion}
 
 Connects R to a kdb+ database to extract partially analyzed data into R
 for further local manipulation, analysis and display.

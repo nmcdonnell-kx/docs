@@ -22,12 +22,23 @@ For the Exec operator `?`, see
 
 Below, square brackets mark optional elements.
 
-<pre markdown="1" class="language-txt">
+<div markdown="1" class="typewriter">
 exec [distinct] _p<sub>s</sub>_ [by _p<sub>b</sub>_] from _t<sub>exp</sub>_ [where _p<sub>w</sub>_]
-</pre>
+</div>
 
 :fontawesome-solid-book-open:
 [qSQL syntax](../basics/qsql.md)
+
+
+## From phrase
+
+The [table expression](../basics/qsql.md#from-phrase) _t<sub>exp</sub>_ may be a table in memory, or on disk, where it may be splayed but not partitioned. 
+
+The workaround is to use the result of a `select` query as the table expression:
+
+```txt
+exec … from select … from …
+```
 
 
 ## Select phrase
@@ -151,6 +162,7 @@ see [qSQL](../basics/qsql.md#cond).
 
 
 ----
+
 :fontawesome-solid-book:
 [`delete`](delete.md),
 [`select`](select.md),

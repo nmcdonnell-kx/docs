@@ -1,7 +1,6 @@
 ---
-title: Kdb+ license for AWS – kdb+ and q documentation
+title: Kdb+ license for AWS | kdb+ and q documentation
 description: Software End User Agreement for Amazon Web Services
-hero: <i class="fas fa-cloud"></i> Amazon Web Services
 date: Nov 2018
 ---
 # Kdb+ software end user agreement
@@ -10,7 +9,7 @@ date: Nov 2018
 _Carefully read the following terms and conditions. By accessing the Kdb+
 Software via the Amazon Marketplace, you are agreeing to be bound by
 these terms and conditions (which may be updated from time to time) and
-to the extent you are acting on behalf of a permitted organisation that
+to the extent you are acting on behalf of a permitted organization that
 you have authority to act on their behalf and bind them to these terms
 and conditions. If you do not agree to these terms and conditions or do
 not have the necessary authority, do not access or use the software. You
@@ -21,7 +20,7 @@ may not access the Kdb+ Software if you are a direct competitor of Kx._
 1.  This Kdb+ Software End User Agreement ("Agreement") is made
     between Kx Systems, Inc. ("Kx" or “We”) and you the person or
     entity which accesses the Kdb+ Software (“User” or “you”), with
-    respect to Kx's Kdb+ Software made available at the online
+    respect to Kx’s Kdb+ Software made available at the online
     Amazon Marketplace at <https://aws.amazon.com/marketplace> (
     “AWS Marketplace”) and available to be run at Amazon Web
     Services (“AWS”). AWS Marketplace and AWS are owned and
@@ -204,7 +203,7 @@ operation of the kdb+ software will be error-free or uninterrupted.
 
     1.  the Kdb+ Software is held to infringe the trademark, copyright, patent or trade secrets of a third party and the use of the Kdb+ Software is enjoined, 
     2. Kx concludes that the Kdb+ Software infringes the trademark,
-    copyright, patent or trade secret s of a third party, or 
+    copyright, patent or trade secrets of a third party, or 
     3.  in the case of settlement as referred to in section 7.1 above, Kx
     may, if possible on commercially reasonable terms, at its own
     expense and option: 
@@ -348,7 +347,7 @@ operation of the kdb+ software will be error-free or uninterrupted.
     3.  Kx no longer provides the Kdb+ Software via AWS. 
 
     Termination of this Agreement by Kx for the foregoing
-    shall in no way relieve the User form its obligation to pay any
+    shall in no way relieve the User from its obligation to pay any
     sums accrued or due prior to the date of such termination.
 
 32. _Amendments to the Agreement_. Kx may amend this Agreement at

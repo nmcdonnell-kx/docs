@@ -1,49 +1,37 @@
+# Documentation for kdb+ and q
 copyright: 'This work is licensed under a <a rel="license" href="https://creativecommons.org/licenses/by/4.0/">Creative Commons Attribution 4.0 International License</a>.<br/>Kx and kdb+ are registered trademarks of <a href="https://kx.com">Kx Systems, Inc.</a>, a subsidiary of <a href="https://www.firstderivatives.com/">First Derivatives plc</a>.'
-# dev_addr: '159.65.88.218:8000'
 dev_addr: '0.0.0.0:9000'
 docs_dir: 'docs'
-extra:
-  version: 2.0
 extra_css: 
-  - 'https://cdnjs.cloudflare.com/ajax/libs/prism/1.17.1/themes/prism-solarizedlight.min.css'
+  # - 'https://cdnjs.cloudflare.com/ajax/libs/prism/1.17.1/themes/prism-solarizedlight.min.css'
   - 'https://code.kx.com/stylesheets/extra.css'
-  # - 'stylesheets/extra.css'
+  - 'https://code.kx.com/stylesheets/prism.css'
   - 'stylesheets/q.css'
-  - 'stylesheets/carousel-6.css'
+  # - 'stylesheets/carousel-6.css'
 extra_javascript: 
   # Omits plugins Command Line, Line highlight, and Line Numbers: no effect
-  # Prism script includes plugin Copy to Clipboard http://prismjs.com/download.html
-  - 'https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.4.0/clipboard.min.js'
   - 'https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML'
-  - 'https://code.jquery.com/jquery-3.1.1.min.js'
+  # - 'https://code.kx.com/scripts/prism.js'
   - 'https://code.kx.com/scripts/prism.js'
-  - 'https://tracker.mrpfd.com/tracker.js'
-  - 'https://use.fontawesome.com/releases/v5.8.0/js/all.js'
+  - 'scripts/jquery-3.5.1.min.js' # jQuery for theme.js
   - 'scripts/theme.js'
 google_analytics:
-  - 'UA-3462586-1'
+  - 'UA-180968370-1'
   - 'auto'
 markdown_extensions:
   - admonition
-  # - codehilite(guess_lang=false)
+  - attr_list
   - extra
-  # - fenced_code
   - meta
   - pymdownx.arithmatex
-  # - pymdownx.betterem(smart_enable=all)
   - pymdownx.caret
-  # - pymdownx.critic
   - pymdownx.details
   - pymdownx.emoji:
       emoji_index: !!python/name:materialx.emoji.twemoji
       emoji_generator: !!python/name:materialx.emoji.to_svg
-  # - pymdownx.inlinehilite
   - pymdownx.magiclink
   - pymdownx.mark
-  # - pymdownx.smartsymbols
-  # - pymdownx.superfences
   - pymdownx.tabbed
-  # - pymdownx.tasklist(custom_checkbox=true)
   - pymdownx.tilde
   - toc:
       permalink: false
@@ -67,7 +55,7 @@ theme:
   custom_dir: custom_theme/
   favicon: ./img/favicon.ico
   features:
-    - tabs
+    - navigation.tabs
   name: 'material'
   language: en
   logo: 'img/kx.jpeg'
@@ -77,17 +65,19 @@ theme:
   static_templates:
     - 401.html
     - 404.html
-  toc:
-    title: "On this page"
 nav:
-  - Home: index.md
-  - Reference: https://code.kx.com/q/ref/
-  - Developer tools: devtools.md
-  - Open source: github.md
-  - Support: support.md
-  - Community: community.md
-  - Corporate site: https://kx.com
-  - Wiki: wiki.md
+  - Home: 
+    - kdb+ and q: index.md
+    - Reference card: ref/index.md
+    - Developer tools: devtools.md
+    - Open source: github.md
+    - Support: support.md
+    - Community: community.md
+    - White papers: wp/index.md
+    # - Site news: about/site-news.md
+    - About this site: about/thissite.md
+    # - Citations: about/citations.md
+    - Kx Systems: https://kx.com
   - Learn: 
     - Get started: learn/index.md
     - Install: learn/install.md
@@ -146,6 +136,22 @@ nav:
       - Klondike: learn/reading/klondike.md
       - Phrasebook: /phrases/
       - Scrabble: learn/reading/scrabble.md
+    - Application examples:
+      - Astronomy*: wp/astronomy.md
+      - Bitcoin blockchains*: wp/blockchain/index.md
+      - Card counters*: wp/card-counters/index.md
+      - Corporate actions*: wp/corporate-actions.md
+      - Disaster management*: wp/disaster-management/index.md
+      - Exoplanets*: wp/exoplanets/index.md
+      - Market depth*: wp/market-depth/index.md
+      - Market fragmentation*: wp/market-fragmentation/index.md
+      - Option pricing*: wp/option-pricing/index.md
+      - Predicting floods*: wp/disaster-floods/index.md
+      - Signal processing*: wp/signal-processing/index.md
+      - Space weather*: wp/space-weather/index.md
+      - Trading surveillance*: wp/surveillance/index.md
+      - Transaction-cost analysis*: wp/transaction-cost.md
+      - Trend indicators*: wp/trend-indicators/index.md
     - Advanced q:
       # - Overview: learn/advanced.md
       - Remarks on Style:
@@ -187,7 +193,9 @@ nav:
       - Shifts & scans: learn/shifts-scans.md
       - Technical articles: learn/blogs.md
       - Views: learn/views.md
-      - Origins: learn/archive.md
+      - Related languages: learn/archive.md
+      # - Kx technology: about/kxtechnology.md
+      - Terminology: about/terminology.md
     - Starting kdb+: 
       - Overview: learn/startingkdb/index.md
       - The q language: learn/startingkdb/language.md
@@ -195,12 +203,15 @@ nav:
       - Tables: learn/startingkdb/tables.md
       - Historical database: learn/startingkdb/hdb.md
       - Realtime database: learn/startingkdb/tick.md
-  - Reference:
+  - Language:
     - Reference card: ref/index.md
-    - Iterators:
-      - Overview: ref/iterators.md
+    - By topic: basics/by-topic.md
+    - Iteration: 
+      - Overview: basics/iteration.md
+      - Iterators: ref/iterators.md
       - Maps: ref/maps.md
       - Accumulators: ref/accumulators.md
+      - Guide to iterators*: wp/iterators/index.md
     - Keywords:
       - abs: ref/abs.md
       - aj, aj0, ajf, ajf0: ref/aj.md
@@ -382,6 +393,98 @@ nav:
       - .m: ref/dotm.md
       - .Q: ref/dotq.md
       - .z: ref/dotz.md
+    - Application: basics/application.md
+    - Atomic functions: basics/atomic.md
+    - Comparison: basics/comparison.md
+    - Conformability: basics/conformable.md
+    - Connection handles: basics/handles.md
+    - Datatypes: basics/datatypes.md
+    - Dictionaries: basics/dictsandtables.md
+    - Enumerations: basics/enumerations.md
+    - Evaluation control: basics/control.md
+    - Exposed infrastructure: basics/exposed-infrastructure.md
+    - File system: basics/files.md
+    - Function notation: basics/function-notation.md
+    - Functional qSQL: basics/funsql.md
+    - Glossary: basics/glossary.md
+    - Internal functions: basics/internal.md
+    - Joins: basics/joins.md
+    - Mathematics: basics/math.md
+    - Metadata: basics/metadata.md
+    - Namespaces: basics/namespaces.md
+    - Parse trees: basics/parsetrees.md
+    - Parse trees, functional SQL*: wp/parse-trees.md
+    - QSQL queries: basics/qsql.md
+    - Regular Expressions: basics/regex.md
+    - Syntax: basics/syntax.md
+    - Tables: kb/faq.md
+    - Variadic syntax: basics/variadic.md
+  - Database:
+    - Tables in the filesystem: database/index.md
+    - Populating tables:
+      - Loading from large files: kb/loading-from-large-files.md
+      - Foreign keys*: wp/foreign-keys.md
+      - Linking columns: kb/linking-columns.md
+      - Data loaders*: wp/data-loaders/index.md
+      - From MDB via ODBC: database/mdb-odbc.md
+    - Persisting tables:
+      - Serializing an object: database/object.md
+      - Splayed tables: kb/splayed-tables.md
+      - Partitioned tables: kb/partition.md
+      - Segmented databases: database/segment.md
+      - Multiple partitions*: wp/multi-partitioned-dbs/index.md
+    - Maintenance:
+      - Data management*: wp/data-management.md
+      - Data-At-Rest Encryption: kb/dare.md
+      - File compression: kb/file-compression.md
+      - Compression*: wp/compress/index.md
+      - Permissions*: wp/permissions/index.md
+      - Query optimization*: wp/columnar-database/index.md
+      - Query scaling*: wp/query-scaling.md
+      - Time-series simplification*: wp/ts-shrink/index.md
+      - Compacting HDB sym: kb/compacting-hdb-sym.md
+      - Working with sym files*: wp/symfiles.md
+  - Developing:
+    - Tools:
+      - Code profiler: kb/profiler.md
+      - Debugging: basics/debug.md
+      - Errors: basics/errors.md
+      - man.q: about/man.md
+      - System commands: basics/syscmds.md
+      - Unit tests: kb/unit-tests.md
+      - Using .z: kb/using-dotz.md
+    - Coding:
+      - Data visualization*: wp/data-visualization/index.md
+      - Deferred response: kb/deferred-response.md
+      - Geospatial indexing: kb/geospatial.md
+      - Linear programming: kb/lp.md
+      - Multithreaded input: kb/multithreaded-input.md
+      - Multithreaded primitives: kb/mt-primitives.md
+      - Pivoting tables: kb/pivoting-tables.md
+      - Precision: basics/precision.md
+      - Programming examples: kb/programming-examples.md
+      - Programming idioms: kb/programming-idioms.md
+      - Temporal data: kb/temporal-data.md
+      - Timezones: kb/timezones.md
+      - Unicode: kb/unicode.md
+    - DevOps:
+      - Authentication and access: kb/authentication.md
+      - Command-line options: basics/cmdline.md
+      - CPU affinity: kb/cpu-affinity.md
+      - Custom web server: kb/custom-web.md
+      - Daemon: kb/daemon.md
+      - Firewalling: kb/firewalling.md
+      - inetd, xinetd: kb/inetd.md
+      - Linux production notes: kb/linux-production.md
+      - Logging: kb/logging.md
+      - Multi-threading*: wp/multi-thread/index.md
+      - Multiple versions: kb/versions.md
+      - Parallel processing: basics/peach.md
+      - Performance tips: kb/performance-tips.md
+      - Replay logfile: kb/replay-log.md
+      - Shebang script: develop/shebang.md
+      - Surveillance latency*: wp/surveillance-latency/index.md
+      - Windows service: kb/windows-service/index.md
     - Release notes:
       - History: releases/index.md
       - Changes in 4.0: releases/ChangesIn4.0.md
@@ -398,52 +501,24 @@ nav:
       - Changes in 2.5: releases/ChangesIn2.5.md
       - Changes in 2.4: releases/ChangesIn2.4.md
       - Withdrawn: releases/withdrawn.md
-  - Basics:
-    # - Functions: basics/functions.md
-    # - Elements: basics/elements.md
-    - Application: basics/application.md
-    - Atomic functions: basics/atomic.md
-    - Casting & encoding: basics/casting.md
-    - Command line: basics/cmdline.md
-    - Comparison: basics/comparison.md
-    - Conformability: basics/conformable.md
-    - Connection handles: basics/handles.md
-    - Control: basics/control.md
-    - Datatypes: basics/datatypes.md
-    - Debugging: basics/debug.md
-    - Dictionaries & tables: basics/dictsandtables.md
-    - Enumerations: basics/enumerations.md
-    - Environment: basics/environment.md
-    - Errors: basics/errors.md
-    - Exposed infrastructure: basics/exposed-infrastructure.md
-    - File system: basics/files.md
-    - Function notation: basics/function-notation.md
-    - Functional qSQL: basics/funsql.md
-    - Glossary: basics/glossary.md
-    - Internal functions: basics/internal.md
-    - Interprocess communication: basics/ipc.md
-    - Iteration: basics/iteration.md
-    - Joins: basics/joins.md
-    - Listening port: basics/listening-port.md
-    - Logic: basics/logic.md
-    - Mathematics: basics/math.md
-    - Memory backed by files: basics/memory-backed.md
-    - Metadata: basics/metadata.md
-    - Namespaces: basics/namespaces.md
-    - Parallel processing: basics/peach.md
-    - Parse trees: basics/parsetrees.md
-    - Precision: basics/precision.md
-    - QSQL queries: basics/qsql.md
-    - Regular Expressions: basics/regex.md
-    - Search: basics/search.md
-    - Selection: basics/selection.md
-    - Sorting: basics/sort.md
-    - Strings: basics/strings.md
-    - Syntax: basics/syntax.md
-    - System commands: basics/syscmds.md
-    - Variadic syntax: basics/variadic.md
+    # - Environment: basics/environment.md
+    - FAQ: kb/faq-listbox.md
   - Interfaces:
-    - Index: interfaces/index.md
+    - Overview: interfaces/index.md
+    - IPC:
+      - Introduction: basics/ipc.md
+      - Callbacks: kb/callbacks.md
+      - Listening port: basics/listening-port.md
+      - Named pipes: kb/named-pipes.md
+      - Serialization examples: kb/serialization.md
+      - Server calling client: kb/server-calling-client.md
+      - Socket sharding*: wp/socket-sharding/index.md
+      - SSL/TLS: kb/ssl.md
+      - WebSockets: kb/websockets.md
+    - C/C++: 
+      - Quick guide: interfaces/c-client-for-q.md
+      - White paper*: wp/capi/index.md
+      - API reference: interfaces/capiref.md
     - Fusion for kdb+:
       - Overview: interfaces/fusion.md
       - FFI:
@@ -455,11 +530,18 @@ nav:
         - Type mapping: interfaces/hdf5/hdf5-types.md
         - Reference: interfaces/hdf5/reference.md
         - Examples: interfaces/hdf5/examples.md
-      - Java: interfaces/java-client-for-q.md
+      - Java: 
+        # FIXME: combine articles?
+        - Java API*: wp/java-api/index.md
+        - Quick guide: interfaces/java-client-for-q.md
       - Jupyter: interfaces/jupyterq.md
       - Kafka:
         - Overview: interfaces/kafka/index.md
         - Reference: interfaces/kafka/reference.md
+      - LDAP:
+        - Overview: interfaces/ldap/index.md
+        - Reference: interfaces/ldap/reference.md
+        - Examples: interfaces/ldap/examples.md
       - MQTT:
         - Overview: interfaces/mqtt/index.md
         - Reference: interfaces/mqtt/reference.md
@@ -472,6 +554,7 @@ nav:
           - Examples: interfaces/prom/exporter/examples.md
       - Protobuf:
         - Overview: interfaces/protobuf/index.md
+        - Type mapping: interfaces/protobuf/protobuf-types.md
         - Reference: interfaces/protobuf/reference.md
         - Examples: interfaces/protobuf/examples.md
       - Python (embedPy): interfaces/embedpy.md
@@ -497,9 +580,9 @@ nav:
         - Overview: interfaces/telegraf/index.md
         - Reference: interfaces/telegraf/reference.md
     - Clients for kdb+: 
-      - C: interfaces/c-client-for-q.md
-      - C API reference: interfaces/capiref.md
-      - C#: interfaces/csharp-client-for-q.md
+      - C#: 
+        - API: interfaces/csharp-client-for-q.md
+        - GUIs*: wp/gui/index.md
       - Excel: interfaces/excel-client-for-q.md
       - J: interfaces/j-client-for-q.md
       - JDBC: interfaces/jdbc-client-for-kdb.md
@@ -514,6 +597,34 @@ nav:
       - GPUs: interfaces/gpus.md
       - J: interfaces/q-client-for-j.md
       - ODBC: interfaces/q-client-for-odbc.md
+    - FIX messaging*: wp/fix-messaging.md
+    - Lightning tickerplants*: wp/lightning-tickerplants/index.md
+  - Architecture:
+    - Overview: architecture/index.md
+    - Examples: architecture/examples.md
+    - Alternative in-memory layouts: kb/alternative-in-memory-layouts.md
+    - Chained tickerplant: kb/chained-tickerplant.md
+    - Client-server: kb/client-server.md
+    - Corporate actions: kb/corporate-actions.md
+    - Data recovery for kdb+tick*: wp/data-recovery.md
+    - Disaster recovery*: wp/disaster-recovery/index.md
+    - Gateway design*: wp/gateway-design/index.md
+    - Kdb+tick configuration: kb/kdb-tick.md
+    - Kdb+tick profiling*: wp/tick-profiling.md
+    - Kubernetes: 'https://youtu.be/jqtkkCqBvr4'
+    - Load balancing: kb/load-balancing.md
+    - Memory backed by files: basics/memory-backed.md
+    - Optane Memory: kb/optane.md
+    - Order Book*: wp/order-book.md
+    - Publish and subscribe: kb/publish-subscribe.md
+    - Pub/sub with Solace*: wp/solace/index.md
+    - Query Routing*: wp/query-routing/index.md
+    - Real-time tick subscribers*: wp/rt-tick/index.md
+    - WebSockets*: wp/websockets/index.md
+    - Write-only RDB: kb/w-q.md
+    - Advanced:
+      - Distributed systems*: wp/query-interface.md
+      - Intraday writedown*: wp/intraday-writedown/index.md
   - Cloud: 
     - Overview: cloud/index.md
     - Amazon EC2: 
@@ -529,7 +640,18 @@ nav:
       - I. WekaIO Matrix: cloud/aws/app-i-wekaio-matrix.md
       - J. Quobyte: cloud/aws/app-j-quobyte.md
     - AWS Lambda: cloud/aws-lambda/index.md
-    - Google CPM: cloud/gcpm/index.md
+    - Google CPM: 
+      - Cloud Platform Marketplace: cloud/gcpm/index.md
+      - Reference architecture: cloud/gcpm/architecture.md
+    - Auto Scaling*:
+      - Overview: cloud/autoscale/index.md
+      - Amazon Web Services: cloud/autoscale/aws.md
+      - Realtime data cluster: cloud/autoscale/rdc.md
+      - Costs and risks: cloud/autoscale/cost-risk.md
+    - DigitalOcean: kb/digitalocean.md
+    - License agreements:
+      - AWS: license/aws.md
+      - GCP: license/gcp.md
   - Machine learning:
     - Overview: ml/index.md
     - Set up: ml/setup.md
@@ -538,6 +660,7 @@ nav:
       - User guide: ml/embedpy/userguide.md
       - FAQ: ml/embedpy/faq.md
       - Reference: ml/embedpy/reference.md
+      - embedPy and LASSO:  wp/embedpy-lasso/index.md
     - JupyterQ: 
       - Overview: ml/jupyterq/index.md
       - User guide: ml/jupyterq/notebooks.md
@@ -557,7 +680,7 @@ nav:
         - Algorithms: ml/toolkit/clustering/algos.md
         - K-Dimensional Tree: ml/toolkit/clustering/kdtree.md
         - Scoring metrics: ml/toolkit/clustering/score.md
-      - Time Series:
+      - Timeseries:
         - Overview: ml/toolkit/timeseries/index.md
         - Models: ml/toolkit/timeseries/models.md
         - Miscellaneous: ml/toolkit/timeseries/misc.md
@@ -584,131 +707,5 @@ nav:
         - Data postprocessing: ml/automl/ug/postproc.md
         - Advanced parameter modifications: ml/automl/ug/options.md
       - FAQ: ml/automl/faq.md
-  - Knowledge Base:
-    - Overview: kb/index.md
-    - Alternative in-memory layouts: kb/alternative-in-memory-layouts.md
-    - Authentication and access: kb/authentication.md
-    - Bulk Copy Program: kb/bcp.md
-    - Callbacks: kb/callbacks.md
-    - Chained tickerplant: kb/chained-tickerplant.md
-    - Client-server: kb/client-server.md
-    - Code profiler: kb/profiler.md
-    - Compacting HDB sym: kb/compacting-hdb-sym.md
-    - Corporate actions: kb/corporate-actions.md
-    - CPU affinity: kb/cpu-affinity.md
-    - Custom web server: kb/custom-web.md
-    - Daemon: kb/daemon.md
-    - Data-At-Rest Encryption: kb/dare.md
-    - Deferred response: kb/deferred-response.md
-    - DigitalOcean: kb/digitalocean.md
-    - FAQ: kb/faq.md
-    - FAQ from k4 listbox: kb/faq-listbox.md
-    - File compression: kb/file-compression.md
-    - Firewalling: kb/firewalling.md
-    - Geospatial indexing: kb/geospatial.md
-    - inetd, xinetd: kb/inetd.md
-    - Kdb+tick configuration: kb/kdb-tick.md
-    - Linear programming: kb/lp.md
-    - Linking columns: kb/linking-columns.md
-    - Linux production notes: kb/linux-production.md
-    - Load balancing: kb/load-balancing.md
-    - Loading from large files: kb/loading-from-large-files.md
-    - Logging: kb/logging.md
-    - Multiple versions: kb/versions.md
-    - Multithreaded input: kb/multithreaded-input.md
-    - Multithreaded primitives: kb/mt-primitives.md
-    - Named pipes: kb/named-pipes.md
-    - ODBC: kb/odbc.md
-    - Optane Memory: kb/optane.md
-    - Partitioning: kb/partition.md
-    - Performance tips: kb/performance-tips.md
-    - Pivoting tables: kb/pivoting-tables.md
-    # - Precision: kb/precision.md
-    - Programming examples: kb/programming-examples.md
-    - Programming idioms: kb/programming-idioms.md
-    - Publish and subscribe: kb/publish-subscribe.md
-    - Regular expressions: kb/regex.md
-    - Replay logfile: kb/replay-log.md
-    - Serialization examples: kb/serialization.md
-    - Server calling client: kb/server-calling-client.md
-    - Splayed schema change: kb/splayed-schema-change.md
-    - Splayed tables: kb/splayed-tables.md
-    - Splaying large files: kb/splaying-large-files.md
-    - SSL/TLS: kb/ssl.md
-    - Temporal data: kb/temporal-data.md
-    - Timezones: kb/timezones.md
-    - Unicode: kb/unicode.md
-    - Unit tests: kb/unit-tests.md
-    - Using .z: kb/using-dotz.md
-    - Write-only RDB: kb/w-q.md
-    - WebSockets: kb/websockets.md
-    - Windows service: kb/windows-service/index.md
-  - White papers: 
-    - Index: wp/index.md
-    - Astronomy: wp/astronomy.md
-    - Bitcoin blockchains: wp/blockchain/index.md
-    - C API: wp/capi/index.md
-    - C# GUIs: wp/gui/index.md
-    - Card counters: wp/card-counters/index.md
-    - Columnar database: wp/columnar-database/index.md
-    - Corporate actions: wp/corporate-actions.md
-    - Gateway design: wp/gateway-design/index.md
-    - Compression: wp/compress/index.md
-    - Data loaders: wp/data-loaders/index.md
-    - Data management: wp/data-management.md
-    - Data recovery for kdb+tick: wp/data-recovery.md
-    - Data visualization: wp/data-visualization/index.md
-    - Disaster management: wp/disaster-management/index.md
-    - Disaster recovery: wp/disaster-recovery/index.md
-    - Distributed systems: wp/query-interface.md
-    - EmbedPy and LASSO:  wp/embedpy-lasso/index.md
-    - Exoplanets: wp/exoplanets/index.md
-    - FIX messaging: wp/fix-messaging.md
-    - Foreign keys: wp/foreign-keys.md
-    - Intraday writedown: wp/intraday-writedown/index.md
-    - Iterators: wp/iterators/index.md
-    - Java API: wp/java-api/index.md
-    - Kdb+tick profiling: wp/tick-profiling.md
-    - Lightning tickerplants: wp/lightning-tickerplants/index.md
-    - Machine learning: wp/machine-learning/index.md
-    - Market depth: wp/market-depth/index.md
-    - Market fragmentation: wp/market-fragmentation/index.md
-    - Multi partitions: wp/multi-partitioned-dbs/index.md
-    - Multi-threading: wp/multi-thread/index.md
-    - Neural networks: wp/neural-networks/index.md
-    - Option pricing: wp/option-pricing/index.md
-    - Order Book: wp/order-book.md
-    - Parse trees, functional SQL: wp/parse-trees.md
-    - Permissions: wp/permissions/index.md
-    - Predicting floods: wp/disaster-floods/index.md
-    - Query optimization: wp/columnar-database/index.md
-    - Query Routing: wp/query-routing/index.md
-    - Query scaling: wp/query-scaling.md
-    - Real-time tick subscribers: wp/rt-tick/index.md
-    - Time-series simplification: wp/ts-shrink/index.md
-    - Transaction-cost analysis: wp/transaction-cost.md
-    - Trend indicators: wp/trend-indicators/index.md
-    - Signal processing and q: wp/signal-processing/index.md
-    - Socket sharding: wp/socket-sharding/index.md
-    - Space weather: wp/space-weather/index.md
-    - Surveillance latency: wp/surveillance-latency/index.md
-    - Surveillance techniques: wp/surveillance/index.md
-    - Working with sym files: wp/symfiles.md
-    - WebSockets: wp/websockets/index.md
-  - About: 
-    - Kx technology: about/kxtechnology.md
-    - Search: about/search.md
-    - Site news: about/site-news.md
-    - This site: about/thissite.md
-    - Style guide:
-      - Introduction: about/sg/index.md
-      - Characters: about/sg/characters.md
-      - Miscellaneous: about/sg/miscellaneous.md
-      - Style: about/sg/style.md
-      - Code blocks: about/sg/code.md
-      - Typography: about/sg/typography.md
-    - Terminology: about/terminology.md
-    - Citations: about/citations.md
-    - License agreements:
-      - AWS: license/aws.md
-      - GCP: license/gcp.md
+    - Neural networks*: wp/neural-networks/index.md
+    - Pattern recognition*: wp/machine-learning/index.md

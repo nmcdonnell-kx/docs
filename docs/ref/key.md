@@ -5,9 +5,8 @@ author: Stephen Taylor
 keywords: dictionary, directory, enumeration, file, foreign key, handle, kdb+, keyed table, q, symbol, til, vector
 ---
 
-<div markdown="1" style="float: right; max-width: 300px">
 [![Swiss army knife](../img/swiss-army-knife.jpg)](https://www.victorinox.com/ "victorinox.com")
-</div>
+{: style="float: right; max-width: 300px"}
 
 # `key`
 
@@ -44,8 +43,10 @@ q)key `.q
 So is the default namespace.
 
 ```q
-q)key `           /list namespaces in the root
+q)key `                 / namespaces in the default namespace
 `q`Q`h`o`util`rx
+q)key `.                / objects in the default namespace
+`a`s`b`t`deltas0`x`c
 ```
 
 
@@ -62,6 +63,12 @@ q
 w
 e
 ```
+
+:fontawesome-solid-book:
+[`keys`, `xkey`](keys.md)
+<br>
+:fontawesome-solid-book:
+[`!` Enkey, Unkey](enkey.md)
 
 
 ## Files in a folder
@@ -80,6 +87,11 @@ q)f:key`:c:/q
 q)f where f like "*.q"
 `profile.q`sp.q`trade.q
 ```
+
+
+## Whether a folder exists
+
+An empty folder returns an empty symbol vector; a non-existent folder returns an empty general list. 
 
 
 ## Whether a file exists
@@ -185,5 +197,7 @@ q)key 10
 ```
 
 ----
+
 :fontawesome-solid-book-open:
 [Metadata](../basics/metadata.md)
+

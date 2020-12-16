@@ -6,6 +6,13 @@ date: October 2019
 ---
 # :fontawesome-solid-pen-nib: Terminology
 
+[![Bob Dylan](../img/faces/bobdylan.jpg)](https://prruk.org/how-prophetic-was-bob-dylan-when-he-said-the-times-were-a-changing/)
+{: .small-face}
+
+And the words that are used for to get this ship confused<br>
+Will not be understood as they are spoken<br>
+— _Bob Dylan_ “When the ship comes in”
+{: style="opacity:.5"}
 
 In 2018 and 2019 the vocabulary used to describe the q language changed. Why?
 
@@ -80,7 +87,8 @@ input, parameter | argument
 matrices         | matrixes
 output           | result
 
-:fontawesome-regular-hand-point-right:
+----
+:fontawesome-solid-book-open:
 [Glossary](../basics/glossary.md)
 
 

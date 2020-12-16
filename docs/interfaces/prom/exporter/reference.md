@@ -3,7 +3,6 @@ title: Function reference for the Prometheus Exporter | Interfaces | Documentati
 author: Conor McCarthy
 description: All functionality and options for the Prometheus Exporter for kdb+ metrics
 date: April 2020
-hero: <i class="fab fa-superpowers"></i> Fusion for Kdb+
 keywords: prometheus, grafana, monitoring, metrics, interface, fusion, exporter, visualisation, q
 ---
 # Prometheus function reference
@@ -11,7 +10,7 @@ keywords: prometheus, grafana, monitoring, metrics, interface, fusion, exporter,
 :fontawesome-brands-github:
 [KxSystems/prometheus-kdb-exporter](https://github.com/KxSystems/prometheus-kdb-exporter)
 
-<pre markdown="1" class="language-txt">
+<div markdown="1" class="typewriter">
 .prom   **Prometheus Exporter interface**
 
 Create metrics
@@ -23,7 +22,7 @@ Update metric values
 
 Initialize library
   [init](#prominit)              Initialize the library
-</pre>
+</div>
 
 Once the relevant event handlers have been defined to update the metric values, the library can by initialized with a call to `.prom.init`.
 

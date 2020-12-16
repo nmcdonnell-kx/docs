@@ -9,11 +9,13 @@ keywords: async, block, buffer, communication, flush, hopen, interprocess, ip, i
 
 _Simple, powerful, fast_
 
-<pre markdown="1" class="language-txt">
+<div markdown="1" class="typewriter">
 [\p](syscmds.md#listening-port)  [-p](cmdline.md#listening-port)          listen to port
 [hopen hclose](../ref/hopen.md)    open/close connection
 [.z](../ref/dotz.md)              handle message (callbacks)
-</pre>
+</div>
+
+A kdb+ process can communicate with other processes through TCP/IP, which is baked in to the q language. 
 
 :fontawesome-brands-superpowers: 
 [Fusion interfaces](../interfaces/fusion.md)
@@ -207,7 +209,7 @@ For releases since 2012.05.29, kdb+ and the C-API will compress an outgoing mess
 -   Connection is not `localhost`
 -   Size of compressed data is less than &frac12; the size of uncompressed data
 
-The compression/decompression algorithms are proprietary and implemented as the `z` and `u` methods in `c.java`. The message validator does not validate the integrity of compressed messages.
+The compression/decompression algorithms are proprietary and implemented as the `compress` and `uncompress` methods in `c.java`. The message validator does not validate the integrity of compressed messages.
 
 HTTP server supports gzip compression via `Content-Encoding: gzip` for responses to `form?…`-style requests.
 The response payload must be 2,000+ chars and the client must indicate support via `Accept-Encoding: gzip` in the HTTP header.
