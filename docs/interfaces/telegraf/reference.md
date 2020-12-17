@@ -4,55 +4,69 @@ keywords: ffi, api, fusion, interface, q
 hero: <i class="fab fa-superpowers"></i> Fusion for Kdb+
 ---
 
+# Telegraf/kdb+ handler function reference
+
 :fontawesome-brands-github:
 [KxSystems/telegraf_kdb_handler](https://github.com/KxSystems/telegraf_kdb_handler)
 
-# telegraf kdb handler function reference
-
 The following functions are exposed in `.telegraf` namespace.
 
-<pre markdown="1" class="language-text">
+<div markdown="1" class="typewriter">
 .telegraf. **Telegraf Handler**
 
-    [init](#telegrafinit)                                       Initialize functions which have optional implementation.
-    [handler](#telegrafhandler)                                 Converts a batch of telegraf line protocol messages into list of tuple of (table name; table).
-    [get_chunk_size_threshold](#telegrafchunk_size_threshold)   Get current chunk size threshold, message with size above which is processed asynchronously.
-    [set_chunk_size_threshold](#telegrafchunk_size_threshold)   Set chunk size threshold, message with size above which is processed asynchronously.
-    [save_current_schema](#telegrafsave_current_schema)         Save current schema for tables as a text file.
-</pre>
+Functionality
+  [init](#telegrafinit)                   initialise either q/C++ functionality.
+  [handler](#telegrafhandler)                Converts a batch of Telegraf messages into a kdb+ structure.
+  [getChunkSizeThreshold](#telegrafgetchunksizethreshold)  Get the size above which messages are parsed asynchronously.
+  [setChunkSizeThreshold](#telegrafsetchunksizethreshold)  Set the size above which messages are parsed asynchronously.
+  [saveCurrentSchema](#telegrafsavecurrentschema)      Save current schema for tables as a text file.
+</div>
 
-### `.telegraf.init`
+## `.telegraf.init`
 
-_Initialize functions which have optional implementation._
+_Initialise interface functionality to use C++/q implementations._
 
-Syntax: `.telegraf.init[use_cxx]`
-
-Where
-
-- `use_cxx` is boolean; true if using C++ parser; false if using q parser.
-
-```q
-
-q).telegraf.init[1b]
-
+```txt
+.telegraf.init[use_cxx]
 ```
 
-### `.telegraf.handler`
+Where
 
-_Converts a batch of telegraf line protocol messages into list of tuple of (table name; table data)._
+- `use_cxx` is a boolean atom; `1b` if using the C++ parser; `0b` if using the q parser.
 
-Synatx: `.telegraf.handler[message]`
+returns null on successful execution, defining underlying interface functionality
+
+```q
+// Initialise interface to use the C++ functionality
+q).telegraf.init[1b]
+q).telegraf[`getChunkSizeThreshold`setChunkSizeThreshold`parse_map]
+code
+code
+"JFS*"!({"J"$-1 _/: x};$["F"];$["S"];k){x'y}[{$[count x; -1 _ 1 _ x; x]}])
+
+// Initialise interface to use the q functionality
+q).telegraf.init[0b]
+q).telegraf[`getChunkSizeThreshold`setChunkSizeThreshold`parse_map]
+{'"undefined"}
+{'"undefined"}
+"PJFS*"!($["P"];{"J"$-1 _/: x};$["F"];$["S"];::)
+```
+
+## `.telegraf.handler`
+
+_Converts a batch of telegraf line protocol messages into a list containing (table name;table data)._
+
+```txt
+.telegraf.handler[message]
+```
 
 Where
 
-- `message`: Batch telegraf lines separated by "\n" and preceded by endpoint.
+- `message`: A batch of telegraf messages separated by "\n" and preceded by the associated endpoint.
 
-Return
-
-- list of tuple of (table name; table data).
+returns a tuple list containing (table name; table data)
 
 ```q
-
 q)test_message
 "telegraf/kdb system,host=thunderchild.team.savvi.io uptime_format=\"142 days, 22:54\" 1601289566000000000\nsystem,host=thunderchild.team.savvi.io uptime=12351247i 1601289566000000000\nsystem,host=thunderchild.team.savvi.io load15=0.3,n_cpus=56i,n_users=0i,load1=0.26,load5=0.48 1601289566000000000\ndisk,device=nvme0n1p1,fstype=ext4,host=thunderchild.team.savvi.io,mode=ro,path=/etc/telegraf/telegraf.conf free=210399662080i,used=746372100096i,used_percent=78.00941975947482,inodes_total=62513152i,inodes_free=61206760i,inodes_used=1306392i,total=1007998959616i 1601289566000000000\n"
 q).telegraf.handler test_message
@@ -66,98 +80,118 @@ host                       uptime_format     time                          uptim
 thunderchild.team.savvi.io "142 days, 22:54" 2020.09.28D10:39:26.000000000                                           
 thunderchild.team.savvi.io ""                2020.09.28D10:39:26.000000000 12351247                                  
 thunderchild.team.savvi.io ""                2020.09.28D10:39:26.000000000          0.3    56     0       0.26  0.48 
-
 ```
 
-!!! detail "When using q parser, `"\""` is eliminated and quoted value will be parsed as symbol. Exception is when you define a type of the vaue as string in `telegraf_kdb_schema.q`. This means casting to string type is only feasible for pre-defined keys. If using C++ parser, quoted value will be cast to string after trimming preceding and trailing `"\""`."
+!!! warning "Parser differences"
 
-### `.telegraf.get_chunk_size_threshold`
+	There is presently a functional difference between results parsed using the q native parser vs the C++ parser. Parsing using the C++ version leaves "\" within messages and as a result subsequent processing can distinguish if a message is a string or not. However the q native parser by default removes "\" and therefore subsequent processing cannot distinguish if an item is a string or not by default. This is a problem when dealing with evolving schemas in particular. In the case that a user defines the type of a parsed element as string in the schema file (telegraf_kdb_schema.q) then strings can be handled by the q parser. As such parsing to string types is only avaiable in both parsers when using pre-defined schemas.
 
-_Get current chunk size threshold, message with size above which is processed asynchronously._
+## `.telegraf.getChunkSizeThreshold`
 
-Syntax: `.telegraf.get_chunk_size_threshold[]`
+_Get the message size in bytes above which parsing is processed asynchronously._
 
-Returns
+```txt
+.telegraf.getChunkSizeThreshold[]
+```
 
-- long
+returns a long indicating the message size in bytes above which messages are processed asynchronously
+
+!!! warning "Differences between q and C++ implementations"
+	
+	Processing messages asynchronously is only supported when using the C++ implementation of the interface. In the case that the q parser is to be used this function is undefined
 
 ```q
+// Initialise interface to use the C++ parser
+q).telegraf.init[1b]
+q).telegraf.getChunkSizeThreshold[]
+25000
 
-q).telegraf.get_chunk_size_threshold[]
+// Initialise interface to use the q parser
+q).telegraf.init[0b]
+'undefined
+  [0]  .telegraf.getChunkSizeThreshold[]
+       ^
+```
+
+## `.telegraf.setChunkSizeThreshold`
+
+_Set the message size in bytes above which parsing is processed asynchronously._
+
+```txt
+.telegraf.setChunkSizeThreshold[new_threshold]
+```
+
+Where
+
+- `new_threshold` is a long indicating new chunk size threshold of q long type.
+
+returns a null on successful invocation otherwise will error.
+
+!!! warning "Undefined behaviour"
+	
+	Invocation of this function is unsupported in two scenarios.
+	
+	1. If the shared library was build from source with the `FIXED_CHUNK_SIZE` set. See [here](https://github.com/KxSystems/telegraf_kdb_handler#installation) for more information
+
+	2. If using the q parser, the option to process messages asynchronously is not supported as such this function is undefined.
+
+```q
+// Interface initialised using the C++ parser with FIXED_CHUNK_SIZE not set
+q).telegraf.getChunkSizeThreshold[]
+25000
+q).telegraf.setChunkSizeThreshold[28000]
+q).telegraf.getChunkSizeThreshold[]
 28000
 
-```
-
-When using q parser, this function becomes undefined.
-
-```q
-
-q).telegraf.get_chunk_size_threshold[]
-'undefined
-  [0]  .telegraf.get_chunk_size_threshold[]
-       ^
-
-```
-
-### `.telegraf.set_chunk_size_threshold`
-
-_Set chunk size threshold, message with size above which is processed asynchronously._
-
-Syntax: `.telegraf.set_chunk_size_threshold[new_threshold]`
-
-Where
-
-- `new_threshold` is a new chunk size threshold of q long type.
-
-```q
-
-q).telegraf.set_chunk_size_threshold[25000]
-q)
-
-```
-
-If the shared library was built from source with `FIXED_CHUNK_SIZE` (See [Installation guide](https://github.com/KxSystems/telegraf_kdb_handler#install)) flag, this function will rteturn error.
-
-```q
-
-q).telegraf.set_chunk_size_threshold[25000]
+// Interface initialised using the C++ parser with a FIXED_CHUNK_SIZE set
+q).telegraf.setChunkSizeThreshold[28000]
 'chunk size threshold is fixed
-  [0]  .telegraf.set_chunk_size_threshold[25000]
-       ^
+  [0]  .telegraf.setChunkSizeThreshold[28000]
 
-```
-
-When using q parser, this function becomes undefined.
-
-```q
-
-q).telegraf.set_chunk_size_threshold[25000]
+// Interface initialised using the q parser
+q).telegraf.setChunkSizeThreshold[28000]
 'undefined
-  [0]  .telegraf.set_chunk_size_threshold[25000]
+  [0]  .telegraf.setChunkSizeThreshold[28000]
        ^
-
 ```
 
+## `.telegraf.saveCurrentSchema`
 
-### `.telegraf.save_current_schema`
+_Save the current in process schema map for each table prefixed with the appropriate endpoint into a .txt file._
 
-_Save curent schema of each table which has a prefix defined in `:telegraf_influx_schema.q into a file in the form the schema file specifies._
-
-Syntax: `.telegraf.save_current_schema[file]`
+```txt
+.telegraf.saveCurrentSchema[file]
+```
 
 Where
 
-- `file` is a symbol file name to which schema is saved. The extension must be `.txt`.
+- `file` is a symbol file name (hsym) which the schema configuration file is to be saved as relative to the current directory. The file extension used must be `.txt`.
 
-*Note: When saving the schema console width will be temporarily changed to 1000:1000.*
+returns null on successful invocation file and generates a file containing the appropriate schema definition for the current schema map defined in process.
+
+!!! Note "Console width change"
+
+	When saving the schema console width will temporarily be changed to 1000:1000
 
 ```q
-
-q).telegraf_influx.save_current_schema[`:schema.txt]
+// Save schema file for schemas currently defined in process
+q).telegraf_influx.saveCurrentSchema[`:schema.txt]
 `:schema.txt
-q).telegraf_influx.save_current_schema[`:schema.json]
-'File extension must be '.txt'.
-  [0]  .telegraf_influx.save_current_schema[`:schema.json]
-       ^
+q)\cat schema.txt
+"(diagnostics;`time`table`fleet`model`name`driver`device_version`load_capacit..
+"(readings;`time`table`name`fleet`driver`model`device_version`load_capacity`f..
+"(system;`time`table`host`uptime`uptime_format`load1`load5`load15`n_cpus`n_us..
+"(diskio;`time`table`host`name`reads`read_time`weighted_io_time`iops_in_progr..
+"(process;`time`table`host`running`sleeping`dead`paging`blocked`zombies`stopp..
+"(swap;`time`table`host`total`used`free`used_percent`in`out!\"PSSJJJFJJ\")"
+"(cpu;`time`table`cpu`host`usage_iowait`usage_irq`usage_softirq`usage_guest_n..
+"(kernel;`time`table`host`context_switches`boot_time`processes_forked`entropy..
+"(processes;`time`table`host`paging`idle`blocked`zombies`stopped`running`slee..
+"(mem;`time`table`host`used`buffered`huge_pages_total`available`huge_page_siz..
 
+// Attempt to save a file with an incorrect extension
+q).telegraf_influx.saveCurrentSchema[`:schema.json]
+'File extension must be '.txt'.
+  [0]  .telegraf_influx.saveCurrentSchema[`:schema.json]
+       ^
 ```
