@@ -18,7 +18,7 @@ We describe how kdb+ numeric and string types are represented in Protobuf, how P
 
 A Protobuf message is composed of a number of fields where each field can be scalar, repeated scalar, sub-message, repeated sub-message, enum or map. For example:
 
-```proto
+```protobuf
 message MyMessage {
   int32 scalar_int = 1;
   repeated double repeated_double = 2;
@@ -48,6 +48,16 @@ Enum                  Integer of enum value
 Map                   Dictionary            
 ```
 
+| Field Type           | **Kdb Type**                |
+| -------------------- | --------------------------- |
+| Scalar               | Atom                        |
+| Repeated scalar      | Simple list                 |
+| Sub-message          | Mixed list                  |
+| Repeated sub-message | Mixed list (of mixed lists) |
+| Enum                 | Int of enum value           |
+| Map                  | Dictionary                  |
+
+Where on serialization you do not wish to explicitly set a field, a general null (::) can be specified in the mixed list for that field's value.  Furthermore, an additional :: can be included an the end of the mixed list (past the number of message fields).  Such :: field values are ignored and this can be used to prevent q from changing the message's mixed list to a simple list, e.g. where all fields have the same kdb+ type.
 
 ### Scalar fields
 
@@ -64,12 +74,13 @@ double                    double     -9h
 float                     float      -8h       
 bool                      bool       -1h       
 enum                      int32      -6h       
-string, bytes             string     -11h      
+string                    string     10h      
+bytes                     string     4h
 ```
 
 When parsing from Protobuf to kdb+, for any field which has not been explicity set in the encoded message, Protobuf will return the default value for that field type which is then populated as usual into the corresponding kdb+ element.
 
-Similarly when serialising from kdb+ to Protobuf, any kdb+ element set to its field-specific default value is equivalent to not explicitly setting that field in the encoded message. It is necessary to pad unspecified message fields with their default value in kdb+ in order to maintain the one-to-one mapping between any given message field and its corresponding kdb+ element.
+Similarly when serialising from kdb+ to Protobuf, any kdb+ element set to its field-specific default value is equivalent to not explicitly setting that field in the encoded message. It is necessary to pad unspecified message fields with their default value or :: in kdb+ in order to maintain the one-to-one positional mapping between any given message field and its corresponding kdb+ element.
 
 
 ### Repeated Fields
@@ -77,7 +88,7 @@ Similarly when serialising from kdb+ to Protobuf, any kdb+ element set to its fi
 Repeated fields are represented as singularly typed kdb+ lists with the underlying kdb+ type based on the repeated type:
 
 ```txt
-scalar                    C++        kdb+
+repeated                  C++        kdb+
 -----------------------------------------
 int32, sint32, sfixed32   int32      6h       
 uint32, fixed32           int32      6h       
@@ -87,7 +98,8 @@ double                    double     9h
 float                     float      8h       
 bool                      bool       1h       
 enum                      int32      6h       
-string, bytes             string     11h      
+string                    string     0h (of 10h)     
+bytes                     string     0h (of 4h) 
 ```
 
 
@@ -110,7 +122,7 @@ uint32, fixed32           int32      6h
 int64, sint64, sfixed64   int64      7h        
 uint64, fixed64           int64      7h        
 bool                      bool       1h        
-string, bytes             string     11h       
+string                    string     11h       
 ```
 
 **Protobuf map values** can be any type other than repeated fields or maps and therefore are defined by the following type mapping
@@ -126,7 +138,8 @@ double                    double           9h
 float                     float            8h  
 bool                      bool             1h  
 enum                      int32            6h  
-string, bytes             string           11h 
+string                    string           0h (of 10h)     
+bytes                     string           0h (of 4h)  
 message                   [message class]  0h  
 ```
 
@@ -153,7 +166,7 @@ Unset              Empty mixed list
 
 To support the use of the kdb+ temporal types and GUIDs which do not have an equivalent representation in Protobuf, a field option extension is provided in `src/kdb_type_specifier.proto` (for compiled in message definitions) and `proto/kdb_type_specified.proto` (for dynamically imported message definitions). This allows a kdb+ specific context to be applied to fields, map-keys and map-values:
 
-```proto
+```protobuf
 syntax = "proto2";
 
 import "google/protobuf/descriptor.proto";
@@ -192,7 +205,7 @@ extend google.protobuf.FieldOptions {
 
 In order to apply a `KdbTypeSpecifier` to a field you must import `kdb_type_specifier.proto` into your `.proto` file, then specify the `KdbTypeSpecifier` field option as, for example:
 
-```proto
+```protobuf
 syntax = "proto3";
 
 import "kdb_type_specifier.proto";
@@ -239,7 +252,6 @@ SECOND            int32, sint32, sfixed32, uint32, fixed32
 TIME              int32, sint32, sfixed32, uint32, fixed32
 ```
 
-
 ## Type checking
 
 When serialising from kdb+ to Protobuf, the kdb+ structure must conform to the mappings above with respect to that particular message definition. This is important both in terms of the type of each message field (scalar, repeated, map, etc.) and the Proto type specified to represent that field (int32, double, string, etc.)
@@ -262,20 +274,46 @@ message ScalarExample {
 }
 
 // Correct function invocation
-q)array:.protobufkdb.serializeArray[`ScalarExample;(12i;55f;`str)]
+q)array:.protobufkdb.serializeArrayFromList[`ScalarExample;(12i;55f;"str")]
 
-q)array:.protobufkdb.serializeArray[`ScalarExample;(12i;55f;`str;1)]
-'Incorrect number of fields, message: 'ScalarExample', expected: 3, received: 4
-  [0]  array:.protobufkdb.serializeArray[`ScalarExample;(12i;55f;`str;1)]
+q)array:.protobufkdb.serializeArrayFromList[`ScalarExample;(12i;55f)]
+'Incorrect number of fields, message: 'ScalarExample', expected: 3, received: 2
+  [0]  array:.protobufkdb.serializeArrayFromList[`ScalarExample;(12i;55f)]
              ^
 
-q)array:.protobufkdb.serializeArray[`ScalarExample;(12j;55f;`str)]
+q)array:.protobufkdb.serializeArrayFromList[`ScalarExample;(12j;55f;"str")]
 'Invalid scalar type, field: 'ScalarExample.scalar_int32', expected: -6, received: -7
-  [0]  array:.protobufkdb.serializeArray[`ScalarExample;(12j;55f;`str)]
+  [0]  array:.protobufkdb.serializeArrayFromList[`ScalarExample;(12j;55f;"str")]
              ^
 
-q)array:.protobufkdb.serializeArray[`ScalarExample;(enlist 12i;55f;`str)]
+q)array:.protobufkdb.serializeArrayFromList[`ScalarExample;(enlist 12i;55f;"str")]
 'Invalid scalar type, field: 'ScalarExample.scalar_int32', expected: -6, received: 6
-  [0]  array:.protobufkdb.serializeArray[`ScalarExample;(enlist 12i;55f;`str)]
+  [0]  array:.protobufkdb.serializeArrayFromList[`ScalarExample;(enlist 12i;55f;"str")]
              ^
-``` 
+```
+
+## Representing messages as kdb+ dictionaries
+
+As described above, protobufkdb represents a message in kdb+ as a mixed lists of field values in field positional order.  This more closely ties in with how protobuf serializes messages and is recommended for performance reasons.
+
+However, some users may prefer the kdb+ mapping for messages to be a dictionary from symbol field names to a mixed list of field values, more similar to how JSON is represented.  This style is supported through separate APIs for both the parsing and serialization functions.
+
+Rather than the field positional order:
+
+- Each field name is looked up in the message and its corresponding field value applied
+- Any message fields without a field name/value pair in the dictionary are not explicitly set
+- Where is field value is set to the general null (::) that field name/value pair is ignored
+- Where a field name is specified (and its value is not ::) but that field is not present is the message, a type check error is returned
+
+In addition the dictionary style is used recursively when fields contain other messages:
+
+```txt
+field type            kdb+ structure        
+------------------------------------------------------------------------------------
+Sub-message           Field name dictionary            
+Repeated sub-message  List of field name dictionaries or a flip table   
+Map to message        Map-value is a list of field name dictionaries or a flip table       
+```
+
+All other field types use the same kdb+ mapping for the field value as is used by the mixed list message style.
+
