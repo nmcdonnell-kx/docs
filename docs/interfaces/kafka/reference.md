@@ -51,21 +51,6 @@ Kafka interface functionality
   [.kfk.AssignDel](#kfkassigndel)               Remove topic partition assignments from the current assignments
   [.kfk.Assignment](#kfkassignment)              Return the current assignment 
 
-<<<<<<< HEAD
-  // Assignment functionality
-  .kfk.Assign                  Create a new assignment from which data will be consumed
-  .kfk.AssignAdd               Add new assignments to the current assignment
-  .kfk.AssignDel               Remove topic partition assignments from the current assignments
-  .kfk.Assignment              Return the current assignment 
-
-  // Assignment functionality
-  .kfk.Assign                  Create a new assignment from which data will be consumed
-  .kfk.AssignAdd               Add new assignments to the current assignment
-  .kfk.AssignDel               Remove topic partition assignments from the current assignments
-  .kfk.Assignment              Return the current assignment 
-
-=======
->>>>>>> 486378a4ccc66bb987a788e2fd05c953a6470fea
   // system infomation
   [.kfk.Metadata](#kfkmetadata)                Broker Metadata
   [.kfk.Version](#kfkversion)                 Librdkafka version
