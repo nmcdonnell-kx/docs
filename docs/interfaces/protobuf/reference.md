@@ -355,3 +355,4 @@ returns the version of the `libprotobuf` shared object used by the interface, as
 q).protobufkdb.versionStr[]
 "libprotobuf v3.12.3"
 ```
+

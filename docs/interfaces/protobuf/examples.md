@@ -95,7 +95,6 @@ q)encodedHQ
 
 // Serialize the details of all offices in a region to a Protobuf array using Arenas
 q)newry:(`Newry_Office`The_Conlon_Building; 54.1751772; -6.3378739; 2020.08.14)
->>>>>>> 486378a4ccc66bb987a788e2fd05c953a6470fea
 q)belfast:(enlist `Belfast; 54.592595; -5.927475; 2020.08.14)
 q)EMEA:`HQ`Newry`Belfast!(HQ; newry; belfast)
 q)encodedEMEA:.protobufkdb.serializeArrayArena[`Region; (`EMEA; EMEA)]
