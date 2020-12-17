@@ -12,32 +12,43 @@ Functions exposed in the `.protobufkdb` namespace allow you to generate and pars
 
 <div markdown="1" class="typewriter">
 .protobufkdb   **Protobuf/Protocol Buffers interface**
+
 Library Information
-  [version](#protobufkdbversion)                   Return the libprotobuf version as an integer
-  [versionStr](#protobufkdbversionstr)                Return the libprotobuf version as a string
+  [version](#protobufkdbversion)                         Return the libprotobuf version as an integer
+  [versionStr](#protobufkdbversionstr)                      Return the libprotobuf version as a string
+
 Import Schema
-  [addProtoImportPath](#protobufkdbaddprotoimportpath)        Add a path from which to import proto schema files
-  [importProtoFile](#protobufkdbimportprotofile)           Import a proto schema file
-  [listImportedMessageTypes](#protobufkdblistimportedmessagetypes)  List successfully imported message schemas
+  [addProtoImportPath](#protobufkdbaddprotoimportpath)              Add a path from which to import proto schema files
+  [importProtoFile](#protobufkdbimportprotofile)                 Import a proto schema file
+  [listImportedMessageTypes](#protobufkdblistimportedmessagetypes)        List successfully imported message schemas
+
 Inspect Schema
-  [displayMessageSchema](#protobufkdbdisplaymessageschema)      Display the schema definition of the message
-  [getMessageFields](#protobufkdbgetmessagefields)      Get the list of message fields
+  [displayMessageSchema](#protobufkdbdisplaymessageschema)            Display the schema definition of the message
+  [getMessageFields](#protobufkdbgetmessagefields)                Get the list of message fields
 
 Serialize / Parse
-  [serializeArrayFromList](#protobufkdbserializearrayfromlist)            Serialize from a kdb+ mixed list object to a string
-  [serializeArrayArenaFromList](#protobufkdbserializearrayarenafromlist)       Serialize from a kdb+ mixed list object to a string, using a Google Arena for the intermediate message
+  [serializeArrayFromList](#protobufkdbserializearrayfromlist)          Serialize from a kdb+ mixed list object to a string
+  [serializeArrayArenaFromList](#protobufkdbserializearrayarenafromlist)     Serialize from a kdb+ mixed list object to a string, using 
+​                                  a Google Arena for the intermediate message
   [parseArrayToList](#protobufkdbparsearraytolist)                Parse from a string to a kdb+ mixed list object
-  [parseArrayArenaToList](#protobufkdbparsearrayarenatolist)           Parse from a string to a kdb+ mixed list object, using a Google Arena for the intermediate message
-  [serializeArrayFromDict](#protobufkdbserializearrayfromdict)            Serialize from a kdb+ dictionary to a string
-  [serializeArrayArenaFromDict](#protobufkdbserializearrayarenafromdict)       Serialize from a kdb+ dictionary to a string, using a Google Arena for the intermediate message
+  [parseArrayArenaToList](#protobufkdbparsearrayarenatolist)           Parse from a string to a kdb+ mixed list object, using 
+​                                  a Google Arena for the intermediate message
+  [serializeArrayFromDict](#protobufkdbserializearrayfromdict)          Serialize from a kdb+ dictionary to a string
+  [serializeArrayArenaFromDict](#protobufkdbserializearrayarenafromdict)     Serialize from a kdb+ dictionary to a string, using 
+​                                  a Google Arena for the intermediate message
   [parseArrayToDict](#protobufkdbparsearraytodict)                Parse from a string to a kdb+ dictionary
-  [parseArrayArenaToDict](#protobufkdbparsearrayarenatodict)           Parse from a string to a kdb+ dictionary, using a Google Arena for the intermediate message
+  [parseArrayArenaToDict](#protobufkdbparsearrayarenatodict)           Parse from a string to a kdb+ dictionary, using 
+​                                  a Google Arena for the intermediate message
 
 Save / Load
-  [saveMessageFromList](#protobufkdbsavemessagefromlist)               Serialize from a kdb+ mixed list object to a file
+  [saveMessageFromList](#protobufkdbsavemessagefromlist)             Serialize from a kdb+ mixed list object to a file
   [loadMessageToList](#protobufkdbloadmessagetolist)               Parse from a file to a kdb+ mixed list object
-  [saveMessageFromDict](#protobufkdbsavemessagefromdict)               Serialize from a kdb+ dictionary to a file
+  [saveMessageFromDict](#protobufkdbsavemessagefromdict)             Serialize from a kdb+ dictionary to a file
   [loadMessageToDict](#protobufkdbloadmessagetodict)               Parse from a file to a kdb+ dictionary
+
+Debugging
+  [parseArrayDebug](#protobufkdbparsearraydebug)                 Parse from a string and display debugging
+  [loadMessageDebug](#protobufkdbloadmessagedebug)                Parse from a file and display debugging
 
 
 
@@ -50,6 +61,36 @@ Save / Load
     
     If that fails it then searches the imported message definitions.  Only if the message type is not found in either is an error returned.
 
+## `version`
+
+_Library version (integer) used by the interface_
+
+```txt
+.protobufkdb.version[]
+```
+
+returns the version of the `libprotobuf` shared object used by the interface, as an integer.
+
+```q
+q).protobufkdb.version[]
+3012003i
+```
+
+
+## `versionStr`
+
+_Library version (string) used by the interface_
+
+```txt
+.protobufkdb.versionStr[]
+```
+
+returns the version of the `libprotobuf` shared object used by the interface, as a string.
+
+```q
+q).protobufkdb.versionStr[]
+"libprotobuf v3.12.3"
+```
 
 ## `addProtoImportPath`
 
@@ -252,7 +293,7 @@ Where
 returns the message as a kdb+ mixed list object.
 
 ```q
-q)data:(1 2i;10 20f;("s1";"s2")
+q)data:(1 2i;10 20f;("s1";"s2"))
 q)array:.protobufkdb.serializeArrayFromList[`RepeatedExampleDynamic;data]
 q)array
 "\n\002\001\002\022\020\000\000\000\000\000\000$@\000\000\000\000\000\0004@\0..
@@ -289,7 +330,7 @@ the function
     [Google Arenas](https://developers.google.com/protocol-buffers/docs/reference/arenas)
 
 ```q
-q)data:(1 2i;10 20f;("s1";"s2")
+q)data:(1 2i;10 20f;("s1";"s2"))
 q)array:.protobufkdb.serializeArrayFromList[`RepeatedExampleDynamic;data]
 q)array
 "\n\002\001\002\022\020\000\000\000\000\000\000$@\000\000\000\000\000\0004@\0..
@@ -349,7 +390,7 @@ the function
 
 ```q
 q)fields:.protobufkdb.getMessageFields[`RepeatedExampleDynamic]
-q)data:fields!(1 2i;10 20f;("s1";"s2")
+q)data:fields!(1 2i;10 20f;("s1";"s2"))
 q).protobufkdb.serializeArrayArenaFromDict[`RepeatedExampleDynamic;data]
 "\n\002\001\002\022\020\000\000\000\000\000\000$@\000\000\000\000\000\0004@\0..
 ```
@@ -410,7 +451,7 @@ the function
 
 ```q
 q)fields:.protobufkdb.getMessageFields[`RepeatedExampleDynamic]
-q)data:fields!(1 2i;10 20f;("s1";"s2")
+q)data:fields!(1 2i;10 20f;("s1";"s2"))
 q)array:.protobufkdb.serializeArrayFromDict[`RepeatedExampleDynamic;data]
 q)array
 "\n\002\001\002\022\020\000\000\000\000\000\000$@\000\000\000\000\000\0004@\0..
@@ -503,7 +544,7 @@ q).protobufkdb.saveMessageFromDict[`RepeatedExampleDynamic;`trivial_message_file
 
 ## `loadMessageToDict`
 
-_Parse from a Protobuf message file to a kdb+ dictionary
+_Parse from a Protobuf message file to a kdb+ dictionary_
 
 ```txt
 .protobufkdb.loadMessageToDict[message_type;file_name]
@@ -528,35 +569,73 @@ rep_double| 10   20
 rep_string| "s1" "s2"
 ```
 
-## `version`
+## `parseArrayDebug`
 
-_Library version (integer) used by the interface_
-
-```txt
-.protobufkdb.version[]
-```
-
-returns the version of the `libprotobuf` shared object used by the interface, as an integer.
-
-```q
-q).protobufkdb.version[]
-3012003i
-```
-
-
-## `versionStr`
-
-_Library version (string) used by the interface_
+_Parse from a Protobuf message string and display the debugging_
 
 ```txt
-.protobufkdb.versionStr[]
+.protobufkdb.parseArrayDebug[message_type;char_array]
 ```
 
-returns the version of the `libprotobuf` shared object used by the interface, as a string.
+Where
+
+-   `message_type` is a message type (string or symbol) matching a message name in the `.proto` definition
+-   `char_array` is the serialized Protobuf message (string)
+
+the function
+
+1.  prints debugging information to stdout 
+1.  returns generic null
+
+??? warning "For use only in debugging"
+
+    The debugging is generated by the libprotobuf `DebugString()` functionality and displayed on stdout to preserve formatting and indentation.
 
 ```q
-q).protobufkdb.versionStr[]
-"libprotobuf v3.12.3"
+q)data:(1 2i;10 20f;("s1";"s2"))
+q)array:.protobufkdb.serializeArrayFromList[`RepeatedExampleDynamic;data]
+q).protobufkdb.parseArrayDebug[`RepeatedExampleDynamic;array]
+rep_int32: 1
+rep_int32: 2
+rep_double: 10
+rep_double: 20
+rep_string: "s1"
+rep_string: "s2"
 ```
 
+## `loadMessageDebug`
 
+_Parse from a Protobuf message file and display the debugging_
+
+```txt
+.protobufkdb.loadMessageDebug[message_type;file_name]
+```
+
+Where:
+
+-   `message_type` is a message type (string or symbol) matching a message name in the `.proto` definition
+-   `file_name` is the name of a file (string or symbol)
+
+the function
+
+1.  prints debugging information to stdout 
+1.  returns generic null
+
+??? warning "For use only in debugging"
+
+    The debugging is generated by the libprotobuf `DebugString()` functionality and displayed on stdout to preserve formatting and indentation.
+
+```q
+q)data
+1    2
+10   20
+"s1" "s2"
+q).protobufkdb.saveMessageFromList[`RepeatedExampleDynamic;`trivial_message_file;data]
+q).protobufkdb.loadMessageDebug[`RepeatedExampleDynamic;`trivial_message_file]
+rep_int32: 1
+rep_int32: 2
+rep_double: 10
+rep_double: 20
+rep_string: "s1"
+rep_string: "s2"
+```

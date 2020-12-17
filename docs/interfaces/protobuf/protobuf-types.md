@@ -57,7 +57,7 @@ Map                   Dictionary
 | Enum                 | Int of enum value           |
 | Map                  | Dictionary                  |
 
-Where on serialization you do not wish to explicitly set a field, a general null (::) can be specified in the mixed list for that field's value.  Furthermore, an additional :: can be included an the end of the mixed list (past the number of message fields).  Such :: field values are ignored and this can be used to prevent q from changing the message's mixed list to a simple list, e.g. where all fields have the same kdb+ type.
+Where on serialization you do not wish to explicitly set a field, a generic null (::) can be specified in the mixed list for that field's value.  Furthermore, an additional :: can be included an the end of the mixed list (past the number of message fields).  Such :: field values are ignored and this can be used to prevent q from changing the message's mixed list to a simple list, e.g. where all fields have the same kdb+ type.
 
 ### Scalar fields
 
@@ -302,7 +302,7 @@ Rather than the field positional order:
 
 - Each field name is looked up in the message and its corresponding field value applied
 - Any message fields without a field name/value pair in the dictionary are not explicitly set
-- Where is field value is set to the general null (::) that field name/value pair is ignored
+- Where is field value is set to the generic null (::) that field name/value pair is ignored
 - Where a field name is specified (and its value is not ::) but that field is not present is the message, a type check error is returned
 
 In addition the dictionary style is used recursively when fields contain other messages:
