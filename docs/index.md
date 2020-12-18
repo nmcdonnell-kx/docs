@@ -26,6 +26,8 @@ Kdb+, from [Kx](https://kx.com), is
 
     :fontawesome-solid-user-friends: [Iverson centenary event](https://www.eventbrite.co.uk/e/ken-iverson-centenary-tickets-132578131761)
 
+    :fontawesome-solid-book-reader: [Fizz buzz in q](learn/reading/fizzbuzz.md)
+
     :fontawesome-solid-cloud: [GCPM architecture](cloud/gcpm/architecture.md)
 
     :fontawesome-solid-book-reader: [kdb+中文教程](https://kdbcn.gitee.io/)
