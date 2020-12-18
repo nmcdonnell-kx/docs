@@ -178,16 +178,16 @@ returns null on successful invocation file and generates a file containing the a
 q).telegraf_influx.saveCurrentSchema[`:schema.txt]
 `:schema.txt
 q)\cat schema.txt
-"(diagnostics;`time`table`fleet`model`name`driver`device_version`load_capacit..
-"(readings;`time`table`name`fleet`driver`model`device_version`load_capacity`f..
-"(system;`time`table`host`uptime`uptime_format`load1`load5`load15`n_cpus`n_us..
-"(diskio;`time`table`host`name`reads`read_time`weighted_io_time`iops_in_progr..
-"(process;`time`table`host`running`sleeping`dead`paging`blocked`zombies`stopp..
-"(swap;`time`table`host`total`used`free`used_percent`in`out!\"PSSJJJFJJ\")"
-"(cpu;`time`table`cpu`host`usage_iowait`usage_irq`usage_softirq`usage_guest_n..
-"(kernel;`time`table`host`context_switches`boot_time`processes_forked`entropy..
-"(processes;`time`table`host`paging`idle`blocked`zombies`stopped`running`slee..
-"(mem;`time`table`host`used`buffered`huge_pages_total`available`huge_page_siz..
+"(`diagnostics;`time`table`fleet`model`name`driver`device_version`load_capacit..
+"(`readings;`time`table`name`fleet`driver`model`device_version`load_capacity`f..
+"(`system;`time`table`host`uptime`uptime_format`load1`load5`load15`n_cpus`n_us..
+"(`diskio;`time`table`host`name`reads`read_time`weighted_io_time`iops_in_progr..
+"(`process;`time`table`host`running`sleeping`dead`paging`blocked`zombies`stopp..
+"(`swap;`time`table`host`total`used`free`used_percent`in`out!\"PSSJJJFJJ\")"
+"(`cpu;`time`table`cpu`host`usage_iowait`usage_irq`usage_softirq`usage_guest_n..
+"(`kernel;`time`table`host`context_switches`boot_time`processes_forked`entropy..
+"(`processes;`time`table`host`paging`idle`blocked`zombies`stopped`running`slee..
+"(`mem;`time`table`host`used`buffered`huge_pages_total`available`huge_page_siz..
 
 // Attempt to save a file with an incorrect extension
 q).telegraf_influx.saveCurrentSchema[`:schema.json]
