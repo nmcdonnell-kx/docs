@@ -1,7 +1,6 @@
 ---
 title: Telegraf Handler | Interfaces | Documentation for kdb+ and q
-hero: <i class="fab fa-superpowers"></i> Fusion for Kdb+
-keywords: telegraf, fusion, interface, q
+description: Telegraf is an agent to collect report metrics and events 
 ---
 
 # Telegraf Handler for kdb+
@@ -9,20 +8,35 @@ keywords: telegraf, fusion, interface, q
 :fontawesome-brands-github:
 [KxSystems/telegraf_kdb_handler](https://github.com/KxSystems/telegraf_kdb_handler)
 
-Telegraf is an agent to collect and report metrics and events. It was designed as a lightweight, plugin-driven collection that can run on your hosts, collecting data about your systems and applications, or it can operate remotely, scraping data via endpoints exposed by your applications.
+[Telegraf](https://www.influxdata.com/time-series-platform/telegraf/) is an agent used to collect and report both metrics and events. Written in Go, it is a standalone and lightweight compiled binary with no external dependencies. Its primary function is to acts as a plugin-driven collection that can run on your hosts, collecting data about your systems and applications. Alternatively it can operate remotely, scraping data via endpoints exposed by your applications.
 
-The messages of telegraf are not constant for its contents and therefore fixed schema is not feasible to store those information. This interface provides a handler of telegraf line protocol message, a format of messages sent by telegraf and converts them to q dictionaries after parsing inputs to proper type of q object.
+A full specification outlining the Telegraf line message protocol can be found [here](https://docs.influxdata.com/influxdb/v2.0/reference/syntax/line-protocol/).
 
-For specification of telegraf line protocol message, see [this page](https://docs.influxdata.com/influxdb/v2.0/reference/syntax/line-protocol/).
+## Use cases
+
+This technology is used commonly for:
+
+- IoT sensors: Collecting critical stateful data (pressure levels, temp levels) from IoT sensors and devices.
+- Systems monitoring: Collect metrics from modern stack cloud platforms, containers and orchestrators
+- Database monitoring: Collection of metrics from many of the most common database technologies
+
+## Kdb+/Telegraf integration
+
+The Kdb+/Telegraf integration provides users with a handler/parser of Telegraf line protocol messages and an evolving schema map to facilitate the non constant schemas of the messages. Telegraf messages received via HTTP are parsed based on endpoint considerations and formatted into q dictionaries/tables allowing a user to generate appropriate kdb+ structures or analyse the messages as appropriate.
+
+:fontawesome-solid-hand-point-right: [Function reference](reference.md)
+
+## Install the Kdb+/Telegraf handler
+
+:fontawesome-brands-github: 
+[Installation guide](https://github.com/KxSystems/telegraf_kdb_handler#installation)
 
 ## Status
 
-This interface is currently available under an Apache 2.0 licence and is supported on a best-efforts basis by the Fusion team. This interface is currently in active development, with additional functionality to be released on a rolling basis.
+The interface is currently available under an Apache 2.0 licence as a beta release and is supported on a best-efforts basis by the Fusion team. This interface is currently in active development, with additional functionality to be released on an ongoing basis.
 
-If you find issues with the interface or have feature requests please 
-:fontawesome-brands-github:
-[raise an issue](https://github.com/KxSystems/telegraf_kdb_handler/issues). 
-
-To contribute to this project follow the 
-:fontawesome-brands-github:
-[contributing guide](https://github.com/KxSystems/telegraf_kdb_handler/blob/master/CONTRIBUTING.md).
+:fontawesome-brands-github: 
+[Issues and feature requests](https://github.com/KxSystems/telegraf_kdb_handler/issues) 
+<br>
+:fontawesome-brands-github: 
+[Guide to contributing](https://github.com/KxSystems/telegraf_kdb_handler/blob/master/CONTRIBUTING.md)

@@ -326,9 +326,6 @@ q).protobufkdb.serializeArrayArena[`RepeatedExampleDynamic;data]
 "\n\002\001\002\022\020\000\000\000\000\000\000$@\000\000\000\000\000\0004@\0..
 ```
 
-
-
-
 ## `version`
 
 _Library version (integer) used by the interface_
@@ -344,7 +341,6 @@ q).protobufkdb.version[]
 3012003i
 ```
 
-
 ## `versionStr`
 
 _Library version (string) used by the interface_
@@ -359,5 +355,4 @@ returns the version of the `libprotobuf` shared object used by the interface, as
 q).protobufkdb.versionStr[]
 "libprotobuf v3.12.3"
 ```
-
 
