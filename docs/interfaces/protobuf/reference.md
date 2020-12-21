@@ -397,7 +397,7 @@ q).protobufkdb.serializeArrayArenaFromDict[`RepeatedExampleDynamic;data]
 
 ## `parseArrayToDict`
 
-_Parse from a Protobuf message string to a kdb+ dictionary
+_Parse from a Protobuf message string to a kdb+ dictionary_
 
 ```txt
 .protobufkdb.parseArrayToDict[message_type;char_array]
