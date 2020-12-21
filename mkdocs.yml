@@ -522,7 +522,10 @@ nav:
       - API reference: interfaces/capiref.md
     - Fusion for kdb+:
       - Overview: interfaces/fusion.md
-      - FFI: interfaces/ffi.md
+      - FFI:
+        - Overview: interfaces/ffi/index.md
+        - Reference: interfaces/ffi/reference.md
+        - Examples: interfaces/ffi/examples.md
       - HDF5:
         - Overview: interfaces/hdf5/index.md
         - Type mapping: interfaces/hdf5/hdf5-types.md
@@ -574,6 +577,9 @@ nav:
         - Reference: interfaces/solace/reference.md
         - RESTful API: interfaces/solace/solacerest.md
         - Examples: interfaces/solace/examples.md
+      - Telegraf:
+        - Overview: interfaces/telegraf/index.md
+        - Reference: interfaces/telegraf/reference.md
     - Clients for kdb+: 
       - C#: 
         - API: interfaces/csharp-client-for-q.md

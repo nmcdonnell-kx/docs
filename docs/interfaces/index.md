@@ -31,7 +31,7 @@ The [Fusion interfaces](fusion.md) to kdb+ are
 -   free for all use cases, including 64-bit and commercial use
 
 <table class="kx-compact" markdown="1">
-<tr markdown="1"><td markdown="1">FFI</td><td markdown="1">[Using foreign functions with kdb+](ffi.md)</td></tr>
+<tr markdown="1"><td markdown="1">FFI</td><td markdown="1">[Using foreign functions with kdb+](ffi/index.md)</td></tr>
 <tr markdown="1"><td markdown="1">HDF5</td><td markdown="1">[Handling HDF5 data with kdb+](hdf5/index.md)</td></tr>
 <tr markdown="1"><td markdown="1">Java</td><td markdown="1"> [Java client for kdb+](java-client-for-q.md)</td>
 <tr markdown="1"><td markdown="1">Jupyter</td><td markdown="1">[Jupyter kernel for kdb+](../ml/jupyterq/index.md) [:fontawesome-brands-superpowers:](../ml/index.md "Machine learning") ==new==</td>
@@ -47,6 +47,7 @@ The [Fusion interfaces](fusion.md) to kdb+ are
     </td></tr>
 <tr markdown="1"><td markdown="1">R</td><td markdown="1">[Using R with kdb+](r/index.md)</td>
 <tr markdown="1"><td markdown="1">Solace</td><td markdown="1">[Interface to Solace PubSub+ broker](solace/index.md)</td></tr>
+<tr markdown="1"><td markdown="1">Telegraf</td><td markdown="1">[Telegraf line prtocol message handler](telegraf/index.md)</td></tr>
 </tr>
 </table>
 

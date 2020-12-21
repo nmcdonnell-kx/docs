@@ -29,6 +29,12 @@ The Fusion interface libraries are maintained and supported by Kx.
 
 <table class="kx-compact" markdown="1">
 <tr markdown="1">
+<td markdown="1" class="nowrap">[FFI](https://github.com/KxSystems/ffi)</td>
+<td markdown="1">
+[Using foreign function from kdb+](interfaces/ffi/index.md)
+</td>
+</tr>
+<tr markdown="1">
 <td markdown="1" class="nowrap">[embedPy](https://github.com/KxSystems/embedPy)</td>
 <td markdown="1">
 [call Python from q](ml/embedpy/index.md) 
@@ -64,7 +70,6 @@ kdb+ client for [Apache Kafka](https://kafka.apache.org)
 <td markdown="1" class="nowrap">[ldap](https://github.com/KxSystems/ldap)</td>
 <td markdown="1">
 [Solace pub/sub brokers](interfaces/ldap/index.md)
-==new==
 </td>
 </tr>
 <tr markdown="1">
@@ -83,7 +88,6 @@ kdb+ client for [Apache Kafka](https://kafka.apache.org)
 <td markdown="1" class="nowrap">[protobuf](https://github.com/KxSystems/protobufkdb)</td>
 <td markdown="1">
 [Protobuf](interfaces/protobuf/index.md)
-==new==
 </td>
 </tr>
 <tr markdown="1">
@@ -102,6 +106,13 @@ kdb+ client for [Apache Kafka](https://kafka.apache.org)
 <td markdown="1" class="nowrap">[solace](https://github.com/KxSystems/solace)</td>
 <td markdown="1">
 [Solace pub/sub brokers](interfaces/solace/index.md)
+</td>
+</tr>
+<tr markdown="1">
+<td markdown="1" class="nowrap">[Telegraf](https://github.com/KxSystems/telegraf_kdb_handler)</td>
+<td markdown="1">
+[Telegraf line protocol message handler](interfaces/telegraf/index.md)
+==new==
 </td>
 </tr>
 </table>
