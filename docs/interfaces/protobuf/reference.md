@@ -12,7 +12,6 @@ Functions exposed in the `.protobufkdb` namespace allow you to generate and pars
 
 <div markdown="1" class="typewriter">
 .protobufkdb   **Protobuf/Protocol Buffers interface**
-
 Library Information
   [version](#protobufkdbversion)                         Return the libprotobuf version as an integer
   [versionStr](#protobufkdbversionstr)                      Return the libprotobuf version as a string
@@ -112,7 +111,7 @@ Where your `.proto` file definition imports other `.proto` files (including recu
 
 ??? detail "Importing Google's .proto files"
 
-    The regular `.proto` files provided by Google are available in the install package under the `proto` subdirectory.
+    The regular `.proto` files provided by Google are available in the install package (either when downloaded or built from source) under the `proto` subdirectory.
     
     For examples `kdb_type_specifier.proto` imports `google/protobuf/descriptor.proto` which is available in the `proto` subdirectory.
 
