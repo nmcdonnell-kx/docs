@@ -230,7 +230,7 @@ _Serialize from a kdb+ mixed list object to a Protobuf message string_
 .protobufkdb.serializeArrayFromList[message_type; msg_in]
 ```
 
-Where:
+Where
 
 -   `message_type` is a message type (string or symbol) matching a message name in the `.proto` definition
 -   `msg_in` is a kdb+ mixed list object 
@@ -252,7 +252,7 @@ _Serialize from a kdb+ mixed list object to a Protobuf message string, using a G
 .protobufkdb.serializeArrayArenaFromList[message_type;msg_in]
 ```
 
-Where:
+Where
 
 -   `message_type` is a message type (string or symbol) matching a message name in the `.proto` definition
 -   `msg_in` is a kdb+ mixed list object 
@@ -311,7 +311,7 @@ _Parse from a Protobuf message string to a kdb+ mixed list object, using a Googl
 .protobufkdb.parseArrayArenaToList[message_type;char_array]
 ```
 
-Where:
+Where
 
 -   `message_type` is a message type (string or symbol) matching a message name in the `.proto` definition
 -   `char_array` is the serialized Protobuf message (string)
@@ -347,7 +347,7 @@ _Serialize from a kdb+ dictionary to a Protobuf message string_
 .protobufkdb.serializeArrayFromDict[message_type; msg_in]
 ```
 
-Where:
+Where
 
 -   `message_type` is a message type (string or symbol) matching a message name in the `.proto` definition
 -   `msg_in` is a kdb+ dictionary from field name symbols to field values
@@ -370,7 +370,7 @@ _Serialize from a kdb+ dictionary to a Protobuf message string, using a Google A
 .protobufkdb.serializeArrayArenaFromDict[message_type;msg_in]
 ```
 
-Where:
+Where
 
 -   `message_type` is a message type (string or symbol) matching a message name in the `.proto` definition
 -   `msg_in` is a kdb+ dictionary from field name symbols to field values
@@ -431,7 +431,7 @@ _Parse from a Protobuf message string to a kdb+ dictionary, using a Google Arena
 .protobufkdb.parseArrayArenaToDict[message_type;char_array]
 ```
 
-Where:
+Where
 
 -   `message_type` is a message type (string or symbol) matching a message name in the `.proto` definition
 -   `char_array` is the serialized Protobuf message (string)
@@ -495,7 +495,7 @@ _Parse from a Protobuf message file to a kdb+ mixed list object_
 .protobufkdb.loadMessageToList[message_type;file_name]
 ```
 
-Where:
+Where
 
 -   `message_type` is a message type (string or symbol) matching a message name in the `.proto` definition
 -   `file_name` is the name of a file (string or symbol)
@@ -549,7 +549,7 @@ _Parse from a Protobuf message file to a kdb+ dictionary_
 .protobufkdb.loadMessageToDict[message_type;file_name]
 ```
 
-Where:
+Where
 
 -   `message_type` is a message type (string or symbol) matching a message name in the `.proto` definition
 -   `file_name` is the name of a file (string or symbol)
@@ -610,7 +610,7 @@ _Parse from a Protobuf message file and display the debugging_
 .protobufkdb.loadMessageDebug[message_type;file_name]
 ```
 
-Where:
+Where
 
 -   `message_type` is a message type (string or symbol) matching a message name in the `.proto` definition
 -   `file_name` is the name of a file (string or symbol)
