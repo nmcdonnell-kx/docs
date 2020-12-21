@@ -41,7 +41,6 @@ message Region {
 }
 ```
 
-
 ## Load Protobufkdb library
 
 From the root of the repository load the `protobufkdb` library
@@ -49,7 +48,6 @@ From the root of the repository load the `protobufkdb` library
 ```q
 q)\l q/protobufkdb.q
 ```
-
 
 ## Import schema file
 
@@ -61,7 +59,6 @@ When using dynamic import functionality, specify the path of your Proto (schema)
 q).protobufkdb.addProtoImportPath["proto"]
 q).protobufkdb.importProtoFile["sample.proto"]
 ```
-
 
 ## Check schema file
 
@@ -85,7 +82,6 @@ message Region {
 
 ```
 
-
 ## Serialize data
 
 A Protobuf message is expressed in a mixed list in q. This data can be serialized to Protobuf provided the message content matches the format of a named target schema.
@@ -105,7 +101,6 @@ q)encodedEMEA:.protobufkdb.serializeArrayArenaFromList[`Region; ("EMEA"; EMEA)]
 q)encodedEMEA
 "\n\004EMEA\022<\n\002HQ\0226\n\013Head_Office\n\022Brian_Conlon_House\021Qj/..
 ```
-
 
 ## Deserialize data
 
