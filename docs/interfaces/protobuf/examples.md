@@ -9,19 +9,19 @@ description: Examples of interfacing kdb+ and Protobuf
 
 It is assumed in the example that you are executing logic in the root of the `protobufkdb` repository. The file structure for the required components from this location is:
 
-```txt
-.
-├── proto
+```treeview
+./
+├── proto/
 │   ├── google
 │   ├── kdb_type_specifier.proto
 │   └── sample.proto
-└── q
+└── q/
     └── protobufkdb.q
 ```
 
 Here `sample.proto` is defined as follows:
 
-```proto
+```protobuf
 syntax = "proto3";
 
 option cc_enable_arenas = true;
@@ -92,16 +92,16 @@ A Protobuf message is expressed in a mixed list in q. This data can be serialize
 
 ```q
 // Serialize the details of an office to a Protobuf array
-q)HQ:(`Head_Office`Brian_Conlon_House; 54.179127; -6.337371; 2020.03.23)
+q)HQ:(("Head_Office";"Brian_Conlon_House"); 54.179127; -6.337371; 2020.03.23)
 q)encodedHQ:.protobufkdb.serializeArrayFromList[`Office; HQ]
 q)encodedHQ
 "\n\013Head_Office\n\022Brian_Conlon_House\021Qj/\242\355\026K@\031\253y\216\..
 
 // Serialize the details of all offices in a region to a Protobuf array using Arenas
-q)newry:(`Newry_Office`The_Conlon_Building; 54.1751772; -6.3378739; 2020.08.14)
-q)belfast:(enlist `Belfast; 54.592595; -5.927475; 2020.08.14)
+q)newry:(("Newry_Office";"The_Conlon_Building"); 54.1751772; -6.3378739; 2020.08.14)
+q)belfast:(enlist "Belfast"; 54.592595; -5.927475; 2020.08.14)
 q)EMEA:`HQ`Newry`Belfast!(HQ; newry; belfast)
-q)encodedEMEA:.protobufkdb.serializeArrayArenaFromList[`Region; (`EMEA; EMEA)]
+q)encodedEMEA:.protobufkdb.serializeArrayArenaFromList[`Region; ("EMEA"; EMEA)]
 q)encodedEMEA
 "\n\004EMEA\022<\n\002HQ\0226\n\013Head_Office\n\022Brian_Conlon_House\021Qj/..
 ```
@@ -114,15 +114,15 @@ Retrieve the contents of a Protobuf message serialized in the above example
 ```q
 // Retrieve encoded information about an office from a Protobuf message
 q).protobufkdb.parseArrayToList[`Office; encodedHQ]
-`Head_Office`Brian_Conlon_House
+("Head_Office";"Brian_Conlon_House")
 54.17913
 -6.337371
 2020.03.23
 
 // Retrieve encoded information about a region from a Protobuf message using Arenas
 q).protobufkdb.parseArrayArenaToList[`Region; encodedEMEA]
-`EMEA
-`HQ`Newry`Belfast!((`Head_Office`Brian_Conlon_House;54.17913;-6.337371;2020.0..
+"EMEA"
+`HQ`Newry`Belfast!((("Head_Office";"Brian_Conlon_House");54.17913;-6.337371;2..
 ```
 
 
@@ -141,7 +141,7 @@ Retrieve data serialized and saved to a file based on a specified schema.
 
 ```q
 q).protobufkdb.loadMessageToList[`Office; "proto/record_HQ"]
-`Head_Office`Brian_Conlon_House
+("Head_Office";"Brian_Conlon_House")
 54.17913
 -6.337371
 2020.03.23

@@ -48,16 +48,9 @@ Enum                  Integer of enum value
 Map                   Dictionary            
 ```
 
-| Field Type           | **Kdb Type**                |
-| -------------------- | --------------------------- |
-| Scalar               | Atom                        |
-| Repeated scalar      | Simple list                 |
-| Sub-message          | Mixed list                  |
-| Repeated sub-message | Mixed list (of mixed lists) |
-| Enum                 | Int of enum value           |
-| Map                  | Dictionary                  |
+Where on serialization you do not wish to explicitly set a field, a generic null (::) can be specified in the mixed list for that field's value.  
 
-Where on serialization you do not wish to explicitly set a field, a generic null (::) can be specified in the mixed list for that field's value.  Furthermore, an additional :: can be included an the end of the mixed list (past the number of message fields).  Such :: field values are ignored and this can be used to prevent q from changing the message's mixed list to a simple list, e.g. where all fields have the same kdb+ type.
+Furthermore, an additional :: can be included an the end of the mixed list (past the number of message fields).  Such :: field values are ignored and this can be used to prevent q from changing the message's mixed list to a simple list, e.g. where all fields have the same kdb+ type (although parsing will return a mixed list without the additional trailing :: since it is being created directly, outside of q).
 
 ### Scalar fields
 

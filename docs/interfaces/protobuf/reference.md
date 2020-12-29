@@ -121,7 +121,7 @@ Where your `.proto` file definition imports other `.proto` files (including recu
 
 ??? detail "Importing Google's .proto files"
 
-    The regular `.proto` files provided by Google are available in the install package under the `proto` subdirectory.
+    The regular `.proto` files provided by Google are available in the install package (either when downloaded or built from source) under the `proto` subdirectory.
     
     For examples `kdb_type_specifier.proto` imports `google/protobuf/descriptor.proto` which is available in the `proto` subdirectory.
 
@@ -447,7 +447,7 @@ _Parse from a Protobuf message string to a kdb+ dictionary, using a Google Arena
 .protobufkdb.parseArrayArenaToDict[message_type;char_array]
 ```
 
-Where:
+Where
 
 -   `message_type` is a message type (string or symbol) matching a message name in the `.proto` definition
 -   `char_array` is the serialized Protobuf message (string)
@@ -513,7 +513,7 @@ _Parse from a Protobuf message file to a kdb+ mixed list object_
 .protobufkdb.loadMessageToList[message_type;file_name]
 ```
 
-Where:
+Where
 
 -   `message_type` is a message type (string or symbol) matching a message name in the `.proto` definition
 -   `file_name` is the name of a file (string or symbol)
@@ -569,7 +569,7 @@ _Parse from a Protobuf message file to a kdb+ dictionary_
 .protobufkdb.loadMessageToDict[message_type;file_name]
 ```
 
-Where:
+Where
 
 -   `message_type` is a message type (string or symbol) matching a message name in the `.proto` definition
 -   `file_name` is the name of a file (string or symbol)
@@ -632,7 +632,7 @@ _Parse from a Protobuf message file and display the debugging_
 .protobufkdb.loadMessageDebug[message_type;file_name]
 ```
 
-Where:
+Where
 
 -   `message_type` is a message type (string or symbol) matching a message name in the `.proto` definition
 -   `file_name` is the name of a file (string or symbol)
