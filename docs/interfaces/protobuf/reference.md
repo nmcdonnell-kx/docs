@@ -13,6 +13,7 @@ Functions exposed in the `.protobufkdb` namespace allow you to generate and pars
 <div markdown="1" class="typewriter">
 .protobufkdb   **Protobuf/Protocol Buffers interface**
 
+
 Library Information
   [version](#protobufkdbversion)                         Return the libprotobuf version as an integer
   [versionStr](#protobufkdbversionstr)                      Return the libprotobuf version as a string
@@ -26,23 +27,27 @@ Inspect Schema
   [displayMessageSchema](#protobufkdbdisplaymessageschema)            Display the schema definition of the message
   [getMessageFields](#protobufkdbgetmessagefields)                Get the list of message fields
 
-Serialize / Parse
+Serialize/Parse using List
   [serializeArrayFromList](#protobufkdbserializearrayfromlist)          Serialize from a kdb+ mixed list object to a string
-  [serializeArrayArenaFromList](#protobufkdbserializearrayarenafromlist)     Serialize from a kdb+ mixed list object to a string, using 
-​                                  a Google Arena for the intermediate message
+  [serializeArrayArenaFromList](#protobufkdbserializearrayarenafromlist)     Serialize from a kdb+ mixed list object to a string, 
+                                  using a Google Arena for the intermediate message
   [parseArrayToList](#protobufkdbparsearraytolist)                Parse from a string to a kdb+ mixed list object
   [parseArrayArenaToList](#protobufkdbparsearrayarenatolist)           Parse from a string to a kdb+ mixed list object, using 
-​                                  a Google Arena for the intermediate message
+                                  a Google Arena for the intermediate message
+
+Serialize/Parse using Dictionary
   [serializeArrayFromDict](#protobufkdbserializearrayfromdict)          Serialize from a kdb+ dictionary to a string
   [serializeArrayArenaFromDict](#protobufkdbserializearrayarenafromdict)     Serialize from a kdb+ dictionary to a string, using 
-​                                  a Google Arena for the intermediate message
+                                  a Google Arena for the intermediate message
   [parseArrayToDict](#protobufkdbparsearraytodict)                Parse from a string to a kdb+ dictionary
   [parseArrayArenaToDict](#protobufkdbparsearrayarenatodict)           Parse from a string to a kdb+ dictionary, using 
-​                                  a Google Arena for the intermediate message
+                                  a Google Arena for the intermediate message
 
-Save / Load
+Save/Load using List
   [saveMessageFromList](#protobufkdbsavemessagefromlist)             Serialize from a kdb+ mixed list object to a file
   [loadMessageToList](#protobufkdbloadmessagetolist)               Parse from a file to a kdb+ mixed list object
+
+Save/Load using Dictionary
   [saveMessageFromDict](#protobufkdbsavemessagefromdict)             Serialize from a kdb+ dictionary to a file
   [loadMessageToDict](#protobufkdbloadmessagetodict)               Parse from a file to a kdb+ dictionary
 
@@ -61,7 +66,9 @@ Debugging
     
     If that fails it then searches the imported message definitions.  Only if the message type is not found in either is an error returned.
 
-## `version`
+## Library Information
+
+### `version`
 
 _Library version (integer) used by the interface_
 
@@ -77,7 +84,7 @@ q).protobufkdb.version[]
 ```
 
 
-## `versionStr`
+### `versionStr`
 
 _Library version (string) used by the interface_
 
@@ -92,7 +99,9 @@ q).protobufkdb.versionStr[]
 "libprotobuf v3.12.3"
 ```
 
-## `addProtoImportPath`
+## Import Schema
+
+### `addProtoImportPath`
 
 _Add an import path_
 
@@ -126,7 +135,7 @@ q).protobufkdb.addProtoImportPath[enlist 1f]
 ```
 
 
-## `importProtoFile`
+### `importProtoFile`
 
 _Import a `.proto` file definition_
 
@@ -161,7 +170,7 @@ q).protobufkdb.importProtoFile["not_a_file.proto"]
 ```
 
 
-## `listImportedMessageTypes`
+### `listImportedMessageTypes`
 
 _List imported message types_
 
@@ -178,7 +187,9 @@ q).protobufkdb.listImportedMessageTypes[]
 `ScalarExampleDynamic`RepeatedExampleDynamic`SubMessageExampleDynamic`MapExam..
 ```
 
-## `displayMessageSchema`
+## Inspect Schema
+
+### `displayMessageSchema`
 
 _Display the Proto schema of a specified message_
 
@@ -206,7 +217,7 @@ message ScalarExampleDynamic {
 }
 ```
 
-## `getMessageFields`
+### `getMessageFields`
 
 _Get the list of message fields_
 
@@ -223,7 +234,9 @@ q).protobufkdb.getMessageFields[`ScalarExampleDynamic]
 `scalar_int32`scalar_double`scalar_string
 ```
 
-## `serializeArrayFromList`
+## Serialize/Parse using List
+
+### `serializeArrayFromList`
 
 _Serialize from a kdb+ mixed list object to a Protobuf message string_
 
@@ -231,7 +244,7 @@ _Serialize from a kdb+ mixed list object to a Protobuf message string_
 .protobufkdb.serializeArrayFromList[message_type; msg_in]
 ```
 
-Where:
+Where
 
 -   `message_type` is a message type (string or symbol) matching a message name in the `.proto` definition
 -   `msg_in` is a kdb+ mixed list object 
@@ -245,7 +258,7 @@ q).protobufkdb.serializeArrayFromList[`RepeatedExampleDynamic;data]
 ```
 
 
-## `serializeArrayArenaFromList`
+### `serializeArrayArenaFromList`
 
 _Serialize from a kdb+ mixed list object to a Protobuf message string, using a Google Arena for the intermediate message_
 
@@ -253,7 +266,7 @@ _Serialize from a kdb+ mixed list object to a Protobuf message string, using a G
 .protobufkdb.serializeArrayArenaFromList[message_type;msg_in]
 ```
 
-Where:
+Where
 
 -   `message_type` is a message type (string or symbol) matching a message name in the `.proto` definition
 -   `msg_in` is a kdb+ mixed list object 
@@ -277,7 +290,7 @@ q).protobufkdb.serializeArrayArenaFromList[`RepeatedExampleDynamic;data]
 ```
 
 
-## `parseArrayToList`
+### `parseArrayToList`
 
 _Parse from a Protobuf message string to a kdb+ mixed list object_
 
@@ -304,7 +317,7 @@ q).protobufkdb.parseArrayToList[`RepeatedExampleDynamic;array]
 ```
 
 
-## `parseArrayArenaToList`
+### `parseArrayArenaToList`
 
 _Parse from a Protobuf message string to a kdb+ mixed list object, using a Google Arena for the intermediate message_
 
@@ -312,7 +325,7 @@ _Parse from a Protobuf message string to a kdb+ mixed list object, using a Googl
 .protobufkdb.parseArrayArenaToList[message_type;char_array]
 ```
 
-Where:
+Where
 
 -   `message_type` is a message type (string or symbol) matching a message name in the `.proto` definition
 -   `char_array` is the serialized Protobuf message (string)
@@ -340,7 +353,9 @@ q).protobufkdb.parseArrayArenaToList[`RepeatedExampleDynamic;array]
 "s1" "s2"
 ```
 
-## `serializeArrayFromDict`
+## Serialize/Parse using Dictionary
+
+### `serializeArrayFromDict`
 
 _Serialize from a kdb+ dictionary to a Protobuf message string_
 
@@ -348,7 +363,7 @@ _Serialize from a kdb+ dictionary to a Protobuf message string_
 .protobufkdb.serializeArrayFromDict[message_type; msg_in]
 ```
 
-Where:
+Where
 
 -   `message_type` is a message type (string or symbol) matching a message name in the `.proto` definition
 -   `msg_in` is a kdb+ dictionary from field name symbols to field values
@@ -363,7 +378,7 @@ q).protobufkdb.serializeArrayFromDict[`RepeatedExampleDynamic;data]
 ```
 
 
-## `serializeArrayArenaFromDict`
+### `serializeArrayArenaFromDict`
 
 _Serialize from a kdb+ dictionary to a Protobuf message string, using a Google Arena for the intermediate message_
 
@@ -371,7 +386,7 @@ _Serialize from a kdb+ dictionary to a Protobuf message string, using a Google A
 .protobufkdb.serializeArrayArenaFromDict[message_type;msg_in]
 ```
 
-Where:
+Where
 
 -   `message_type` is a message type (string or symbol) matching a message name in the `.proto` definition
 -   `msg_in` is a kdb+ dictionary from field name symbols to field values
@@ -396,9 +411,9 @@ q).protobufkdb.serializeArrayArenaFromDict[`RepeatedExampleDynamic;data]
 ```
 
 
-## `parseArrayToDict`
+### `parseArrayToDict`
 
-_Parse from a Protobuf message string to a kdb+ dictionary
+_Parse from a Protobuf message string to a kdb+ dictionary_
 
 ```txt
 .protobufkdb.parseArrayToDict[message_type;char_array]
@@ -424,7 +439,7 @@ rep_string| "s1" "s2"
 ```
 
 
-## `parseArrayArenaToDict`
+### `parseArrayArenaToDict`
 
 _Parse from a Protobuf message string to a kdb+ dictionary, using a Google Arena for the intermediate message_
 
@@ -461,7 +476,9 @@ rep_double| 10   20
 rep_string| "s1" "s2"
 ```
 
-## `saveMessageFromList`
+## Save/Load using List
+
+### `saveMessageFromList`
 
 _Serialize from a kdb+ mixed list object to a Protobuf message file_
 
@@ -488,7 +505,7 @@ q)data
 q).protobufkdb.saveMessageFromList[`RepeatedExampleDynamic;`trivial_message_file;data]
 ```
 
-## `loadMessageToList`
+### `loadMessageToList`
 
 _Parse from a Protobuf message file to a kdb+ mixed list object_
 
@@ -515,7 +532,9 @@ q).protobufkdb.loadMessageToList[`RepeatedExampleDynamic;`trivial_message_file]
 "s1" "s2"
 ```
 
-## `saveMessageFromDict`
+## Save/Load using Dictionary
+
+### `saveMessageFromDict`
 
 _Serialize from a kdb+ dictionary to a Protobuf message file_
 
@@ -542,7 +561,7 @@ rep_string| "s1" "s2"
 q).protobufkdb.saveMessageFromDict[`RepeatedExampleDynamic;`trivial_message_file;data]
 ```
 
-## `loadMessageToDict`
+### `loadMessageToDict`
 
 _Parse from a Protobuf message file to a kdb+ dictionary_
 
@@ -569,7 +588,9 @@ rep_double| 10   20
 rep_string| "s1" "s2"
 ```
 
-## `parseArrayDebug`
+## Debugging
+
+### `parseArrayDebug`
 
 _Parse from a Protobuf message string and display the debugging_
 
@@ -603,7 +624,7 @@ rep_string: "s1"
 rep_string: "s2"
 ```
 
-## `loadMessageDebug`
+### `loadMessageDebug`
 
 _Parse from a Protobuf message file and display the debugging_
 
