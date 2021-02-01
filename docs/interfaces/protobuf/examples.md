@@ -109,7 +109,7 @@ q)encodedEMEA
 
 ## Deserialize data
 
-Retrieve the contents of a Protobuf message serialized in the above example
+Retrieve the contents of a Protobuf message serialized in the above example.
 
 ```q
 // Retrieve encoded information about an office from a Protobuf message
