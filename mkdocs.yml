@@ -532,7 +532,12 @@ nav:
       - API reference: interfaces/capiref.md
     - Fusion for kdb+:
       - Overview: interfaces/fusion.md
-      - FFI: interfaces/ffi.md
+      - Arrow:
+        - Overview: interfaces/arrow/index.md
+        - Type mapping: interfaces/arrow/arrow-types.md
+        - Reference: interfaces/arrow/reference.md
+        - Examples: interfaces/arrow/examples.md       
+      - FFI: interfaces/ffi.md     
       - HDF5:
         - Overview: interfaces/hdf5/index.md
         - Type mapping: interfaces/hdf5/hdf5-types.md

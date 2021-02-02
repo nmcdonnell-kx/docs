@@ -1,0 +1,186 @@
+<div markdown="1" class="typewriter">
+.protobufkdb.   **Protobuf/Protocol Buffers interface**
+
+
+Library information
+  [version](#protobufkdbversion)                         Return the libprotobuf version as an integer
+  [versionStr](#protobufkdbversionstr)                      Return the libprotobuf version as a string
+
+Import schema
+  [addProtoImportPath](#protobufkdbaddprotoimportpath)              Add a path from which to import proto schema files
+  [importProtoFile](#protobufkdbimportprotofile)                 Import a proto schema file
+  [listImportedMessageTypes](#protobufkdblistimportedmessagetypes)        List successfully imported message schemas
+
+Inspect schema
+  [displayMessageSchema](#protobufkdbdisplaymessageschema)            Display the schema definition of the message
+  [getMessageFields](#protobufkdbgetmessagefields)                Get the list of message fields
+
+Serialize/parse using list
+  [serializeArrayFromList](#protobufkdbserializearrayfromlist)          Serialize from a kdb+ mixed list object to a string
+  [serializeArrayArenaFromList](#protobufkdbserializearrayarenafromlist)     Serialize from a kdb+ mixed list object to a string, 
+                                  using a Google Arena for the intermediate message
+  [parseArrayToList](#protobufkdbparsearraytolist)                Parse from a string to a kdb+ mixed list object
+  [parseArrayArenaToList](#protobufkdbparsearrayarenatolist)           Parse from a string to a kdb+ mixed list object, using 
+                                  a Google Arena for the intermediate message
+
+Serialize/parse using dictionary
+  [serializeArrayFromDict](#protobufkdbserializearrayfromdict)          Serialize from a kdb+ dictionary to a string
+  [serializeArrayArenaFromDict](#protobufkdbserializearrayarenafromdict)     Serialize from a kdb+ dictionary to a string, using 
+                                  a Google Arena for the intermediate message
+  [parseArrayToDict](#protobufkdbparsearraytodict)                Parse from a string to a kdb+ dictionary
+  [parseArrayArenaToDict](#protobufkdbparsearrayarenatodict)           Parse from a string to a kdb+ dictionary, using 
+                                  a Google Arena for the intermediate message
+
+Save/load using list
+  [saveMessageFromList](#protobufkdbsavemessagefromlist)             Serialize from a kdb+ mixed list object to a file
+  [loadMessageToList](#protobufkdbloadmessagetolist)               Parse from a file to a kdb+ mixed list object
+
+Save/load using dictionary
+  [saveMessageFromDict](#protobufkdbsavemessagefromdict)             Serialize from a kdb+ dictionary to a file
+  [loadMessageToDict](#protobufkdbloadmessagetodict)               Parse from a file to a kdb+ dictionary
+
+Debugging
+  [parseArrayDebug](#protobufkdbparsearraydebug)                 Parse from a string and display debugging
+  [loadMessageDebug](#protobufkdbloadmessagedebug)                Parse from a file and display debugging
+
+
+
+</div>
+
+\d .arrowkdb
+
+// datatype constructors:
+// concrete datatypes:
+  [dt.na](#)                          Create a NULL datatype
+  [dt.boolean](#)                     Create a boolean datatype
+  [dt.uint8](#)                       Create an uint8 datatype
+  [dt.int8](#)                        Create an int8 datatype
+  [dt.uint16](#)                      Create an uint16 datatype
+  [dt.int16](#)                       Create an int16 datatype
+  [dt.uint32](#)                      Create an uint32 datatype
+  [dt.int32](#)                       Create an int32 datatype
+  [dt.uint64](#)                      Create an uint64 datatype
+  [dt.int64](#)                       Create an int64 datatype
+  [dt.float16](#)                     Create a float16 (represented as uint16_t) datatype
+  [dt.float32](#)                     Create a float32 datatype
+  [dt.float64](#)                     Create a float64 datatype
+  [dt.utf8](#)                        Create a UTF8 variable length string datatype
+  [dt.large_utf8](#)                  Create a large (64 bit offsets) UTF8 variable length 
+                                 string datatype
+  [dt.binary](#)                      Create a variable length bytes datatype
+  [dt.large_binary](#)                Create a large (64 bit offsets) variable length bytes
+                                 datatype
+  [dt.fixed_size_binary](#)           Create a fixed width bytes datatype
+  [dt.date32](#)                      Create a 32 bit date (days since UNIX epoch) datatype
+  [dt.date64](#)                      Create a 64 bit date (milliseconds since UNIX epoch) 
+                                 datatype
+  [dt.timestamp](#)                   Create a 64 bit timestamp (units since UNIX epoch with 
+                                 specified granularity) datatype
+  [dt.time32](#)                      Create a 32 bit time (units since midnight with specified 
+                                 granularity) datatype
+  [dt.time64](#)                      Create a 64 bit time (units since midnight with specified 
+                                 granularity) datatype  
+  [dt.month_interval](#)              Create a 32 bit interval (described as a number of months, 
+                                 similar to YEAR_MONTH in SQL) datatype
+  [dt.day_time_interval](#)           Create a 64 bit interval (described as a number of days 
+                                 and milliseconds, similar to DAY_TIME in SQL) datatype
+  [dt.duration](#)                    Create a 64 bit duration (measured in units of specified 
+                                 granularity) datatype
+  [dt.decimal128](#)                  Create a 128 bit integer (with precision and scale in 
+                                 two's complement) datatype
+  [dt.list](#)                        Create a list datatype, specified in terms of its child 
+                                 datatype
+  [dt.large_list](#)
+  [dt.fixed_size_list](#)
+  [dt.map](#)
+  [dt.dictionary](#)
+// from fields
+  [dt.struct](#)
+  [dt.sparse_union](#)
+  [dt.dense_union](#)
+// infer from kdb list
+  [dt.inferDatatype](#)
+
+// datatype inspection
+  [dt.datatypeName](#)
+  [dt.getTimeUnit](#)
+  [dt.getByteWidth](#)
+  [dt.getListSize](#)
+  [dt.getPrecisionScale](#)
+  [dt.getListDatatype](#)
+  [dt.getMapDatatypes](#)
+  [dt.getDictionaryDatatypes](#)
+  [dt.getChildFields](#)
+
+// datatype management
+  [dt.listDatatypes](#)
+  [dt.printDatatype](#)
+  [dt.removeDatatype](#)
+  [dt.equalDatatypes](#)
+
+
+//field constructor
+  [fd.field](#)
+
+// field inspection
+  [fd.fieldName](#)
+  [fd.fieldDatatype](#)
+
+// field management
+  [fd.listFields](#)
+  [fd.printField_](#)
+  [fd.printField](#)
+  [fd.removeField](#)
+  [fd.equalFields](#)
+
+
+// schema constructors
+// from fields
+  [sc.schema](#)
+// inferred from table
+  [sc.inferSchema](#)
+
+// schema inspection
+  [sc.schemaFields](#)
+
+// schema management
+  [sc.listSchemas](#)
+  [sc.printSchema](#)
+  [sc.removeSchema](#)
+  [sc.equalSchemas](#)
+
+
+// array data
+  [ar.prettyPrintArray](#)
+  [ar.prettyPrintArrayFromList](#)
+
+
+// table data
+  [tb.prettyPrintTable](#)
+  [tb.prettyPrintTableFromTable](#)   
+
+
+// parquet files
+  [pq.writeParquet](#)
+  [pq.writeParquetFromTable](#)
+  [pq.readParquetSchema](#)
+  [pq.readParquetData](#)
+  [pq.readParquetToTable](#)
+
+
+// arrow files
+  [ipc.writeArrow](#)
+  [ipc.writeArrowFromTable](#)
+  [ipc.readArrowSchema](#)
+  [ipc.readArrowData](#)
+  [ipc.readArrowToTable](#)
+
+
+// arrow streams
+  [ipc.serializeArrow](#)
+  [ipc.serializeArrowFromTable](#)
+  [ipc.parseArrowSchema](#)
+  [ipc.parseArrowData](#)
+  [ipc.parseArrowToTable](#)
+
+

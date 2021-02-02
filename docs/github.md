@@ -29,6 +29,12 @@ The Fusion interface libraries are maintained and supported by KX.
 
 <table class="kx-compact" markdown="1">
 <tr markdown="1">
+<td markdown="1" class="nowrap">[arrow](https://github.com/KxSystems/arrowkdb)</td>
+<td markdown="1">
+[Apache Arrow/Parquet](interfaces/arrow/index.md)
+==new==
+</td>
+</tr><tr markdown="1">
 <td markdown="1" class="nowrap">[embedPy](https://github.com/KxSystems/embedPy)</td>
 <td markdown="1">
 [call Python from q](ml/embedpy/index.md) 
