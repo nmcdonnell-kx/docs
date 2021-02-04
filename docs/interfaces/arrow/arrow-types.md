@@ -80,14 +80,14 @@ It is also possible to have `arrowkbd` infer a suitable Arrow datatype from the 
 | Kdb+ list type    | Inferred Arrow Datatype | Notes                                         |
 | ----------------- | ----------------------- | --------------------------------------------- |
 | 1h                | boolean                 |                                               |
-| 2h                | NA                      | Represent GUID in q as mixed list of 4h       |
+| 2h                | fixed_size_binary(16)   | Writing path only, reads as mixed list of 4h  |
 | 4h                | int8                    |                                               |
 | 5h                | int16                   |                                               |
 | 6h                | int32                   |                                               |
 | 7h                | int64                   |                                               |
 | 8h                | float32                 |                                               |
 | 9h                | float64                 |                                               |
-| 10h               | NA                      | Cast in q with `byte$                         |
+| 10h               | int8                    | Writing path only, reads as 4h                |
 | 11h               | utf8                    | Writing path only, reads as mixed list of 10h |
 | 12h               | timestamp(nano)         |                                               |
 | 13h               | month_interval          |                                               |

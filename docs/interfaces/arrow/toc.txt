@@ -1,66 +1,16 @@
-<div markdown="1" class="typewriter">
-.protobufkdb.   **Protobuf/Protocol Buffers interface**
 
 
-Library information
-  [version](#protobufkdbversion)                         Return the libprotobuf version as an integer
-  [versionStr](#protobufkdbversionstr)                      Return the libprotobuf version as a string
-
-Import schema
-  [addProtoImportPath](#protobufkdbaddprotoimportpath)              Add a path from which to import proto schema files
-  [importProtoFile](#protobufkdbimportprotofile)                 Import a proto schema file
-  [listImportedMessageTypes](#protobufkdblistimportedmessagetypes)        List successfully imported message schemas
-
-Inspect schema
-  [displayMessageSchema](#protobufkdbdisplaymessageschema)            Display the schema definition of the message
-  [getMessageFields](#protobufkdbgetmessagefields)                Get the list of message fields
-
-Serialize/parse using list
-  [serializeArrayFromList](#protobufkdbserializearrayfromlist)          Serialize from a kdb+ mixed list object to a string
-  [serializeArrayArenaFromList](#protobufkdbserializearrayarenafromlist)     Serialize from a kdb+ mixed list object to a string, 
-                                  using a Google Arena for the intermediate message
-  [parseArrayToList](#protobufkdbparsearraytolist)                Parse from a string to a kdb+ mixed list object
-  [parseArrayArenaToList](#protobufkdbparsearrayarenatolist)           Parse from a string to a kdb+ mixed list object, using 
-                                  a Google Arena for the intermediate message
-
-Serialize/parse using dictionary
-  [serializeArrayFromDict](#protobufkdbserializearrayfromdict)          Serialize from a kdb+ dictionary to a string
-  [serializeArrayArenaFromDict](#protobufkdbserializearrayarenafromdict)     Serialize from a kdb+ dictionary to a string, using 
-                                  a Google Arena for the intermediate message
-  [parseArrayToDict](#protobufkdbparsearraytodict)                Parse from a string to a kdb+ dictionary
-  [parseArrayArenaToDict](#protobufkdbparsearrayarenatodict)           Parse from a string to a kdb+ dictionary, using 
-                                  a Google Arena for the intermediate message
-
-Save/load using list
-  [saveMessageFromList](#protobufkdbsavemessagefromlist)             Serialize from a kdb+ mixed list object to a file
-  [loadMessageToList](#protobufkdbloadmessagetolist)               Parse from a file to a kdb+ mixed list object
-
-Save/load using dictionary
-  [saveMessageFromDict](#protobufkdbsavemessagefromdict)             Serialize from a kdb+ dictionary to a file
-  [loadMessageToDict](#protobufkdbloadmessagetodict)               Parse from a file to a kdb+ dictionary
-
-Debugging
-  [parseArrayDebug](#protobufkdbparsearraydebug)                 Parse from a string and display debugging
-  [loadMessageDebug](#protobufkdbloadmessagedebug)                Parse from a file and display debugging
-
-
-
-</div>
-
-\d .arrowkdb
-
-// datatype constructors:
-// concrete datatypes:
+Datatype Constructors
   [dt.na](#)                          Create a NULL datatype
   [dt.boolean](#)                     Create a boolean datatype
-  [dt.uint8](#)                       Create an uint8 datatype
   [dt.int8](#)                        Create an int8 datatype
-  [dt.uint16](#)                      Create an uint16 datatype
   [dt.int16](#)                       Create an int16 datatype
-  [dt.uint32](#)                      Create an uint32 datatype
   [dt.int32](#)                       Create an int32 datatype
-  [dt.uint64](#)                      Create an uint64 datatype
   [dt.int64](#)                       Create an int64 datatype
+  [dt.uint8](#)                       Create an uint8 datatype
+  [dt.uint16](#)                      Create an uint16 datatype
+  [dt.uint32](#)                      Create an uint32 datatype
+  [dt.uint64](#)                      Create an uint64 datatype
   [dt.float16](#)                     Create a float16 (represented as uint16_t) datatype
   [dt.float32](#)                     Create a float32 datatype
   [dt.float64](#)                     Create a float64 datatype
@@ -79,7 +29,7 @@ Debugging
   [dt.time32](#)                      Create a 32 bit time (units since midnight with specified 
                                  granularity) datatype
   [dt.time64](#)                      Create a 64 bit time (units since midnight with specified 
-                                 granularity) datatype  
+                                 granularity) datatype
   [dt.month_interval](#)              Create a 32 bit interval (described as a number of months, 
                                  similar to YEAR_MONTH in SQL) datatype
   [dt.day_time_interval](#)           Create a 64 bit interval (described as a number of days 
@@ -90,97 +40,127 @@ Debugging
                                  two's complement) datatype
   [dt.list](#)                        Create a list datatype, specified in terms of its child 
                                  datatype
-  [dt.large_list](#)
-  [dt.fixed_size_list](#)
-  [dt.map](#)
-  [dt.dictionary](#)
-// from fields
-  [dt.struct](#)
-  [dt.sparse_union](#)
-  [dt.dense_union](#)
-// infer from kdb list
-  [dt.inferDatatype](#)
+  [dt.large_list](#)                  Create a large (64 bit offsets) list datatype, specified
+                                 in terms of its child datatype
+  [dt.fixed_size_list](#)             Create a fixed size list datatype, specified in terms of 
+                                 its child datatype
+  [dt.map](#)                         Create a map datatype, specified in terms of its key and 
+                                 item child datatypes
+  [dt.dictionary](#)                  Create a dictionary datatype specified in terms of its 
+                                 value and index datatypes, similar to pandas categorical
+  [dt.struct](#)                      Create a struct datatype, specified in terms of the field 
+                                 identifiers of its children
+  [dt.sparse_union](#)                Create a sparse union datatype, specified in terms of the 
+                                 field identifiers of its children
+  [dt.dense_union](#)                 Create a dense union datatype, specified in terms of the 
+                                 field identifiers of its children
+  [dt.inferDatatype](#)               Infer and constuct a datatype from a kdb+ list
 
-// datatype inspection
-  [dt.datatypeName](#)
-  [dt.getTimeUnit](#)
-  [dt.getByteWidth](#)
-  [dt.getListSize](#)
-  [dt.getPrecisionScale](#)
-  [dt.getListDatatype](#)
-  [dt.getMapDatatypes](#)
-  [dt.getDictionaryDatatypes](#)
-  [dt.getChildFields](#)
+Datatype Inspection
+  [dt.datatypeName](#)                Return the base name of a datatype, ignoring any 
+                                 parameters or child datatypes/fields
+  [dt.getTimeUnit](#)                 Return the TimeUnit of a time32/time64/timestamp/duration
+                                 datatype
+  [dt.getByteWidth](#)                Return the byte_width of a fixed_size_binary datatype
+  [dt.getListSize](#)                 Returns the list_size of a fixed_size_list datatype
+  [dt.getPrecisionScale](#)           Return the precision and scale of a decimal128 datatype
+  [dt.getListDatatype](#)             Return the child datatype identifier of a 
+                                 list/large_list/fixed_size_list datatype
+  [dt.getMapDatatypes](#)             Return the key and item child datatype identifiers of a 
+                                 map datatype
+  [dt.getDictionaryDatatypes](#)      Return the value and index child datatype identifiers of a 
+                                 dictionary datatype
+  [dt.getChildFields](#)              Return the list of child field identifiers of a 
+                                 struct/spare_union/dense_union datatype
 
-// datatype management
-  [dt.listDatatypes](#)
-  [dt.printDatatype](#)
-  [dt.removeDatatype](#)
-  [dt.equalDatatypes](#)
+Datatype Management
+  [dt.listDatatypes](#)               Return the list of identifiers for all datatypes held in 
+                                 the DatatypeStore
+  [dt.printDatatype](#)               Display user readable information for a datatype, 
+                                 including parameters and nested child datatypes
+  [dt.removeDatatype](#)              Remove a datatype from the DatatypeStore
+  [dt.equalDatatypes](#)              Check if two datatypes are logically equal, including 
+                                 parameters and nested child datatypes
 
+Field Constructor
+  [fd.field](#)                       Create a field instance from its name and datatype
 
-//field constructor
-  [fd.field](#)
+Field Inspection
+  [fd.fieldName](#)                   Return the name of a field
+  [fd.fieldDatatype](#)               Return the datatype of a field
 
-// field inspection
-  [fd.fieldName](#)
-  [fd.fieldDatatype](#)
+Field Management
+  [fd.listFields](#)                  Return the list of identifiers for all fields held in the 
+                                 FieldStore
+  [fd.printField](#)                  Display user readable information for a field, including 
+                                 name and datatype
+  [fd.removeField](#)                 Remove a field from the FieldStore
+  [fd.equalFields](#)                 Check if two fields are logically equal, including names 
+                                 and datatypes
 
-// field management
-  [fd.listFields](#)
-  [fd.printField_](#)
-  [fd.printField](#)
-  [fd.removeField](#)
-  [fd.equalFields](#)
+Schema Constructors
+  [sc.schema](#)                      Create a schema instance from a list of field identifiers
+  [sc.inferSchema](#)                 Infer and construct a schema based on a kdb+ table
 
+Schema Inspection
+  [sc.schemaFields](#)                Return the list of field identifiers used by a schema
 
-// schema constructors
-// from fields
-  [sc.schema](#)
-// inferred from table
-  [sc.inferSchema](#)
+Schema Management
+  [sc.listSchemas](#)                 Return the list of identifiers for all schemas held in the 
+                                 SchemaStore
+  [sc.printSchema](#)                 Display user readable information for a schema, including 
+                                 its fields and their order
+  [sc.removeSchema](#)                Remove a schema from the SchemaStore
+  [sc.equalSchemas](#)                Check if two schemas are logically equal, including their 
+                                 fields and the fields' order
 
-// schema inspection
-  [sc.schemaFields](#)
-
-// schema management
-  [sc.listSchemas](#)
-  [sc.printSchema](#)
-  [sc.removeSchema](#)
-  [sc.equalSchemas](#)
-
-
-// array data
-  [ar.prettyPrintArray](#)
-  [ar.prettyPrintArrayFromList](#)
-
-
-// table data
-  [tb.prettyPrintTable](#)
-  [tb.prettyPrintTableFromTable](#)   
-
-
-// parquet files
-  [pq.writeParquet](#)
-  [pq.writeParquetFromTable](#)
-  [pq.readParquetSchema](#)
-  [pq.readParquetData](#)
-  [pq.readParquetToTable](#)
-
-
-// arrow files
-  [ipc.writeArrow](#)
-  [ipc.writeArrowFromTable](#)
-  [ipc.readArrowSchema](#)
-  [ipc.readArrowData](#)
-  [ipc.readArrowToTable](#)
+Array Data
+  [ar.prettyPrintArray](#)            Convert a kdb+ list to an Arrow array and pretty print the 
+                                 array
+  [ar.prettyPrintArrayFromList](#)    Convert a kdb+ list to an Arrow array and pretty print the 
+                                 array, inferring the datatype from the kdb+ list type
 
 
-// arrow streams
-  [ipc.serializeArrow](#)
-  [ipc.serializeArrowFromTable](#)
-  [ipc.parseArrowSchema](#)
-  [ipc.parseArrowData](#)
-  [ipc.parseArrowToTable](#)
+Table Data
+  [tb.prettyPrintTable](#)            Convert a kdb+ mixed list of array data to an Arrow table 
+                                 and pretty print the table
+  [tb.prettyPrintTableFromTable](#)   Convert a kdb+ table to an Arrow table and pretty print 
+                                 the table, inferring the schema from the kdb+ table structure
+
+Parquet Files
+  [pq.writeParquet](#)                Convert a kdb+ mixed list of array data to an Arrow table 
+                                 and write to a Parquet file
+  [pq.writeParquetFromTable](#)       Convert a kdb+ table to an Arrow table and write to a 
+                                 Parquet file, inferring the schema from the kdb+ table 
+                                 structure
+  [pq.readParquetSchema](#)           Read the schema from a Parquet file
+  [pq.readParquetData](#)             Read an Arrow table from a Parquet file and convert to a 
+                                 kdb+ mixed list of array data
+  [pq.readParquetToTable](#)          Read an Arrow table from a Parquet file and convert to a 
+                                 kdb+ table
+
+Arrow IPC Files
+  [ipc.writeArrow](#)                 Convert a kdb+ mixed list of array data to an Arrow table 
+                                 and write to an Arrow file
+  [ipc.writeArrowFromTable](#)        Convert a kdb+ table to an Arrow table and write to an 
+                                 Arrow file, inferring the schema from the kdb+ table 
+                                 structure
+  [ipc.readArrowSchema](#)            Read the schema from an Arrow file
+  [ipc.readArrowData](#)              Read an Arrow table from an Arrow file and convert to a 
+                                 kdb+ mixed list of array data
+  [ipc.readArrowToTable](#)           Read an Arrow table from an Arrow file and convert to a 
+                                 kdb+ table
+
+Arrow IPC Streams
+  [ipc.serializeArrow](#)             Convert a kdb+ mixed list of array data to an Arrow table 
+                                 and serialize to an Arrow stream
+  [ipc.serializeArrowFromTable](#)    Convert a kdb+ table to an Arrow table and serialize to an 
+                                 Arrow stream, inferring the schema from the kdb+ table 
+                                 structure
+  [ipc.parseArrowSchema](#)           Parse the schema from an Arrow stream
+  [ipc.parseArrowData](#)             Parse an Arrow table from an Arrow stream and convert to a 
+                                 kdb+ mixed list of array data
+  [ipc.parseArrowToTable](#)          Parse an Arrow table from an Arrow file and convert to a 
+                                 kdb+ table
 
 
