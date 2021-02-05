@@ -1,6 +1,6 @@
 # Type mapping between Arrow and kdb+
 
-The data layout of an Arrow table is defined by its schema.  The schema is composed from a list of fields, one for each column in the table.  The field  describes the name of the column and its datatype. This pages examine each of these and details how they are mapped in kdb+.
+The data layout of an Arrow table is defined by its schema.  The schema is composed from a list of fields, one for each column in the table.  The field  describes the name of the column and its datatype. This page examines each of these and details how they are mapped in kdb+.
 
 :fontawesome-brands-github: 
 [KxSystems/arrowkdb](https://github.com/KxSystems/arrowkdb)

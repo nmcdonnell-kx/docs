@@ -137,6 +137,8 @@
   [pq.readParquetSchema](#pqreadparquetschema)           Read the schema from a Parquet file
   [pq.readParquetData](#pqreadparquetdata)             Read an Arrow table from a Parquet file and convert to a 
                                  kdb+ mixed list of array data
+  [pq.readParquetColumn](#pqreadparquetcolumn)           Read a single column from a Parquet file and convert to a
+                                 kdb+ list
   [pq.readParquetToTable](#pqreadparquettotable)          Read an Arrow table from a Parquet file and convert to a 
                                  kdb+ table
 

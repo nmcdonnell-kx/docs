@@ -147,6 +147,8 @@ The following functions are exposed within the `.arrowkdb` namespace, allowing u
   [pq.readParquetSchema](#pqreadparquetschema)           Read the schema from a Parquet file
   [pq.readParquetData](#pqreadparquetdata)             Read an Arrow table from a Parquet file and convert to a 
                                  kdb+ mixed list of array data
+  [pq.readParquetColumn](#pqreadparquetcolumn)           Read a single column from a Parquet file and convert to a 
+                                 kdb+ list
   [pq.readParquetToTable](#pqreadparquettotable)          Read an Arrow table from a Parquet file and convert to a 
                                  kdb+ table
 
@@ -227,6 +229,10 @@ q).arrowkdb.ar.prettyPrintArray[.arrowkdb.dt.boolean[];(010b)]
 ```q
 .arrowkdb.dt.int8[]
 ```
+
+??? note "kdb+ type 10h can be written to an `int8` array"
+
+    The is supported on the writing path only.  Reading from an int8 array returns a 4h list
 
 Returns the datatype identifier
 
@@ -469,6 +475,10 @@ q).arrowkdb.ar.prettyPrintArray[.arrowkdb.dt.float64[];(1.1 2.2 3.3f)]
 
 Returns the datatype identifier
 
+??? note "kdb+ type 11h can be written to an `utf8` array"
+
+    The is supported on the writing path only.  Reading from an utf8 array returns a mixed list of 10h
+
 ```q
 q).arrowkdb.dt.printDatatype[.arrowkdb.dt.utf8[]]
 string
@@ -562,6 +572,10 @@ q).arrowkdb.ar.prettyPrintArray[.arrowkdb.dt.large_binary[];(enlist 0x11;0x2222;
 Where `byte_width` is the int32 fixed size byte width (each value in the array occupies the same number of bytes).
 
 returns the datatype identifier
+
+??? note "kdb+ type 2h can be written to a `fixed_size_binary(16)` array"
+
+    The is supported on the writing path only.  Reading from a fixed_size_binary array returns a mixed list of 4h
 
 ```q
 q).arrowkdb.dt.printDatatype[.arrowkdb.dt.fixed_size_binary[2i]]
@@ -2116,6 +2130,7 @@ returns the array data
 Supported options:
 
 - `PARQUET_MULTITHREADED_READ` - Flag indicating whether the Parquet reader should run in multithreaded mode.   This can improve performance by processing multiple columns in parallel (long, default: 0)
+- `USE_MMAP` - Flag indicating whether the Parquet file should be memory mapped in.  This can improve performance on systems which support mmap (long, default: 0)
 
 ```q
 q)f1:.arrowkdb.fd.field[`int_field;.arrowkdb.dt.int64[]]
@@ -2126,6 +2141,33 @@ q)array_data:((1 2 3j);(4 5 6f);("aa";"bb";"cc"))
 q).arrowkdb.pq.writeParquet["file.parquet";schema;array_data;::]
 q)read_data:.arrowkdb.pq.readParquetData["file.parquet";::]
 q)array_data~read_data
+1b
+```
+
+### `pq.readParquetColumn`
+
+*Read a single column from a Parquet file and convert to a kdb+ list*
+
+```q
+.arrowkdb.pq.readParquetColumn[parquet_file;column_index]
+```
+
+Where:
+
+- `parquet_file` is a string containing the Parquet file name
+- `column_index` is the index of the column to read, relative to the schema fields
+
+returns the array's data
+
+```q
+q)f1:.arrowkdb.fd.field[`int_field;.arrowkdb.dt.int64[]]
+q)f2:.arrowkdb.fd.field[`float_field;.arrowkdb.dt.float64[]]
+q)f3:.arrowkdb.fd.field[`str_field;.arrowkdb.dt.utf8[]]
+q)schema:.arrowkdb.sc.schema[(f1,f2,f3)]
+q)array_data:((1 2 3j);(4 5 6f);("aa";"bb";"cc"))
+q).arrowkdb.pq.writeParquet["file.parquet";schema;array_data;::]
+q)col1:.arrowkdb.pq.readParquetColumn["file.parquet";1i]
+q)col1~array_data[1]
 1b
 ```
 
@@ -2149,6 +2191,7 @@ Each schema field name is used as the column name and the Arrow array data is us
 Supported options:
 
 - `PARQUET_MULTITHREADED_READ` - Flag indicating whether the Parquet reader should run in multithreaded mode.   This can improve performance by processing multiple columns in parallel (long, default: 0)
+- `USE_MMAP` - Flag indicating whether the Parquet file should be memory mapped in.  This can improve performance on systems which support mmap (long, default: 0)
 
 ```q
 q)table:([] int_field:(1 2 3); float_field:(4 5 6f); str_field:("aa";"bb";"cc"))
@@ -2185,7 +2228,7 @@ q)f3:.arrowkdb.fd.field[`str_field;.arrowkdb.dt.utf8[]]
 q)schema:.arrowkdb.sc.schema[(f1,f2,f3)]
 q)array_data:((1 2 3j);(4 5 6f);("aa";"bb";"cc"))
 q).arrowkdb.ipc.writeArrow["file.arrow";schema;array_data]
-q)read_data:.arrowkdb.ipc.readArrowData["file.arrow"]
+q)read_data:.arrowkdb.ipc.readArrowData["file.arrow";::]
 q)read_data~array_data
 1b
 ```
@@ -2212,7 +2255,7 @@ returns generic null on success
 ```q
 q)table:([] int_field:(1 2 3); float_field:(4 5 6f); str_field:("aa";"bb";"cc"))
 q).arrowkdb.ipc.writeArrowFromTable["file.arrow";table]
-q)read_table:.arrowkdb.ipc.readArrowToTable["file.arrow"]
+q)read_table:.arrowkdb.ipc.readArrowToTable["file.arrow";::]
 q)read_table~table
 1b
 ```
@@ -2245,12 +2288,19 @@ q).arrowkdb.sc.equalSchemas[schema;.arrowkdb.ipc.readArrowSchema["file.arrow"]]
 *Read an Arrow table from an Arrow file and convert to a kdb+ mixed list of array data*
 
 ```q
-.arrowkdb.ipc.readArrowData[arrow_file]
+.arrowkdb.ipc.readArrowData[arrow_file;options]
 ```
 
-Where `arrow_file` is a string containing the Arrow file name
+Where:
+
+-  `arrow_file` is a string containing the Arrow file name
+- `options` is a dictionary of symbol options to long values (pass :: to use defaults)
 
 returns the array data
+
+Supported options:
+
+- `USE_MMAP` - Flag indicating whether the Arrow file should be memory mapped in.  This can improve performance on systems which support mmap (long, default: 0)
 
 ```q
 q)f1:.arrowkdb.fd.field[`int_field;.arrowkdb.dt.int64[]]
@@ -2259,7 +2309,7 @@ q)f3:.arrowkdb.fd.field[`str_field;.arrowkdb.dt.utf8[]]
 q)schema:.arrowkdb.sc.schema[(f1,f2,f3)]
 q)array_data:((1 2 3j);(4 5 6f);("aa";"bb";"cc"))
 q).arrowkdb.ipc.writeArrow["file.arrow";schema;array_data]
-q)read_data:.arrowkdb.ipc.readArrowData["file.arrow"]
+q)read_data:.arrowkdb.ipc.readArrowData["file.arrow";::]
 q)read_data~array_data
 1b
 ```
@@ -2269,19 +2319,26 @@ q)read_data~array_data
 *Read an Arrow table from an Arrow file and convert to a kdb+ table*
 
 ```q
-.arrowkdb.ipc.readArrowToTable[arrow_file]
+.arrowkdb.ipc.readArrowToTable[arrow_file;options]
 ```
 
-Where `arrow_file` is a string containing the Arrow file name
+Where:
+
+-  `arrow_file` is a string containing the Arrow file name
+- `options` is a dictionary of symbol options to long values (pass :: to use defaults)
 
 returns the kdb+ table
 
 Each schema field name is used as the column name and the Arrow array data is used as the column data.
 
+Supported options:
+
+- `USE_MMAP` - Flag indicating whether the Arrow file should be memory mapped in.  This can improve performance on systems which support mmap (long, default: 0)
+
 ```q
 q)table:([] int_field:(1 2 3); float_field:(4 5 6f); str_field:("aa";"bb";"cc"))
 q).arrowkdb.ipc.writeArrowFromTable["file.arrow";table]
-q)read_table:.arrowkdb.ipc.readArrowToTable["file.arrow"]
+q)read_table:.arrowkdb.ipc.readArrowToTable["file.arrow";::]
 q)read_table~table
 1b
 ```

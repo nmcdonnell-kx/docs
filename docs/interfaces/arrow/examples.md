@@ -122,7 +122,7 @@ q)show system "ls inferred_schema.arrow"
 "inferred_schema.arrow"
 
 // Read the arrow file into another table
-q)new_table:.arrowkdb.ipc.readArrowToTable["inferred_schema.arrow"]
+q)new_table:.arrowkdb.ipc.readArrowToTable["inferred_schema.arrow";::]
 
 // Compare the kdb+ tables
 q)show table~new_table
@@ -314,7 +314,7 @@ q)show schema~new_schema
 1b
 
 // Read the array data back from the arrow file
-q)new_array_data:.arrowkdb.ipc.readArrowData["constructed_schema.arrow"]
+q)new_array_data:.arrowkdb.ipc.readArrowData["constructed_schema.arrow";::]
 
 // Compare the array data
 q)show array_data~new_array_data
@@ -358,7 +358,7 @@ Nested datatypes are constructed in two ways:
 Continuing with the constructed schemas example, we will update the schema as follows:
 
 - The `temperature` and `fill_level` fields will be combined under a struct datatype
-- The utf8 `comment` field will be replaced with a list\<utf8\> field so that each array item can store multiple comments
+- The `utf8` `comment` field will be replaced with a `list<utf8>` field so that each array item can store multiple comments
 
 #### Create the schema
 
