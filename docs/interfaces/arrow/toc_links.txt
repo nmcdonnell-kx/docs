@@ -21,6 +21,8 @@
   [dt.large_binary](#dtlarge_binary)                Create a large (64 bit offsets) variable length bytes
                                  datatype
   [dt.fixed_size_binary](#dtfixed_size_binary)           Create a fixed width bytes datatype
+  [dt.decimal128](#dtdecimal128)                  Create a 128 bit integer (with precision and scale in 
+                                 two's complement) datatype
   [dt.date32](#dtdate32)                      Create a 32 bit date (days since UNIX epoch) datatype
   [dt.date64](#dtdate64)                      Create a 64 bit date (milliseconds since UNIX epoch) 
                                  datatype
@@ -36,8 +38,6 @@
                                  and milliseconds, similar to DAY_TIME in SQL) datatype
   [dt.duration](#dtduration)                    Create a 64 bit duration (measured in units of specified 
                                  granularity) datatype
-  [dt.decimal128](#dtdecimal128)                  Create a 128 bit integer (with precision and scale in 
-                                 two's complement) datatype
   [dt.list](#dtlist)                        Create a list datatype, specified in terms of its child 
                                  datatype
   [dt.large_list](#dtlarge_list)                  Create a large (64 bit offsets) list datatype, specified

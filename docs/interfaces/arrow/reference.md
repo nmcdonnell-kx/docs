@@ -31,6 +31,8 @@ The following functions are exposed within the `.arrowkdb` namespace, allowing u
   [dt.large_binary](#dtlarge_binary)                Create a large (64 bit offsets) variable length bytes
                                  datatype
   [dt.fixed_size_binary](#dtfixed_size_binary)           Create a fixed width bytes datatype
+  [dt.decimal128](#dtdecimal128)                  Create a 128 bit integer (with precision and scale in 
+                                 two's complement) datatype
   [dt.date32](#dtdate32)                      Create a 32 bit date (days since UNIX epoch) datatype
   [dt.date64](#dtdate64)                      Create a 64 bit date (milliseconds since UNIX epoch) 
                                  datatype
@@ -46,8 +48,6 @@ The following functions are exposed within the `.arrowkdb` namespace, allowing u
                                  and milliseconds, similar to DAY_TIME in SQL) datatype
   [dt.duration](#dtduration)                    Create a 64 bit duration (measured in units of specified 
                                  granularity) datatype
-  [dt.decimal128](#dtdecimal128)                  Create a 128 bit integer (with precision and scale in 
-                                 two's complement) datatype
   [dt.list](#dtlist)                        Create a list datatype, specified in terms of its child 
                                  datatype
   [dt.large_list](#dtlarge_list)                  Create a large (64 bit offsets) list datatype, specified
@@ -147,7 +147,7 @@ The following functions are exposed within the `.arrowkdb` namespace, allowing u
   [pq.readParquetSchema](#pqreadparquetschema)           Read the schema from a Parquet file
   [pq.readParquetData](#pqreadparquetdata)             Read an Arrow table from a Parquet file and convert to a 
                                  kdb+ mixed list of array data
-  [pq.readParquetColumn](#pqreadparquetcolumn)           Read a single column from a Parquet file and convert to a 
+  [pq.readParquetColumn](#pqreadparquetcolumn)           Read a single column from a Parquet file and convert to a
                                  kdb+ list
   [pq.readParquetToTable](#pqreadparquettotable)          Read an Arrow table from a Parquet file and convert to a 
                                  kdb+ table
@@ -590,6 +590,36 @@ q).arrowkdb.ar.prettyPrintArray[.arrowkdb.dt.fixed_size_binary[2i];(0x1111;0x222
 ]
 ```
 
+### **`dt.decimal128`**
+
+*Create a 128 bit integer (with precision and scale in two's complement) datatype*
+
+```q
+.arrowkdb.dt.decimal128[precision;scale]
+```
+
+Where:
+
+- `precision` is the int32 precision width
+- `scale` is the int32 scaling factor
+
+returns the datatype identifier
+
+```q
+q).arrowkdb.dt.printDatatype[.arrowkdb.dt.decimal128[38i;2i]]
+decimal(38, 2)
+q).arrowkdb.dt.getPrecisionScale[.arrowkdb.dt.decimal128[38i;2i]]
+38
+2
+q).arrowkdb.ar.prettyPrintArray[.arrowkdb.dt.decimal128[38i;2i];(0x00000000000000000000000000000000; 0x01000000000000000000000000000000; 0x00000000000000000000000000000080)]
+[
+  0.00,
+  0.01,
+  -1701411834604692317316873037158841057.28
+]
+q) // With little endian two's complement the decimal128 values are 0, minimum positive, maximum negative
+```
+
 ### **`dt.date32`**
 
 *Create a 32 bit date (days since UNIX epoch) datatype*
@@ -792,36 +822,6 @@ q).arrowkdb.ar.prettyPrintArray[.arrowkdb.dt.duration[`NANO];(0D01:00:00.1000000
   7200200000000,
   10800300000000
 ]
-```
-
-### **`dt.decimal128`**
-
-*Create a 128 bit integer (with precision and scale in two's complement) datatype*
-
-```q
-.arrowkdb.dt.decimal128[precision;scale]
-```
-
-Where:
-
-- `precision` is the int32 precision width
-- `scale` is the int32 scaling factor
-
-returns the datatype identifier
-
-```q
-q).arrowkdb.dt.printDatatype[.arrowkdb.dt.decimal128[38i;2i]]
-decimal(38, 2)
-q).arrowkdb.dt.getPrecisionScale[.arrowkdb.dt.decimal128[38i;2i]]
-38
-2
-q).arrowkdb.ar.prettyPrintArray[.arrowkdb.dt.decimal128[38i;2i];(0x00000000000000000000000000000000; 0x01000000000000000000000000000000; 0x00000000000000000000000000000080)]
-[
-  0.00,
-  0.01,
-  -1701411834604692317316873037158841057.28
-]
-q) // With little endian two's complement the decimal128 values are 0, minimum positive, maximum negative
 ```
 
 ### **`dt.list`**
@@ -2155,7 +2155,7 @@ q)array_data~read_data
 Where:
 
 - `parquet_file` is a string containing the Parquet file name
-- `column_index` is the index of the column to read, relative to the schema fields
+- `column_index` is the index of the column to read, relative to the schema field order
 
 returns the array's data
 
@@ -2477,13 +2477,18 @@ q)new_table~table
 .arrowkdb.util.buildInfo[]
 ```
 
-Returns a mixed list containing: Arrow version, shared object version, git description and compiler used.
+Returns a dictionary detailing various Arrow build info including: Arrow version, shared object version, git description and compiler used.
 
 ```q
 q).arrowkdb.util.buildInfo[]
-3000000i
-`300.0.0
-`apache-arrow-2.0.0-194-gc8c2110cd
-`MSVC19.26.28806.0
+version         | 3000000i
+version_string  | `3.0.0-SNAPSHOT
+full_so_version | `300.0.0
+compiler_id     | `MSVC
+compiler_version| `19.26.28806.0
+compiler_flags  | `/DWIN32 /D_WINDOWS  /GR /EHsc /D_SILENCE_TR1_NAMESPACE_DEP..
+git_id          | `c8c2110cd7d01d2f4420079c450997ef5fa89029
+git_description | `apache-arrow-2.0.0-194-gc8c2110cd
+package_kind    | `
 ```
 
